@@ -44,7 +44,6 @@ public class User {
     private Role role;
 
     @OneToMany(mappedBy = "userHR")
-<<<<<<< HEAD
     private List<InternshipCampaign> internshipCampaignList;
 
     @OneToMany(mappedBy = "userIntern")
@@ -70,9 +69,9 @@ public class User {
 
     @OneToMany(mappedBy = "userIntern")
     private List<Assessment> assessmentList_intern;
-=======
+
+    @OneToMany(mappedBy = "userHR")
     private List<InternshipCampaign> internshipCampaigns;
->>>>>>> 7c0dbb50cda7abecd19f9a08546f10d8c542ff15
 
     public int getUserId() {
         return userId;
@@ -154,7 +153,6 @@ public class User {
         this.role = role;
     }
 
-<<<<<<< HEAD
     public List<InternshipCampaign> getInternshipCampaignList() {
         return internshipCampaignList;
     }
@@ -225,13 +223,13 @@ public class User {
 
     public void setAssessmentList_intern(List<Assessment> assessmentList_intern) {
         this.assessmentList_intern = assessmentList_intern;
-=======
+    }
+
     public List<InternshipCampaign> getInternshipCampaigns() {
         return internshipCampaigns;
     }
 
     public void setInternshipCampaigns(List<InternshipCampaign> internshipCampaigns) {
         this.internshipCampaigns = internshipCampaigns;
->>>>>>> 7c0dbb50cda7abecd19f9a08546f10d8c542ff15
     }
 }
