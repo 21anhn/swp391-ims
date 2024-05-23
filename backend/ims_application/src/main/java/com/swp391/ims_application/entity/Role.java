@@ -17,7 +17,7 @@ public class Role {
     private String roleName;
 
     @OneToMany(mappedBy = "role")
-    private List<User> users;
+    private List<User> userList;
 
     public int getRoleId() {
         return roleId;
@@ -35,11 +35,11 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }

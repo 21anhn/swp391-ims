@@ -44,7 +44,31 @@ public class User {
     private Role role;
 
     @OneToMany(mappedBy = "userHR")
-    private List<InternshipCampaign> internshipCampaigns;
+    private List<InternshipCampaign> internshipCampaignList;
+
+    @OneToMany(mappedBy = "userIntern")
+    private List<Application> applicationList;
+
+    @OneToMany(mappedBy = "user")
+    private List<EducationalBackground> educationalBackgroundList;
+
+    @OneToMany(mappedBy = "user")
+    private List<WorkHistory> workHistoryList;
+
+    @OneToMany(mappedBy = "userCoordinator")
+    private List<Schedule> scheduleList;
+
+    @OneToMany(mappedBy = "userCoordinator")
+    private List<TrainingProgram> trainingProgramList;
+
+    @OneToMany(mappedBy = "userIntern")
+    private List<TrainingProgramIntern> trainingProgramInternList;
+
+    @OneToMany(mappedBy = "userMentor")
+    private List<Task> taskList;
+
+    @OneToMany(mappedBy = "userIntern")
+    private List<Assessment> assessmentList_intern;
 
     public int getUserId() {
         return userId;
@@ -126,11 +150,75 @@ public class User {
         this.role = role;
     }
 
-    public List<InternshipCampaign> getInternshipCampaigns() {
-        return internshipCampaigns;
+    public List<InternshipCampaign> getInternshipCampaignList() {
+        return internshipCampaignList;
     }
 
-    public void setInternshipCampaigns(List<InternshipCampaign> internshipCampaigns) {
-        this.internshipCampaigns = internshipCampaigns;
+    public void setInternshipCampaignList(List<InternshipCampaign> internshipCampaignList) {
+        this.internshipCampaignList = internshipCampaignList;
+    }
+
+    public List<Application> getApplicationList() {
+        return applicationList;
+    }
+
+    public void setApplicationList(List<Application> applicationList) {
+        this.applicationList = applicationList;
+    }
+
+    public List<EducationalBackground> getEducationalBackgroundList() {
+        return educationalBackgroundList;
+    }
+
+    public void setEducationalBackgroundList(List<EducationalBackground> educationalBackgroundList) {
+        this.educationalBackgroundList = educationalBackgroundList;
+    }
+
+    public List<WorkHistory> getWorkHistoryList() {
+        return workHistoryList;
+    }
+
+    public void setWorkHistoryList(List<WorkHistory> workHistoryList) {
+        this.workHistoryList = workHistoryList;
+    }
+
+    public List<Schedule> getScheduleList() {
+        return scheduleList;
+    }
+
+    public void setScheduleList(List<Schedule> scheduleList) {
+        this.scheduleList = scheduleList;
+    }
+
+    public List<TrainingProgram> getTrainingProgramList() {
+        return trainingProgramList;
+    }
+
+    public void setTrainingProgramList(List<TrainingProgram> trainingProgramList) {
+        this.trainingProgramList = trainingProgramList;
+    }
+
+    public List<TrainingProgramIntern> getTrainingProgramInternList() {
+        return trainingProgramInternList;
+    }
+
+    public void setTrainingProgramInternList(List<TrainingProgramIntern> trainingProgramInternList) {
+        this.trainingProgramInternList = trainingProgramInternList;
+    }
+
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(List<Task> taskList) {
+        this.taskList = taskList;
+    }
+
+    public List<Assessment> getAssessmentList_intern() {
+        return assessmentList_intern;
+    }
+
+    public void setAssessmentList_intern(List<Assessment> assessmentList_intern) {
+        this.assessmentList_intern = assessmentList_intern;
     }
 }
