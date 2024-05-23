@@ -3,10 +3,7 @@ package com.swp391.ims_application.entity;
 import jakarta.persistence.*;
 
 import java.util.Date;
-<<<<<<< HEAD
 import java.util.List;
-=======
->>>>>>> 7c0dbb50cda7abecd19f9a08546f10d8c542ff15
 
 @Table(name = "internship_campaigns")
 @Entity
@@ -36,12 +33,9 @@ public class InternshipCampaign {
     @JoinColumn(name = "id")
     private User userHR;
 
-<<<<<<< HEAD
     @OneToMany(mappedBy = "internshipCampaign")
     private List<Application> applications;
 
-=======
->>>>>>> 7c0dbb50cda7abecd19f9a08546f10d8c542ff15
     public int getCampaignId() {
         return campaignId;
     }
