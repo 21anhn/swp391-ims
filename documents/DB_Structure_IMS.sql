@@ -99,7 +99,6 @@ CREATE TABLE assessments( -- Đánh giá của gv đối với intern sau mỗi 
 		assessment_date DATETIME,
 		score FLOAT,
 		feedback NVARCHAR(255),
-		mentor_id INT REFERENCES users(id),
 		intern_id INT REFERENCES users(id),
 		task_id INT REFERENCES tasks(task_id))
 
