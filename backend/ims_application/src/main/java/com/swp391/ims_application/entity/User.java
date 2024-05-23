@@ -3,6 +3,7 @@ package com.swp391.ims_application.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Table(name = "users")
 @Entity
@@ -41,6 +42,9 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToMany(mappedBy = "userHR")
+    private List<InternshipCampaign> internshipCampaigns;
 
     public int getUserId() {
         return userId;
@@ -120,5 +124,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<InternshipCampaign> getInternshipCampaigns() {
+        return internshipCampaigns;
+    }
+
+    public void setInternshipCampaigns(List<InternshipCampaign> internshipCampaigns) {
+        this.internshipCampaigns = internshipCampaigns;
     }
 }
