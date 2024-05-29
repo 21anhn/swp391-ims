@@ -30,7 +30,7 @@ public class InternshipCampaign {
     private Date deadline;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "hr_id")
     private User userHR;
 
     @OneToMany(mappedBy = "internshipCampaign")

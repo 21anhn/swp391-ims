@@ -1,7 +1,11 @@
 package com.swp391.ims_application.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Table(name = "training_program_intern")
 @Entity
 public class TrainingProgramIntern {
@@ -22,35 +26,4 @@ public class TrainingProgramIntern {
     @Column(name = "feedback")
     private String feedback;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public User getUserIntern() {
-        return userIntern;
-    }
-
-    public void setUserIntern(User userIntern) {
-        this.userIntern = userIntern;
-    }
-
-    public TrainingProgram getTrainingProgram() {
-        return trainingProgram;
-    }
-
-    public void setTrainingProgram(TrainingProgram trainingProgram) {
-        this.trainingProgram = trainingProgram;
-    }
-
-    public String getFeedback() {
-        return feedback;
-    }
-
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
-    }
 }

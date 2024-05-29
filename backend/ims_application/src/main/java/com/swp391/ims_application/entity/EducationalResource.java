@@ -1,10 +1,14 @@
 package com.swp391.ims_application.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.util.List;
 
+@Setter
+@Getter
 @Table(name = "educational_resources")
 @Entity
 public class EducationalResource {
@@ -26,43 +30,4 @@ public class EducationalResource {
     @OneToMany(mappedBy = "educationalResource")
     private List<ProgramTrainingResource> programTrainingResourceList;
 
-    public int getResouceId() {
-        return resouceId;
-    }
-
-    public void setResouceId(int resouceId) {
-        this.resouceId = resouceId;
-    }
-
-    public String getResourceName() {
-        return resourceName;
-    }
-
-    public void setResourceName(String resourceName) {
-        this.resourceName = resourceName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public List<ProgramTrainingResource> getProgramTrainingResourceList() {
-        return programTrainingResourceList;
-    }
-
-    public void setProgramTrainingResourceList(List<ProgramTrainingResource> programTrainingResourceList) {
-        this.programTrainingResourceList = programTrainingResourceList;
-    }
 }

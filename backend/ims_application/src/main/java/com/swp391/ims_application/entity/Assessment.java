@@ -1,9 +1,13 @@
 package com.swp391.ims_application.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
+@Setter
+@Getter
 @Table(name = "assessments")
 @Entity
 public class Assessment {
@@ -30,51 +34,4 @@ public class Assessment {
     @JoinColumn(name = "task_id")
     private Task task;
 
-    public int getAssessmentId() {
-        return assessmentId;
-    }
-
-    public void setAssessmentId(int assessmentId) {
-        this.assessmentId = assessmentId;
-    }
-
-    public Date getAssessmentDate() {
-        return assessmentDate;
-    }
-
-    public void setAssessmentDate(Date assessmentDate) {
-        this.assessmentDate = assessmentDate;
-    }
-
-    public float getScore() {
-        return score;
-    }
-
-    public void setScore(float score) {
-        this.score = score;
-    }
-
-    public String getFeedback() {
-        return feedback;
-    }
-
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
-    }
-
-    public User getUserIntern() {
-        return userIntern;
-    }
-
-    public void setUserIntern(User userIntern) {
-        this.userIntern = userIntern;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
-    }
 }

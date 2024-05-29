@@ -1,9 +1,13 @@
 package com.swp391.ims_application.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
+@Setter
+@Getter
 @Table(name = "schedules")
 @Entity
 public class Schedule {
@@ -25,44 +29,4 @@ public class Schedule {
     @ManyToOne
     @JoinColumn(name = "id")
     private User userCoordinator;
-
-    public int getScheduleId() {
-        return scheduleId;
-    }
-
-    public void setScheduleId(int scheduleId) {
-        this.scheduleId = scheduleId;
-    }
-
-    public Date getInterviewDate() {
-        return interviewDate;
-    }
-
-    public void setInterviewDate(Date interviewDate) {
-        this.interviewDate = interviewDate;
-    }
-
-    public String getInterviewLocation() {
-        return interviewLocation;
-    }
-
-    public void setInterviewLocation(String interviewLocation) {
-        this.interviewLocation = interviewLocation;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public User getUserCoordinator() {
-        return userCoordinator;
-    }
-
-    public void setUserCoordinator(User userCoordinator) {
-        this.userCoordinator = userCoordinator;
-    }
 }

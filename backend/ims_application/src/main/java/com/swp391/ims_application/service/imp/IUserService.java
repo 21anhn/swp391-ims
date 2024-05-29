@@ -4,4 +4,6 @@ import com.swp391.ims_application.entity.User;
 
 public interface IUserService {
     public User login(String username, String password);
+
+    public boolean createAccount(User user);
 }

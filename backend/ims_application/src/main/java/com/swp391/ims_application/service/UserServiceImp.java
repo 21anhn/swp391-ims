@@ -15,9 +15,18 @@ public class UserServiceImp implements IUserService {
     @Override
     public User login(String username, String password) {
         User user = userRepository.findByUsername(username);
-        if(user != null && user.getPassword().equals(password)) {
+        if (user != null && user.getPassword().equals(password)) {
             return user;
         }
         return null;
+    }
+
+    @Override
+    public boolean createAccount(User user) {
+        if (user != null) {
+            userRepository.save(user);
+            return true;
+        }
+        return false;
     }
 }
