@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,34 @@ public class InternshipCampaignController {
         }
         return new ResponseEntity<>(customResponse, statusCode);
     }*/
+
+    @GetMapping("/details")
+    public ResponseEntity<?> getInternshipById(@RequestParam int id) {
+        CustomResponse customResponse = new CustomResponse();
+        HttpStatus statusCode;
+        InternshipCampaign i = intershipCampaignService.getById(id);
+        if (i != null) {
+            customResponse.setSuccess(true);
+            customResponse.setStatus(HttpStatus.OK.value());
+            customResponse.setMessage("Campaign found!");
+            ICampaignResponse iCampaignResponse = new ICampaignResponse(
+                    i.getCampaignId(),
+                    i.getCampaignName(),
+                    i.getJobDescription(),
+                    i.getRequirements(),
+                    i.getPostedDate(),
+                    i.getDeadline(),
+                    i.getUserHR().getFullName()
+            );
+            customResponse.setData(iCampaignResponse);
+            statusCode = HttpStatus.OK;
+        } else {
+            customResponse.setMessage("Not found!");
+            customResponse.setStatus(HttpStatus.NOT_FOUND.value());
+            statusCode = HttpStatus.NOT_FOUND;
+        }
+        return new ResponseEntity<>(customResponse, statusCode);
+    }
 
     @GetMapping("/{name}")
     public ResponseEntity<?> getInternship(@PathVariable String name) {
