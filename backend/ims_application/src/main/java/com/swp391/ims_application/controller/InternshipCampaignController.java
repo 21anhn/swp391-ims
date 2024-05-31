@@ -1,17 +1,18 @@
 package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.entity.InternshipCampaign;
+import com.swp391.ims_application.entity.User;
 import com.swp391.ims_application.payload.CustomResponse;
 import com.swp391.ims_application.payload.ICampaignResponse;
+import com.swp391.ims_application.payload.InternshipCampaignRequest;
+import com.swp391.ims_application.repository.InternshipCampaignRepository;
+import com.swp391.ims_application.repository.UserRepository;
 import com.swp391.ims_application.service.IntershipCampaignService;
+import com.swp391.ims_application.service.imp.IIternshipCampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,9 @@ import java.util.List;
 public class InternshipCampaignController {
 
     @Autowired
-    private IntershipCampaignService intershipCampaignService;
+    private IIternshipCampaignService intershipCampaignService;
+    @Autowired
+    private UserRepository userRepository; // Inject UserRepository
 
 
     @GetMapping
@@ -113,5 +116,40 @@ public class InternshipCampaignController {
         }
         return new ResponseEntity<>(customResponse, statusCode);
     }
+
+
+    @PostMapping
+    public ResponseEntity<?> createCampaign(@RequestBody InternshipCampaignRequest campaignRequest) {
+        User userHR = userRepository.findById(campaignRequest.getHrId())
+                .orElseThrow(() -> new RuntimeException("HR not found"));
+
+        InternshipCampaign campaign = new InternshipCampaign();
+        campaign.setCampaignName(campaignRequest.getCampaignName());
+        campaign.setJobDescription(campaignRequest.getJobDescription());
+        campaign.setRequirements(campaignRequest.getRequirements());
+        campaign.setPostedDate(campaignRequest.getPostedDate());
+        campaign.setDeadline(campaignRequest.getDeadline());
+        campaign.setUserHR(userHR);
+
+        boolean check = intershipCampaignService.updateById(campaign);
+        CustomResponse customResponse = new CustomResponse();
+        HttpStatus statusCode;
+        if(check) {
+            statusCode = HttpStatus.CREATED;
+            customResponse.setSuccess(true);
+            customResponse.setStatus(HttpStatus.CREATED.value());
+            customResponse.setMessage("Campaign rceated successfully!");
+        } else {
+            statusCode = HttpStatus.BAD_REQUEST;
+            customResponse.setSuccess(false);
+            customResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+            customResponse.setMessage("Campaign could not be created!");
+        }
+
+
+        return new ResponseEntity<>(customResponse, statusCode);
+    }
+
+
 
 }

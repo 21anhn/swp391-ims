@@ -11,7 +11,7 @@ public interface IIternshipCampaignService {
 
     List<InternshipCampaign> getByContainName(String name);
 
-    boolean updateById(int id, InternshipCampaign internshipCampaign);
+    boolean updateById(InternshipCampaign internshipCampaign);
 
     boolean deleteById(int id);
 }

@@ -32,8 +32,8 @@ public class IntershipCampaignService implements IIternshipCampaignService {
     }
 
     @Override
-    public boolean updateById(int id, InternshipCampaign internshipCampaign) {
-        if(id == internshipCampaign.getCampaignId()) {
+    public boolean updateById(InternshipCampaign internshipCampaign) {
+        if(internshipCampaign != null) {
             internshipCampaignRepository.save(internshipCampaign);
             return true;
         }
