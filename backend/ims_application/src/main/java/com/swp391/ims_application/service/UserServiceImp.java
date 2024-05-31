@@ -6,6 +6,8 @@ import com.swp391.ims_application.service.imp.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImp implements IUserService {
 
@@ -28,5 +30,10 @@ public class UserServiceImp implements IUserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }

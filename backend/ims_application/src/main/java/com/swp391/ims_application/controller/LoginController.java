@@ -1,28 +1,27 @@
 package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.entity.User;
+import com.swp391.ims_application.payload.AccountRequest;
 import com.swp391.ims_application.payload.CustomResponse;
 import com.swp391.ims_application.payload.UserResponse;
 import com.swp391.ims_application.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/login")
+@CrossOrigin("*")
 public class LoginController {
 
     @Autowired
     private UserServiceImp userServiceImp;
 
     @PostMapping
-    public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<?> login(@RequestBody AccountRequest accountRequest) {
         CustomResponse customResponse = new CustomResponse();
-        User user = userServiceImp.login(username, password);
+        User user = userServiceImp.login(accountRequest.getUsername(), accountRequest.getPassword());
         //Nếu check username có trong DB và same password thì != null
         if (user != null) {
             UserResponse userResponse = new UserResponse(user.getUsername(), user.getPassword(), user.getFullName(), user.getDob()
