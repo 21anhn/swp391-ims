@@ -15,10 +15,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/hr")
+@CrossOrigin("*")
 public class InternshipCampaignController {
 
     @Autowired
@@ -38,7 +40,7 @@ public class InternshipCampaignController {
         } else {
             List<ICampaignResponse> campaignResponseList = new ArrayList<>();
             for (InternshipCampaign i : internshipCampaignList) {
-                campaignResponseList.add(new ICampaignResponse(i.getCampaignId(), i.getCampaignName(), i.getJobDescription(), i.getRequirements(), i.getPostedDate(), i.getDeadline(), i.getUserHR().getFullName()));
+                campaignResponseList.add(new ICampaignResponse(i.getCampaignId(), i.getCampaignName(), i.getJobDescription(), i.getRequirements(), i.getPostedDate(), i.getDeadline(), ""/*i.getUserHR().getFullName()*/));
             }
             customResponse.setMessage("Internship campaigns found");
             customResponse.setData(campaignResponseList);
@@ -120,16 +122,16 @@ public class InternshipCampaignController {
 
     @PostMapping
     public ResponseEntity<?> createCampaign(@RequestBody InternshipCampaignRequest campaignRequest) {
-        User userHR = userRepository.findById(campaignRequest.getHrId())
-                .orElseThrow(() -> new RuntimeException("HR not found"));
+/*        User userHR = userRepository.findById(campaignRequest.getHrId())
+                .orElseThrow(() -> new RuntimeException("HR not found"));*/
 
         InternshipCampaign campaign = new InternshipCampaign();
         campaign.setCampaignName(campaignRequest.getCampaignName());
         campaign.setJobDescription(campaignRequest.getJobDescription());
         campaign.setRequirements(campaignRequest.getRequirements());
-        campaign.setPostedDate(campaignRequest.getPostedDate());
+        campaign.setPostedDate(new Date());
         campaign.setDeadline(campaignRequest.getDeadline());
-        campaign.setUserHR(userHR);
+        //campaign.setUserHR(userHR);
 
         boolean check = intershipCampaignService.updateById(campaign);
         CustomResponse customResponse = new CustomResponse();
