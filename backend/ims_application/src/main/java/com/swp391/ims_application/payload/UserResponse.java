@@ -9,6 +9,8 @@ import java.sql.Date;
 @Getter
 public class UserResponse {
 
+    private int id;
+
     private String username;
 
     private String password;

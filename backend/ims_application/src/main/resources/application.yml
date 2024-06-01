@@ -4,7 +4,20 @@ spring:
     url: jdbc:sqlserver://localhost:1433;database=SWP391_IMS;trustServerCertificate=true
     username: sa
     password: 12345
+
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: none
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: sendmail1.swp391@gmail.com
+    password: kuks mghr rqom gnwx
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
