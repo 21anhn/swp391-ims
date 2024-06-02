@@ -47,14 +47,14 @@ const AccountButton = () => {
   );
 };  
 
-const Team = () => {
+const Account = () => {
   const [user, setUser] = useState([]);
   const [error, setError] = useState('');
 
   const getListUser = async () => {
     try {
       const res = await fetchAccoutsAPI();
-      setUser(res);
+      setUser(res.data);
       setError('');
     } catch (err) {
       setError(err.message);
@@ -253,4 +253,4 @@ const Team = () => {
   );
 };
 
-export default Team;
+export default Account;

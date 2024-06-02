@@ -6,8 +6,7 @@ import theme from "../../theme/theme";
 import {MyProSidebarProvider} from "./Sidebar/sidebarContext";
 import Topbar from "./Topbar/Topbar";
 import Dashboard from "./Dashboard";
-import Team from "./Team";
-import Form from "./Form";
+import Account from "./Account";
 import FAQ from "./Faq";
 
 
@@ -21,7 +20,7 @@ function AdminPage() {
               <Topbar />
               <Routes>
                 <Route index element={<Dashboard />} />
-                <Route path="/team" element={<Team />} />
+                <Route path="/account" element={<Account />} />
                 <Route path="/faq" element={<FAQ />} />
               </Routes>
             </main>

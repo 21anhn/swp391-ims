@@ -2,8 +2,8 @@ const API_LOGIN_URL = 'http://localhost:8080/api/login';
 const API_CREATE_ACCOUNT_URL = 'http://localhost:8080/api/admin';
 const API_GETALL_ACCOUNT_URL = 'http://localhost:8080/api/admin';
 const API_CREATE_POST_URL = 'http://localhost:8080/api/hr';
-const API_GETALL_POST_URL = 'http://localhost:8080/api/hr';
-const API_GET_POST_DETAIL = '';
+const API_GETALL_POST_URL = 'https://664ea233fafad45dfae0a20e.mockapi.io/api/login/schema';
+const API_GET_POST_DETAIL = 'http://localhost:8080/api/hr/details';
 
 export const login = async (username, password) => {
   const response = await fetch(`${API_LOGIN_URL}`, {
@@ -73,10 +73,16 @@ export const fetchPosts = async () => {
   return response.json();
 };
 
-export const fetchPostDetail = async (id) => {
-  const response = await fetch(`${API_GETALL_POST_URL}/${id}`);
+export const fetchPostDetail = async (postId) => {
 
-  if (!response.ok) {
+  const response = await fetch(`${API_GET_POST_DETAIL}?id=${postId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  console.log(response);
+  if (!response.ok) { 
     throw new Error('Failed to fetch post details');
   }
 
