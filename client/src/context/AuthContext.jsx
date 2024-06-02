@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('user');
     setUser(null);
     setLoading(true);
+    return loading;
   };
 
   return (
