@@ -12,11 +12,14 @@ export default function App() {
     <div>
       {/* <Header/> */}
         <Routes>    
-          <Route path="*" element={<LandingPage/>} />
+          <Route path="*"/>
+          <Route path="/" element={<LandingPage/>} />
           <Route path="/login" element={<Login/>}/>
-          <Route path="/internship_campaigns" element={<InternshipCampaigns/>}/>
-          <Route path="/admin/*" element={<Auth requiredRole="ROLE_ADMIN"><AdminPage/></Auth>}/>
-          <Route path="/hrmanager/*" element={<Auth requiredRole="ROLE_HR_MANAGER"><HRManagerPage/></Auth>}/>
+          <Route path="/internship_campaigns/*" element={<InternshipCampaigns/>}/>
+          {/* <Route path="/admin/*" element={<Auth requiredRole="ROLE_ADMIN"><AdminPage/></Auth>}/> */}
+          {/* <Route path="/hrmanager/*" element={<Auth requiredRole="ROLE_HR_MANAGER"><HRManagerPage/></Auth>}/> */}
+          <Route path="/hrmanager/*" element={<HRManagerPage/>}/>
+          <Route path="/admin/*" element={<AdminPage/>}/>
         </Routes>
     </div> 
   )

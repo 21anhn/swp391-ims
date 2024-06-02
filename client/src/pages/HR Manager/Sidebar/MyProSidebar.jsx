@@ -7,8 +7,8 @@ import { useSidebarContext } from "./sidebarContext";
 import { NavLink } from "react-router-dom";
 import { useTheme, Box, Typography, IconButton } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import { AssignmentOutlined } from "@mui/icons-material";
+import { CampaignOutlined } from "@mui/icons-material";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -30,7 +30,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const MyProSidebar = () => {
-  const [selected, setSelected] = useState("Dashboard");
+  const [selected, setSelected] = useState("Home");
   const { sidebarImage } = useSidebarContext();
   const { collapseSidebar, toggleSidebar, collapsed, broken } = useProSidebar();
   return (
@@ -51,6 +51,7 @@ const MyProSidebar = () => {
         "& .menu-item": {
           // padding: "5px 35px 5px 20px !important",
           backgroundColor: "transparent !important",
+          color: "white"
         },
         "& .menu-anchor": {
           color: "inherit !important",
@@ -58,16 +59,21 @@ const MyProSidebar = () => {
         },
         "& .menu-item:hover": {
           backgroundColor: "transparent !important",
+          color: "#2D77FF"
         },
         "& .menu-item.active": {
-          backgroundColor: "transparent !important",
+          backgroundColor: "#2D77FF !important",
+          borderRadius: "10px"
         },
+        "& .menu-item.active:hover": {
+          color: "white"
+        }
       }}
     >
       <Sidebar
         breakPoint="md"
         image={sidebarImage}
-        backgroundColor="white"
+        backgroundColor="#031529"
       >
         <Menu iconshape="square">
           <MenuItem
@@ -97,25 +103,25 @@ const MyProSidebar = () => {
               </Box>
             )}
           </MenuItem>
-          <Box paddingLeft={collapsed ? undefined : "10%"}>
+          <Box paddingLeft={collapsed ? undefined : "2%"}>
             <Item
-              title="Dashboard"
+              title="Home"
               to="/hrmanager"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Manage Team"
+              title="Manage campaigns"
               to="/hrmanager/manage_campaigns"
-              icon={<PeopleOutlinedIcon />}
+              icon={<CampaignOutlined />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Account Form"
+              title="Manage application"
               to="/hrmanager/manage_application"
-              icon={<PersonOutlinedIcon />}
+              icon={<AssignmentOutlined />}
               selected={selected}
               setSelected={setSelected}
             />

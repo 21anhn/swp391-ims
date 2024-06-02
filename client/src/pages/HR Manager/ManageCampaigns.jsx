@@ -14,24 +14,21 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import Table from "../../components/Table";
 import { fetchPosts as fetchPostsApi } from "../../services/apiServices";
+import { useNavigate } from "react-router-dom";
 
 const Team = () => {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   const getPost = async () => {
     try {
-      setLoading(true);
       const res = await fetchPostsApi();
-      setPosts(res.data);
+      setPosts(res);
       setError('');
     } catch (err) {
       setError(err.message);
-    } finally {
-      setLoading(false);
     }
-    
   };
 
   useEffect(() => {
@@ -42,7 +39,7 @@ const Team = () => {
     { field: 'id', headerName: 'ID' },
     { field: 'title',headerName: 'Title',width: 900,cellClassName: 'name-column--cell',},
     { field: 'position', headerName: 'Position', width: 200 },
-    { field: 'createdAt', headerName: 'Date create', width: 400 },
+    { field: 'createdDate', headerName: 'Date create', width: 400 },
     {
       field: 'button',
       headerName: '',
@@ -89,13 +86,12 @@ const Team = () => {
   const [value, setValue] = React.useState(options[0]);
   const [inputValue, setInputValue] = React.useState("");
 
-  const handleFormSubmit = (formData) => {
-    console.log('Form Data:', formData);
-  };
+  const handleCreatePost = () => {
+    navigate('/hrmanager/create_post')
+  }
 
   const handleRowButtonClick = (id) => {
     console.log('Button clicked for row with id:', id);
-    // Perform action based on row id
   };
 
   return (
@@ -192,7 +188,7 @@ const Team = () => {
         }}
       >
         <Box sx={{m: "20px 0"}}>
-          <Button variant="contained"></Button>
+          <Button variant="contained" onClick={handleCreatePost}>Create post</Button>
         </Box>
         <Table columns={columns} rows={posts} pageSize={12}/>
       </Box>

@@ -1,6 +1,7 @@
 import React from 'react';
 import CardItem from './CardItem';
-import { Box, Container, Grid, Paper, Stack, Typography } from '@mui/material';
+import { Box, Container, Grid, Paper, Stack, Typography, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const programs = [
   { title: 'Program 1', description: 'Description of program 1' },
@@ -9,6 +10,12 @@ const programs = [
 ];
 
 function Programs() {
+  const navigate = useNavigate();
+
+  const handleSeeMore = () => {
+    navigate('/internship_campaigns')
+  }
+
   return (
     <Container sx={{paddingTop:4}}>
         <Grid container>
@@ -45,6 +52,9 @@ function Programs() {
           <Grid item md={4}>
             <CardItem />
           </Grid>
+          <Stack direction="row" alignContent="center" justifyContent="center" width="100%" marginTop="20px">
+            <Button variant="outlined" sx={{fontWeight: "bold", borderRadius: "20px"}} onClick={handleSeeMore}>See more</Button>
+          </Stack>
         </Grid>
     </Container>
   );
