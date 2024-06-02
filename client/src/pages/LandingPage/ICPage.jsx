@@ -2,20 +2,22 @@ import React from 'react'
 import {Container,Grid,Box} from "@mui/material";
 import { fetchPostDetail, fetchPosts } from "../../services/apiServices";
 import CardItem from "./CardItem";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function ICPage() {
     const [post, setPost] = React.useState(null);
-    const [postDetails, setPostDetails] = React.useState(null);
-
-  const navigate = useNavigate();
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState(null);
+    const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
       const data = await fetchPosts(); // Call your API function to fetch card data
       setPost(data);
+      setLoading(false);
     } catch (error) {
-      console.error('Error fetching card data:', error);
+      setError(error);
+      setLoading(false);
     }
   };
 
@@ -23,12 +25,21 @@ function ICPage() {
     fetchData();
   }, []);
 
+
   const handleDetail = (id) => {
     navigate(`/internship_campaigns/detail/${id}`);
   }
 
   const handleApply = () => {
 
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
   }
 
   return (

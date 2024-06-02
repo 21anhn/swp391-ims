@@ -56,7 +56,7 @@ function DetailCampaign() {
     React.useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetchPostDetail();
+            const response = await fetchPostDetail(id);
             setPost(response.data);
             setLoading(false);
           } catch (error) {
