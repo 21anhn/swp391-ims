@@ -7,6 +7,7 @@ import {
   Autocomplete,
   Stack,
   TextField,
+  Button  
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -14,6 +15,37 @@ import Table from "../../components/Table";
 import FormModal from "../../components/FormModal";
 import { createAccount as createPostAPI } from "../../services/apiServices";
 import { fetchAccounts as fetchAccoutsAPI } from "../../services/apiServices";
+import { ModalProvider } from "../../context/ModalContext";
+import { useModalContext } from "../../context/ModalContext";
+
+
+const AccountButton = () => {
+  const { handleOpen } = useModalContext();
+
+  const accountFields = [
+    {name: 'username', label: 'User name', type: 'text'},
+    {name: 'phoneNumber', label: 'Phone number', type: 'number'},
+    {name: 'email', label: 'Email', type: 'text'},
+    {name: 'roleName', label: 'Role', type: 'select', 
+      options: [
+        {value: "ROLE_ADMIN",label: "ADMIN"},
+        {value: "ROLE_HR_MANAGER",label: "HR MANAGER"},
+        {value: "ROLE_INTERN",label: "INTERN"},
+        {value: "ROLE_MENTOR",label: "MENTOR"},
+        {value: "ROLE_ICOORDINATOR",label: "INTERNSHIP COORDINATOR"}
+      ]
+    }
+  ]
+
+  return (
+    <Button variant="contained" color="primary" onClick={() => handleOpen(accountFields.reduce((acc, field) => {
+      acc[field.name] = '';
+      return acc;
+    }, {}))}>
+      Create account
+    </Button>
+  );
+};  
 
 const Team = () => {
   const [user, setUser] = useState([]);
@@ -22,8 +54,7 @@ const Team = () => {
   const getListUser = async () => {
     try {
       const res = await fetchAccoutsAPI();
-      setUser(res.data);
-      console.log(user)
+      setUser(res);
       setError('');
     } catch (err) {
       setError(err.message);
@@ -69,10 +100,10 @@ const Team = () => {
           <Box m="5px" display="flex" justifyContent="end" borderRadius="5px" border="1px solid red">
             <IconButton
               color="error"
-              sx={{ fontSize: 15, p: "5px" }}
+              sx={{fontSize: 15, p: "5px"}}
               onClick={() => handleRowButtonClick(params.row.id)}
             >
-              <DeleteOutlineIcon fontSize="8px" />
+              <DeleteOutlineIcon fontSize="8px"/>
             </IconButton>
           </Box>
         );
@@ -86,29 +117,28 @@ const Team = () => {
   const [inputValue, setInputValue] = React.useState("");
 
   const accountFields = [
-    { name: 'username', label: 'User name', type: 'text' },
-    { name: 'phoneNumber', label: 'Phone number', type: 'number' },
-    { name: 'email', label: 'Email', type: 'text' },
-    {
-      name: 'roleName', label: 'Role', type: 'select',
+    {name: 'username', label: 'User name', type: 'text'},
+    {name: 'phoneNumber', label: 'Phone number', type: 'number'},
+    {name: 'email', label: 'Email', type: 'text'},
+    {name: 'roleName', label: 'Role', type: 'select', 
       options: [
-        { value: "ROLE_ADMIN", label: "ADMIN" },
-        { value: "ROLE_HR_MANAGER", label: "HR MANAGER" },
-        { value: "ROLE_INTERN", label: "INTERN" },
-        { value: "ROLE_MENTOR", label: "MENTOR" },
-        { value: "ROLE_ICOORDINATOR", label: "INTERNSHIP COORDINATOR" }
+        {value: "ROLE_ADMIN",label: "ADMIN"},
+        {value: "ROLE_HR_MANAGER",label: "HR MANAGER"},
+        {value: "ROLE_INTERN",label: "INTERN"},
+        {value: "ROLE_MENTOR",label: "MENTOR"},
+        {value: "ROLE_ICOORDINATOR",label: "INTERNSHIP COORDINATOR"}
       ]
     }
   ]
 
-  const handleFormSubmit = async (formData) => {
+  const handleFormSubmit = async ( formData) => {
     console.log('Form Data:', formData);
 
     try {
       const response = await createPostAPI(formData);
       console.log('Create successfully', response);
       await getListUser();
-    } catch (error) {
+    } catch(error) {
       console.log('Create fail');
     }
   };
@@ -119,104 +149,107 @@ const Team = () => {
   };
 
   return (
-    <Box m="20px">
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        bgcolor="white"
-        p="5px 30px"
-        m="0 20px"
-        borderRadius="30px"
-      >
-        <Typography sx={{ ml: "5px", fontWeight: 700 }} variant="h5">
-          List account
-        </Typography>
+    <ModalProvider>
+      <Box m="20px">
         <Box
           display="flex"
-          borderRadius={2}
-          backgroundColor="white"
+          justifyContent="space-between"
+          alignItems="center"
+          bgcolor="white"
+          p="5px 30px"
+          m="0 20px"
+          borderRadius="30px"
         >
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Stack
-              direction="row"
-              alignItems="center"
-              sx={{
-                p: "0 5px",
-                flex: 1,
-                border: "2px solid #E0E0E0",
-                borderRadius: "30px",
-              }}
-            >
-              <InputBase placeholder="Search" />
-              <IconButton type="button">
-                <SearchIcon />
-              </IconButton>
-            </Stack>
-            <Stack spacing={5} sx={{ width: 200 }}>
-              <Autocomplete
+          <Typography sx={{ ml: "5px", fontWeight: 700 }} variant="h5">
+            List account
+          </Typography>
+          <Box display="flex" borderRadius={2} backgroundColor="white">
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Stack
+                direction="row"
+                alignItems="center"
                 sx={{
-                  ".MuiOutlinedInput-root .MuiAutocomplete-input": {
-                    p: 0
-                  },
-                  ".MuiOutlinedInput-notchedOutline": {
-                    border: "2px solid #E0E0E0"
-                  }
+                  p: "0 5px",
+                  flex: 1,
+                  border: "2px solid #E0E0E0",
+                  borderRadius: "30px",
                 }}
-                value={value}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
-                inputValue={inputValue}
-                onInputChange={(event, newInputValue) => {
-                  setInputValue(newInputValue);
-                }}
-                id="controllable-states-demo"
-                options={options}
-                renderInput={(params) => (
-                  <TextField {...params} />
-                  // label="Role"
-                )}
-              />
+              >
+                <InputBase placeholder="Search" />
+                <IconButton type="button">
+                  <SearchIcon />
+                </IconButton>
+              </Stack>
+              <Stack spacing={5} sx={{ width: 200 }}>
+                <Autocomplete
+                  sx={{
+                    ".MuiOutlinedInput-root .MuiAutocomplete-input": {
+                      p: 0,
+                    },
+                    ".MuiOutlinedInput-notchedOutline": {
+                      border: "2px solid #E0E0E0",
+                    },
+                  }}
+                  value={value}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                  inputValue={inputValue}
+                  onInputChange={(event, newInputValue) => {
+                    setInputValue(newInputValue);
+                  }}
+                  id="controllable-states-demo"
+                  options={options}
+                  renderInput={(params) => (
+                    <TextField {...params} />
+                    // label="Role"
+                  )}
+                />
+              </Stack>
             </Stack>
-          </Stack>
+          </Box>
+        </Box>
+        <Box
+          height="80vh"
+          bgcolor="white"
+          p="5px 30px"
+          m="10px 20px"
+          borderRadius="30px"
+          sx={{
+            "& .MuiDataGrid-root": {
+              border: "none",
+              borderRadius: "10px",
+            },
+            ".MuiDataGrid-root .MuiDataGrid-container--top [role=row]": {
+              textAlign: "center",
+              fontWeight: 700,
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+              display: "flex",
+              alignItems: "center",
+            },
+            "& .MuiDataGrid-columnHeader": {
+              textAlign: "center",
+              fontWeight: 700,
+            },
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "none",
+            },
+          }}
+        >
+          <Box sx={{ m: "20px 0" }}>
+            <AccountButton />
+            <FormModal
+              formFields={accountFields}
+              nameForm="Create new account"
+              onFormSubmit={handleFormSubmit}
+            />
+          </Box>
+          <Table columns={columns} rows={user} pageSize={12} />
         </Box>
       </Box>
-      <Box
-        height="80vh"
-        bgcolor="white"
-        p="5px 30px"
-        m="10px 20px"
-        borderRadius="30px"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-            borderRadius: "10px",
-          },
-          ".MuiDataGrid-root .MuiDataGrid-container--top [role=row]": {
-            textAlign: "center",
-            fontWeight: 700
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-            display: "flex",
-            alignItems: "center",
-          },
-          "& .MuiDataGrid-columnHeader": {
-            textAlign: "center",
-            fontWeight: 700
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-          },
-        }}
-      >
-        <Box sx={{ m: "20px 0" }}>
-          <FormModal formFields={accountFields} buttonText="Create" nameForm="Create account" onFormSubmit={handleFormSubmit} />
-        </Box>
-        <Table columns={columns} rows={user} pageSize={12} />
-      </Box>
-    </Box>
+    </ModalProvider>
   );
 };
 

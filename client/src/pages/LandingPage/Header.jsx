@@ -16,10 +16,13 @@ function Header() {
     <Box
       sx={{
         p: 4,
-        bgcolor: "#F6FCFF",
+        bgcolor: "#012043",
         display: "flex",
         flexDirection: "column",
         rowGap: 4,
+        ".hoverButton:hover": {
+          color: "#2D77FF"
+        }
       }}
     >
       <Grid container spacing={2}>
@@ -36,24 +39,17 @@ function Header() {
         {isDesktop && (
           <Grid item md={4} container justifyContent="center">
             <Stack direction="row" alignItems="center">
-              <Button sx={{ color: "black", fontWeight: 700 }}>Home</Button>
-              <Button sx={{ color: "black", fontWeight: 700 }} onClick={handleClick}>
+              <Button className="hoverButton" sx={{ color: "white", fontWeight: 700 }}>Home</Button>
+              <Button className="hoverButton" sx={{ color: "white", fontWeight: 700 }} onClick={handleClick}>
                 Internship Campaigns
               </Button>
-              <Button sx={{ color: "black", fontWeight: 700 }}>About us</Button>
-              <Button sx={{ color: "black", fontWeight: 700 }}>
+              <Button className="hoverButton" sx={{ color: "white", fontWeight: 700 }}>About us</Button>
+              <Button className="hoverButton" sx={{ color: "white", fontWeight: 700 }}>
                 Contact Us
               </Button>
             </Stack>
           </Grid>
         )}
-        <Grid item md={4} xs={6} container justifyContent="flex-end">
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Button variant="contained" sx={{ fontWeight: 700 }}>
-              Sign in
-            </Button>
-          </Stack>
-        </Grid>
       </Grid>
     </Box>
   );

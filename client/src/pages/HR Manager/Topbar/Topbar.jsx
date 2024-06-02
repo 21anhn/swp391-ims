@@ -4,9 +4,17 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import LogoutIcon from '@mui/icons-material/Logout';
 import { useProSidebar } from "react-pro-sidebar";
+import { useAuth } from "../../../context/AuthContext";
+
 const Topbar = () => {
   const { toggleSidebar, broken, rtl } = useProSidebar();
+  const {logout} = useAuth();
+  
+  const handleLogout = () => {
+    logout()
+  }
 
   return (
     <Box display="flex" justifyContent="space-between" p={2} bgcolor="white">
@@ -38,6 +46,9 @@ const Topbar = () => {
             <MenuOutlinedIcon />
           </IconButton>
         )}
+        <IconButton onClick={handleLogout}>
+          <LogoutIcon/>
+        </IconButton>
       </Box>
     </Box>
   );

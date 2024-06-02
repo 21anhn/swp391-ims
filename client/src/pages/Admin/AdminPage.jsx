@@ -22,7 +22,6 @@ function AdminPage() {
               <Routes>
                 <Route index element={<Dashboard />} />
                 <Route path="/team" element={<Team />} />
-                <Route path="/form" element={<Form />} />
                 <Route path="/faq" element={<FAQ />} />
               </Routes>
             </main>

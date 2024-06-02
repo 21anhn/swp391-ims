@@ -1,29 +1,36 @@
 import React from 'react'
 import { Typography, Card, CardContent, CardActions, Button, CardMedia } from '@mui/material';
 
-function CardItem() {
+function CardItem({id, image, title, description,detailButtonText, applyButtonText, onDetailButtonClick, onApplyButtonClick}) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ width: "100%" }}>
       <CardMedia
-        sx={{ height: 140 }}
-        image="https://blogs.ntu.edu.sg/adminternship/files/2019/10/BG3-12-1024x1024.jpg"
-        title="green iguana"
+        sx={{ height: 200 }}
+        image={image}
+        title={title}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Lizard
+        <Typography gutterBottom variant="body1" component="div" fontWeight="bold">
+          {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {description}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button variant='outlined' >Detail Job</Button>
-        <Button variant="contained">Apply</Button>
+      {onDetailButtonClick && (
+          <Button variant="outlined" onClick={() => onDetailButtonClick(id)}>
+            {detailButtonText || 'Detail'}
+          </Button>
+        )}
+        {onApplyButtonClick && (
+          <Button variant="contained" onClick={onApplyButtonClick}>
+            {applyButtonText || 'Apply'}
+          </Button>
+        )}
       </CardActions>
     </Card>
-  )
+  );
 }
 
 export default CardItem

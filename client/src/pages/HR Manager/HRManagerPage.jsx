@@ -9,6 +9,7 @@ import DashboardHRM from "./DashboardHRM";
 import ManageCampaigns from "./ManageCampaigns";
 import ManageApplication from "./ManageApplication";
 import ManageIntern from "./ManageIntern";
+import CreatePost from "./CreatePost";
 
 function HRManagerPage() {
 
@@ -21,9 +22,8 @@ function HRManagerPage() {
             <Topbar />
             <Routes>
               <Route index element={<DashboardHRM />} />
-              <Route path="/manage_campaigns" element={<ManageCampaigns />} >
-                <Route path="/create_post" element={<FormPage/>}/>
-              </Route>
+              <Route path="/manage_campaigns" element={<ManageCampaigns />} />
+              <Route path="/create_post" element={<CreatePost/>}/>
               <Route path="/manage_application" element={<ManageApplication />}/>
               <Route path="/manage_intern" element={<ManageIntern />} />
             </Routes>
