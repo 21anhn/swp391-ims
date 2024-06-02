@@ -1,8 +1,8 @@
-const API_LOGIN_URL = '';
-const API_CREATE_ACCOUNT_URL = '';
-const API_GETALL_ACCOUNT_URL = 'https://664ea233fafad45dfae0a20e.mockapi.io/api/login/account';
-const API_CREATE_POST_URL = '';
-const API_GETALL_POST_URL = 'https://664ea233fafad45dfae0a20e.mockapi.io/api/login/schema';
+const API_LOGIN_URL = 'http://localhost:8080/api/login';
+const API_CREATE_ACCOUNT_URL = 'http://localhost:8080/api/admin';
+const API_GETALL_ACCOUNT_URL = 'http://localhost:8080/api/admin';
+const API_CREATE_POST_URL = 'http://localhost:8080/api/hr';
+const API_GETALL_POST_URL = 'http://localhost:8080/api/hr';
 const API_GET_POST_DETAIL = '';
 
 export const login = async (username, password) => {
