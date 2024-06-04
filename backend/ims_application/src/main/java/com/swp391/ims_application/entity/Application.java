@@ -24,7 +24,7 @@ public class Application {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "intern_id")
     private User userIntern;
 
     @ManyToOne
