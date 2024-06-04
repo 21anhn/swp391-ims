@@ -11,7 +11,11 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+<<<<<<< HEAD
 import Table from "../../components/Table";
+=======
+import TableData from "../../components/Table";
+>>>>>>> update
 import FormModal from "../../components/FormModal";
 import { createAccount as createPostAPI } from "../../services/apiServices";
 import { fetchAccounts as fetchAccoutsAPI } from "../../services/apiServices";
@@ -246,7 +250,11 @@ const Account = () => {
               onFormSubmit={handleFormSubmit}
             />
           </Box>
+<<<<<<< HEAD
           <Table columns={columns} rows={user} pageSize={12} />
+=======
+          <TableData columns={columns} rows={user} pageSize={12} />
+>>>>>>> update
         </Box>
       </Box>
     </ModalProvider>

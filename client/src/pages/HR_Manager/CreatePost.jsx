@@ -2,10 +2,18 @@ import React from 'react'
 import FormPage from '../../components/FormPage'
 import { Box } from '@mui/material';
 import { createPost } from '../../services/apiServices';
+<<<<<<< HEAD
+=======
+import { useAuth } from '../../context/AuthContext';
+>>>>>>> update
 
 function CreatePost() {
     const [message, setMessage] = React.useState('');
     const [error, setError] = React.useState('');
+<<<<<<< HEAD
+=======
+    const {user} = useAuth();
+>>>>>>> update
 
     const postFields = [
         { name: 'campaignName', label: 'Campaigns name', type: 'text', multiline: true, rows: 2 },
@@ -15,6 +23,10 @@ function CreatePost() {
     ]
 
     const handleFormSubmit = async (formData) => {
+<<<<<<< HEAD
+=======
+        formData['hr_id'] = user.data.id;
+>>>>>>> update
         console.log('Form Data:', formData);
         try {
           const response = await createPost(formData);
