@@ -1,5 +1,6 @@
 package com.swp391.ims_application.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -34,6 +35,7 @@ public class InternshipCampaign {
     private User userHR;
 
     @OneToMany(mappedBy = "internshipCampaign")
+    @JsonManagedReference
     private List<Application> applications;
 
     public int getCampaignId() {
