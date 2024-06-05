@@ -1,6 +1,7 @@
 package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.entity.Application;
+import com.swp391.ims_application.payload.CreateApplicationRequest;
 import com.swp391.ims_application.service.imp.IApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,5 +18,9 @@ public class ApplicationController {
     @GetMapping
     public List<Application> getAllApplications() {
         return applicationService.getAllApplications();
+    }
+    @PostMapping
+    public Application createApplication(@RequestBody CreateApplicationRequest createApplicationRequest) {
+        return applicationService.createApplication(createApplicationRequest);
     }
 }

@@ -1,5 +1,6 @@
 package com.swp391.ims_application.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -51,6 +52,7 @@ public class User {
     private List<InternshipCampaign> internshipCampaignList;
 
     @OneToMany(mappedBy = "userIntern")
+    @JsonManagedReference
     private List<Application> applicationList;
 
     @OneToMany(mappedBy = "user")
