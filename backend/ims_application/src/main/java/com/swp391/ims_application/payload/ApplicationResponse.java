@@ -15,6 +15,10 @@ public class ApplicationResponse {
     private String userInternName; // You can map more user details if needed
     private String internshipCampaignName; // You can map more campaign details if needed
 
+    public ApplicationResponse() {
+
+    }
+
     public ApplicationResponse(int applicationId, Date applicationDate, String status, String userInternName, String internshipCampaignName) {
         this.applicationId = applicationId;
         this.applicationDate = applicationDate;
