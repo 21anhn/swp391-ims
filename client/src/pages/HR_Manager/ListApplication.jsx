@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Box,
   InputBase,
@@ -7,46 +7,69 @@ import {
   Autocomplete,
   Stack,
   TextField,
-  Button,  
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import Table from "../../components/Table";
-import { fetchPosts as fetchPostsApi } from "../../services/apiServices";
-import { useNavigate } from "react-router-dom";
+import { fetchApplication } from "../../services/apiServices";
+import { useParams } from "react-router-dom";
 
-const Team = () => {
-  const navigate = useNavigate();
-  const [posts, setPosts] = useState([]);
-  const [error, setError] = useState('');
+function ManageApplication() {
+  const {id} = useParams();
+  const [applications, setApplications] = React.useState([]);
+  const [error, setError] = React.useState("");
+  //form filter
+  const options = ["Option 1", "Option 2"];
+  const [value, setValue] = React.useState(options[0]);
+  const [inputValue, setInputValue] = React.useState("");
 
-  const getPost = async () => {
+  const getApplication = async () => {
     try {
-      const res = await fetchPostsApi();
-      setPosts(res);
-      setError('');
+      const res = await fetchApplication(id);
+      setApplications(res);
+      setError("");
     } catch (err) {
       setError(err.message);
     }
   };
 
-  useEffect(() => {
-    getPost();
-  }, []);
+  React.useEffect(() => {
+    getApplication();
+  },[]);
 
   const columns = [
-    { field: 'id', headerName: 'ID' },
-    { field: 'title',headerName: 'Title',flex: 0.5,cellClassName: 'name-column--cell',},
-    { field: 'position', headerName: 'Position', flex: 0.2 },
-    { field: 'createdDate', headerName: 'Date create', flex: 0.2 },
+    { field: "id", headerName: "ID" },
     {
-      field: 'button',
-      headerName: '',
+      field: "name",
+      headerName: "Name",
+      flex: 0.2,
+      cellClassName: "name-column--cell",
+    },
+    { field: "position", headerName: "Position", flex: 0.2 },
+    { field: "dateApply", headerName: "Date apply", flex: 0.2 },
+    {
+      field: "button",
+      headerName: "",
       flex: 0.1,
       renderCell: (params) => {
         return (
           <>
+            <Box
+              m="5px"
+              display="flex"
+              borderRadius="5px"
+              border="1px solid green"
+            >
+              <IconButton
+                color="success"
+                sx={{ fontSize: 15, p: "5px" }}
+                onClick={() => handleRowButtonClick(params.row.id)}
+              >
+                <CheckCircleIcon fontSize="8px" />
+              </IconButton>
+            </Box>
             <Box
               m="5px"
               display="flex"
@@ -58,41 +81,28 @@ const Team = () => {
                 sx={{ fontSize: 15, p: "5px" }}
                 onClick={() => handleRowButtonClick(params.row.id)}
               >
-                <DeleteOutlineIcon fontSize="8px" />
+                <CancelIcon fontSize="8px" />
               </IconButton>
             </Box>
             <Box
               m="5px"
               display="flex"
               borderRadius="5px"
-              border="1px solid #1976D2"
+              border="1px solid #2D77FF"
             >
               <IconButton
                 color="primary"
                 sx={{ fontSize: 15, p: "5px" }}
                 onClick={() => handleRowButtonClick(params.row.id)}
               >
-                <BorderColorIcon fontSize="8px" />
+                <VisibilityIcon fontSize="8px" />
               </IconButton>
             </Box>
           </>
         );
       },
     },
-  ];;
-
-  //Form filter
-  const options = ["Option 1", "Option 2"];
-  const [value, setValue] = React.useState(options[0]);
-  const [inputValue, setInputValue] = React.useState("");
-
-  const handleCreatePost = () => {
-    navigate('/hrmanager/create_post')
-  }
-
-  const handleRowButtonClick = (id) => {
-    console.log('Button clicked for row with id:', id);
-  };
+  ];
 
   return (
     <Box m="20px">
@@ -106,13 +116,9 @@ const Team = () => {
         borderRadius="30px"
       >
         <Typography sx={{ ml: "5px", fontWeight: 700 }} variant="h5">
-          List internship campaigns
+          List application
         </Typography>
-        <Box
-          display="flex"
-          borderRadius={2}
-          backgroundColor="white"
-        >
+        <Box display="flex" borderRadius={2} backgroundColor="white">
           <Stack direction="row" alignItems="center" spacing={2}>
             <Stack
               direction="row"
@@ -133,11 +139,11 @@ const Team = () => {
               <Autocomplete
                 sx={{
                   ".MuiOutlinedInput-root .MuiAutocomplete-input": {
-                    p: 0
+                    p: 0,
                   },
                   ".MuiOutlinedInput-notchedOutline": {
-                      border: "2px solid #E0E0E0"
-                  }
+                    border: "2px solid #E0E0E0",
+                  },
                 }}
                 value={value}
                 onChange={(event, newValue) => {
@@ -150,7 +156,7 @@ const Team = () => {
                 id="controllable-states-demo"
                 options={options}
                 renderInput={(params) => (
-                  <TextField {...params}  />
+                  <TextField {...params} />
                   // label="Role"
                 )}
               />
@@ -168,10 +174,11 @@ const Team = () => {
           "& .MuiDataGrid-root": {
             border: "none",
             borderRadius: "10px",
+            marginTop: "30px",
           },
           ".MuiDataGrid-root .MuiDataGrid-container--top [role=row]": {
             textAlign: "center",
-            fontWeight: 700
+            fontWeight: 700,
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
@@ -180,20 +187,17 @@ const Team = () => {
           },
           "& .MuiDataGrid-columnHeader": {
             textAlign: "center",
-            fontWeight: 700
+            fontWeight: 700,
           },
           "& .MuiDataGrid-footerContainer": {
             borderTop: "none",
           },
         }}
       >
-        <Box sx={{m: "20px 0"}}>
-          <Button variant="contained" onClick={handleCreatePost}>Create post</Button>
-        </Box>
-        <Table columns={columns} rows={posts} pageSize={10}/>
+        <Table columns={columns} rows={applications} pageSize={10} />
       </Box>
     </Box>
   );
-};
+}
 
-export default Team;
+export default ManageApplication;

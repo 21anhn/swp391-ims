@@ -248,7 +248,6 @@ const Account = () => {
             />
           </Box>
           <Table columns={columns} rows={user} pageSize={12} />
-          <TableData columns={columns} rows={user} pageSize={12} />
         </Box>
       </Box>
     </ModalProvider>

@@ -1,5 +1,5 @@
 import React from 'react';
-import CardItem from './CardItem';
+import CardItem from '../../components/CardItem';
 import { Box, Container, Grid, Paper, Stack, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -33,23 +33,23 @@ function Programs() {
             </Paper>
           </Grid>
         </Grid>
-        <Grid container sx={{marginTop:2, marginLeft:0, p:4}} rowSpacing={2}>  
-          <Grid item md={4}>
+        <Grid container sx={{marginTop:2, marginLeft:0, p:"20px 30px 20px 15px"}} spacing={{xs: 2}} >  
+          <Grid item xs={4}>
             <CardItem />
           </Grid>
-          <Grid item md={4}>
+          <Grid item xs={4}>
             <CardItem />
           </Grid>
-          <Grid item md={4}>
+          <Grid item xs={4}>
             <CardItem />
           </Grid>
-          <Grid item md={4}>
+          <Grid item xs={4}>
             <CardItem />
           </Grid>
-          <Grid item md={4}>
+          <Grid item xs={4}>
             <CardItem />
           </Grid>
-          <Grid item md={4}>
+          <Grid item xs={4}>
             <CardItem />
           </Grid>
           <Stack direction="row" alignContent="center" justifyContent="center" width="100%" marginTop="20px">

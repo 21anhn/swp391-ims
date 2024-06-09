@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography, Card, CardContent, CardActions, Button, CardMedia } from '@mui/material';
 
-function CardItem({id, image, title, description,detailButtonText, applyButtonText, onDetailButtonClick, onApplyButtonClick}) {
+function  CardItem({id, image, title, description,firstButtonText, secondButtonText, firstButtonClick, secondButtonClick}) {
   return (
     <Card sx={{ width: "100%" }}>
       <CardMedia
@@ -10,7 +10,7 @@ function CardItem({id, image, title, description,detailButtonText, applyButtonTe
         title={title}
       />
       <CardContent>
-        <Typography gutterBottom variant="body1" component="div" fontWeight="bold">
+        <Typography gutterBottom variant="body1" component="div" fontWeight="bold" noWrap>
           {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
@@ -18,14 +18,14 @@ function CardItem({id, image, title, description,detailButtonText, applyButtonTe
         </Typography>
       </CardContent>
       <CardActions>
-      {onDetailButtonClick && (
-          <Button variant="outlined" onClick={() => onDetailButtonClick(id)}>
-            {detailButtonText || 'Detail'}
+      {firstButtonClick && (
+          <Button variant="outlined" onClick={() => firstButtonClick(id)}>
+            {firstButtonText || 'Detail'}
           </Button>
         )}
-        {onApplyButtonClick && (
-          <Button variant="contained" onClick={onApplyButtonClick}>
-            {applyButtonText || 'Apply'}
+        {secondButtonClick && (
+          <Button variant="contained" onClick={() => secondButtonClick(id)}>
+            {secondButtonText || 'Apply'}
           </Button>
         )}
       </CardActions>

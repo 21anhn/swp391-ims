@@ -40,7 +40,7 @@ function CreatePost() {
     borderRadius="30px">
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {message && <p style={{ color: 'green' }}>{message}</p>}
-        <FormPage title='Creat post internship campaigns' formFields={postFields} buttonText="Create post" onFormSubmit={handleFormSubmit} displayUpload={false}/>
+        <FormPage title='Creat post internship campaigns' formFields={postFields} buttonText="Create post" onFormSubmit={handleFormSubmit} displayUpload={true}/>
     </Box>
   )
 }
