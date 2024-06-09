@@ -52,6 +52,17 @@ const FormModal = ({ formFields, nameForm, onFormSubmit }) => {
                   </Select>
                 </FormControl>
               );
+            } else if (field.type === 'file') {
+              return (
+                <input
+                  key={field.name}
+                  type="file"
+                  name={field.name}
+                  accept={field.accept}
+                  onChange={handleChange}
+                  style={{ margin: '10px 0' }}
+                />
+              );
             } else {
               return (
                 <TextField

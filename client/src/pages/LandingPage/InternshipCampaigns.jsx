@@ -18,7 +18,7 @@ function InternshipCampaigns() {
       <Header/>
       <Routes>
         <Route index element={<ICPage/>}/>
-        <Route path="/detail/:id" element={<DetailCampaign/>}/>
+        <Route path="/:id" element={<DetailCampaign/>}/>
       </Routes>
     </ThemeProvider>
   );

@@ -51,13 +51,14 @@ function DetailCampaign() {
       { name: "email", label: "Email", type: "text" },
       { name: "phoneNumber", label: "Phone number", type: "number" },
       { name: "intro", label: "Introduce your self", type: "text" },
+      { name: "file", type: "file" },
     ];
 
     React.useEffect(() => {
         const fetchData = async () => {
           try {
             const response = await fetchPostDetail(id);
-            setPost(response.data);
+            setPost(response);
             setLoading(false);
           } catch (error) {
             setError(error);
@@ -106,7 +107,7 @@ function DetailCampaign() {
                 </Box>
                 <Stack borderBottom={1} borderColor="divider">
                   <Typography variant="body1" gutterBottom>
-                    {post.title}
+                    {post.campaignName}
                   </Typography>
                 </Stack>
                 <Stack borderBottom={1} borderColor="divider">

@@ -6,14 +6,19 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useProSidebar } from "react-pro-sidebar";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Topbar = () => {
   const { toggleSidebar, broken, rtl } = useProSidebar();
   const {logout} = useAuth();
-  
+  const navigate = useNavigate();
+
   const handleLogout = () => {
-    logout()
+    const res = logout();
+    if(res === true) {
+      navigate('/login');
+    }
   }
 
   return (

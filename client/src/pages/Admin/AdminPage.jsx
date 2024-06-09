@@ -4,7 +4,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import theme from "../../theme/theme";
 import {MyProSidebarProvider} from "./Sidebar/sidebarContext";
-import Topbar from "./Topbar/Topbar";
+import Topbar from "../../components/Topbar";
 import Dashboard from "./Dashboard";
 import Account from "./Account";
 import FAQ from "./Faq";

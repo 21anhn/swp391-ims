@@ -16,7 +16,8 @@ export const ModalProvider = ({ children }) => {
   const handleClose = () => setModalOpen(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, type } = e.target;
+    let value = type === 'file' ? e.target.files[0] : e.target.value;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
