@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DataGrid } from '@mui/x-data-grid';
 
-const Table = ({ columns, rows, pageSize, ...props }) => {
+const Table = ({ columns, rows, pageSize, getRowId,...props }) => {
     return (
         <div style={{ height: '70vh', width: '100%' }}>
             <DataGrid
@@ -14,6 +14,7 @@ const Table = ({ columns, rows, pageSize, ...props }) => {
                         paginationModel: { page: 0, pageSize: pageSize },
                     },
                 }}
+                getRowId={getRowId}
                 {...props}
             />
         </div>

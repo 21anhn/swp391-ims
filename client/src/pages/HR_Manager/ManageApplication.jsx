@@ -1,25 +1,22 @@
-import React from 'react';
-import { Box, Toolbar, Container, Typography, Paper } from '@mui/material';
+import React from "react";
+//mui
+import { Grid } from "@mui/material";
+//component
+import CampaignsList from "../../components/CampaignsList";
+import CampaignData from "../../hooks/useFetchData";
+//api
+import { useNavigate } from "react-router-dom";
 
-function ManageApplication() {
+
+export default function ManageApplication() {
+  const navigate = useNavigate();
+  const viewApplication = (id) => {
+    //navigate to schedule page
+    navigate(`/hrmanager/manage_application/${id}`);
+  }
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-      >
-        <Toolbar />
-        <Container>
-          <Typography variant="h4" gutterBottom>
-            Manage Applications
-          </Typography>
-          <Paper elevation={3} sx={{ p: 2 }}>
-            {/* Add your application management UI here */}
-          </Paper>
-        </Container>
-      </Box>
-    </Box>
+    <CampaignData>
+      {(campaigns) => <CampaignsList campaigns={campaigns} view={viewApplication} />}
+    </CampaignData>
   );
 }
-
-export default ManageApplication;

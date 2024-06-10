@@ -10,7 +10,7 @@ function Header() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/internship_campaigns")
+    navigate("/campaigns")
   }
   return (
     <Box
