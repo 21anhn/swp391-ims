@@ -18,4 +18,13 @@ public class ApplicationServiceImpl implements IApplicationService {
     public List<Application> getAllApplications() {
         return applicationRepository.findAll();
     }
+    public boolean updateApplicationStatus(int id, String status) {
+        Application application = applicationRepository.findById(id).orElse(null);
+        if (application != null) {
+            application.setStatus(status);
+            applicationRepository.save(application);
+            return true;
+        }
+        return false;
+    }
 }

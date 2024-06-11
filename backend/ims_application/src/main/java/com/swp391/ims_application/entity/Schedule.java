@@ -6,27 +6,25 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Setter
 @Getter
-@Table(name = "schedules")
+@Setter
 @Entity
+@Table(name = "schedules")
 public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "schedule_id")
     private int scheduleId;
 
-    @Column(name = "interview_date")
     private Date interviewDate;
-
-    @Column(name = "interview_location")
     private String interviewLocation;
-
-    @Column(name = "status")
-    private String status; //Lịch phỏng vấn còn khả dụng hay không
+    private String status; // Lịch phỏng vấn còn khả dụng hay không
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "coordinator_id")
     private User userCoordinator;
+
+    @ManyToOne
+    @JoinColumn(name = "campaign_id")
+    private InternshipCampaign internshipCampaign;
 }

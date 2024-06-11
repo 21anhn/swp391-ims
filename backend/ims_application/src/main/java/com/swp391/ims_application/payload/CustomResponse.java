@@ -11,4 +11,13 @@ public class CustomResponse {
     private Object data;
     private boolean success;
 
+    public CustomResponse() {
+    }
+
+    public CustomResponse(int status, String message, Object data, boolean success) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+        this.success = success;
+    }
 }

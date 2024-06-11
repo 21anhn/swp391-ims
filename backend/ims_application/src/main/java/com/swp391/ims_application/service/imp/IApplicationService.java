@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IApplicationService {
     List<Application> getAllApplications();
+    boolean updateApplicationStatus(int id, String status);
 }

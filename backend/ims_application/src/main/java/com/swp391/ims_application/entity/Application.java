@@ -6,21 +6,17 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Setter
 @Getter
-@Table(name = "applications")
+@Setter
 @Entity
+@Table(name = "applications")
 public class Application {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "application_id")
     private int applicationId;
 
-    @Column(name = "application_date")
     private Date applicationDate;
-
-    @Column(name = "status")
     private String status;
 
     @ManyToOne
@@ -30,5 +26,4 @@ public class Application {
     @ManyToOne
     @JoinColumn(name = "campaign_id")
     private InternshipCampaign internshipCampaign;
-
 }

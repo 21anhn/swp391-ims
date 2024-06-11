@@ -26,7 +26,7 @@ public class LoginController {
         if (user != null) {
             UserResponse userResponse = new UserResponse(user.getUsername(), user.getPassword(), user.getFullName(), user.getDob()
                     , user.getGender(), user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getRole().getRoleName());
-            userResponse.setId(user.getUserId());
+
             customResponse.setStatus(200);
             customResponse.setMessage("Login successful");
             customResponse.setData(userResponse);
