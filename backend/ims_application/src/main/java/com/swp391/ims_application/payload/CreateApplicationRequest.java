@@ -10,13 +10,11 @@ import java.util.Date;
 public class CreateApplicationRequest {
     private Date applicationDate;
     private String status;
-    private int userInternId;
-    private int internshipCampaignId;
+    private int internshipCampaign;
 
-    public CreateApplicationRequest(Date applicationDate, String status, int userInternId, int internshipCampaignId) {
+    public CreateApplicationRequest(Date applicationDate, String status, int internshipCampaign) {
         this.applicationDate = applicationDate;
         this.status = status;
-        this.userInternId = userInternId;
-        this.internshipCampaignId = internshipCampaignId;
+        this.internshipCampaign = internshipCampaign;
     }
 }

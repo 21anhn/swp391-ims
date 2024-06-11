@@ -2,19 +2,25 @@ package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.Application;
 import com.swp391.ims_application.payload.ApplicationResponse;
+import com.swp391.ims_application.payload.CreateApplicationRequest;
 import com.swp391.ims_application.repository.ApplicationRepository;
+import com.swp391.ims_application.repository.InternshipCampaignRepository;
 import com.swp391.ims_application.service.imp.IApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ApplicationService implements IApplicationService {
 
     @Autowired
     private ApplicationRepository applicationRepository;
+
+    @Autowired
+    private InternshipCampaignRepository internshipCampaignRepository;
 
     @Override
     public List<Application> getAllApplications() {
@@ -43,5 +49,24 @@ public class ApplicationService implements IApplicationService {
             }
         }
         return applicationResponses;
+    }
+
+    @Override
+    public Application createApplication(CreateApplicationRequest createApplicationRequest) {
+        Application application = new Application();
+        application.setApplicationDate(createApplicationRequest.getApplicationDate());
+        application.setStatus(createApplicationRequest.getStatus());
+        application.setInternshipCampaign(internshipCampaignRepository.findById(createApplicationRequest.getInternshipCampaign()).orElse(null));
+        return applicationRepository.save(application);
+    }
+
+    public Application updateApplicationStatus(int applicationId, String status) {
+        Optional<Application> applicationOptional = applicationRepository.findById(applicationId);
+        if (applicationOptional.isPresent()) {
+            Application application = applicationOptional.get();
+            application.setStatus(status);
+            return applicationRepository.save(application);
+        }
+        return null;
     }
 }

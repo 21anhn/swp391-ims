@@ -51,9 +51,9 @@ public class User {
     @OneToMany(mappedBy = "userHR")
     private List<InternshipCampaign> internshipCampaignList;
 
-    @OneToMany(mappedBy = "userIntern")
-    @JsonManagedReference
-    private List<Application> applicationList;
+//    @OneToMany(mappedBy = "userIntern")
+//    @JsonManagedReference
+//    private List<Application> applicationList;
 
     @OneToMany(mappedBy = "user")
     private List<EducationalBackground> educationalBackgroundList;

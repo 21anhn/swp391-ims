@@ -29,8 +29,7 @@ CREATE TABLE internship_campaigns(
 CREATE TABLE applications( -- Hồ sơ nộp ứng tuyển từ internship campaign
 		application_id INT PRIMARY KEY IDENTITY(1, 1),
 		application_date DATETIME,
-		status VARCHAR(20), -- Tình trạng hồ sơ (Duyệt/xem xét)
-		intern_id INT REFERENCES users(id), -- Khi được duyệt thì trở thành intern
+		status VARCHAR(20), -- Tình trạng hồ sơ (Duyệt/xem xét)	
 		campaign_id INT REFERENCES internship_campaigns(campaign_id)) -- Guest ứng tuyển chiến dịch thực tập nào 
 
 CREATE TABLE educational_backgrounds( -- Thông tin học vấn của user,

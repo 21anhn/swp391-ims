@@ -24,11 +24,6 @@ public class Application {
     @Column(name = "status")
     private String status;
 
-
-    @ManyToOne
-    @JoinColumn(name = "intern_id")
-    private User userIntern;
-
     @ManyToOne
     @JoinColumn(name = "campaign_id")
     private InternshipCampaign internshipCampaign;

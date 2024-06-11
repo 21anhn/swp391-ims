@@ -16,7 +16,6 @@ public class ApplicationResponse {
     private String internshipCampaignName; // You can map more campaign details if needed
 
     public ApplicationResponse() {
-
     }
 
     public ApplicationResponse(int applicationId, Date applicationDate, String status, String userInternName, String internshipCampaignName) {
@@ -25,5 +24,8 @@ public class ApplicationResponse {
         this.status = status;
         this.userInternName = userInternName;
         this.internshipCampaignName = internshipCampaignName;
+    }
+    public String getStatus() {
+        return status;
     }
 }
