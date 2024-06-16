@@ -5,9 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @Table(name = "schedules")
 @Entity
 public class Schedule {
@@ -24,9 +25,11 @@ public class Schedule {
     private String interviewLocation;
 
     @Column(name = "status")
-    private String status; //Lịch phỏng vấn còn khả dụng hay không
+    private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private User userCoordinator;
+    @OneToMany(mappedBy = "schedule")
+    private List<MentorSchedule> mentorSchedules;
+
+    @OneToMany(mappedBy = "schedule")
+    private List<ScheduleInternshipCampaign> scheduleInternshipCampaigns;
 }

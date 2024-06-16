@@ -1,14 +1,13 @@
 package com.swp391.ims_application.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 
-@Setter
 @Getter
+@Setter
 @Table(name = "applications")
 @Entity
 public class Application {
@@ -25,10 +24,10 @@ public class Application {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "intern_id")
-    private User userIntern;
-
-    @ManyToOne
     @JoinColumn(name = "campaign_id")
     private InternshipCampaign internshipCampaign;
+
+    @OneToOne
+    @JoinColumn(name = "intern_id")
+    private User userIntern;
 }

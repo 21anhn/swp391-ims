@@ -3,7 +3,8 @@ package com.swp391.ims_application.payload;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Setter
 @Getter

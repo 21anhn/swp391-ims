@@ -4,18 +4,19 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Table(name = "program_training_resources")
-@Entity
 @Getter
 @Setter
+@Table(name = "program_training_resources")
+@Entity
 public class ProgramTrainingResource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "ptr_id")
+    private int ptrId;
 
     @ManyToOne
-    @JoinColumn(name = "resouce_id")
+    @JoinColumn(name = "resource_id")
     private EducationalResource educationalResource;
 
     @ManyToOne

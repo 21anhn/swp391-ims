@@ -4,18 +4,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @Table(name = "users")
 @Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int userId;
 
     @Column(name = "username")
@@ -42,36 +41,25 @@ public class User {
     @Column(name = "address")
     private String address;
 
-    //MQH 1-N với Role
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy = "userHR")
-    private List<InternshipCampaign> internshipCampaignList;
+    @OneToMany(mappedBy = "userMentor")
+    private List<MentorSchedule> mentorSchedules;
 
-    @OneToMany(mappedBy = "userIntern")
-    private List<Application> applicationList;
+    @OneToMany(mappedBy = "userHr")
+    private List<InternshipCampaign> internshipCampaigns;
 
-    @OneToMany(mappedBy = "user")
-    private List<EducationalBackground> educationalBackgroundList;
-
-    @OneToMany(mappedBy = "user")
-    private List<WorkHistory> workHistoryList;
-
-    @OneToMany(mappedBy = "userCoordinator")
-    private List<Schedule> scheduleList;
-
-    @OneToMany(mappedBy = "userCoordinator")
-    private List<TrainingProgram> trainingProgramList;
-
-    @OneToMany(mappedBy = "userIntern")
-    private List<TrainingProgramIntern> trainingProgramInternList;
+    @OneToOne(mappedBy = "userIntern")
+    private Application application;
 
     @OneToMany(mappedBy = "userMentor")
-    private List<Task> taskList;
+    private List<TrainingProgram> trainingPrograms;
 
     @OneToMany(mappedBy = "userIntern")
-    private List<Assessment> assessmentList_intern;
+    private List<TrainingProgramIntern> trainingProgramInterns;
 
+    @OneToMany(mappedBy = "userIntern")
+    private List<InternTask> internTasks;
 }

@@ -6,8 +6,8 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @Table(name = "training_programs")
 @Entity
 public class TrainingProgram {
@@ -27,16 +27,18 @@ public class TrainingProgram {
     private String objectives;
 
     @ManyToOne
-    @JoinColumn(name = "id")
-    private User userCoordinator;
+    @JoinColumn(name = "mentor_id")
+    private User userMentor;
 
     @OneToMany(mappedBy = "trainingProgram")
-    private List<TrainingProgramIntern> trainingProgramInternList;
+    private List<TrainingProgramIntern> trainingProgramInterns;
 
     @OneToMany(mappedBy = "trainingProgram")
-    private List<TrainingProgramSkill> trainingProgramSkillList;
+    private List<Task> tasks;
 
     @OneToMany(mappedBy = "trainingProgram")
-    private List<ProgramTrainingResource> programTrainingResourceList;
+    private List<TrainingProgramSkill> trainingProgramSkills;
 
+    @OneToMany(mappedBy = "trainingProgram")
+    private List<ProgramTrainingResource> programTrainingResources;
 }

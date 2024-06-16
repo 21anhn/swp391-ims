@@ -6,8 +6,8 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @Table(name = "roles")
 @Entity
 public class Role {
@@ -21,6 +21,5 @@ public class Role {
     private String roleName;
 
     @OneToMany(mappedBy = "role")
-    private List<User> userList;
-
+    private List<User> users;
 }

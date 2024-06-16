@@ -4,26 +4,22 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
-@Table(name = "training_program_intern")
+@Setter
+@Table(name = "training_program_interns")
 @Entity
 public class TrainingProgramIntern {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", insertable = false, updatable = false)
-    private int id;
-
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private User userIntern;
+    @Column(name = "tpi_id")
+    private int tpiId;
 
     @ManyToOne
     @JoinColumn(name = "program_id")
     private TrainingProgram trainingProgram;
 
-    @Column(name = "feedback")
-    private String feedback;
-
+    @ManyToOne
+    @JoinColumn(name = "intern_id")
+    private User userIntern;
 }

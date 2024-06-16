@@ -5,9 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @Table(name = "tasks")
 @Entity
 public class Task {
@@ -30,7 +31,9 @@ public class Task {
     private Date endTime;
 
     @ManyToOne
-    @JoinColumn(name = "id")
-    private User userMentor;
+    @JoinColumn(name = "program_id")
+    private TrainingProgram trainingProgram;
 
+    @OneToMany(mappedBy = "task")
+    private List<InternTask> internTasks;
 }

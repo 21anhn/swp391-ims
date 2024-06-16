@@ -1,13 +1,10 @@
 package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.entity.InternshipCampaign;
-import com.swp391.ims_application.entity.User;
 import com.swp391.ims_application.payload.CustomResponse;
 import com.swp391.ims_application.payload.ICampaignResponse;
 import com.swp391.ims_application.payload.InternshipCampaignRequest;
-import com.swp391.ims_application.repository.InternshipCampaignRepository;
 import com.swp391.ims_application.repository.UserRepository;
-import com.swp391.ims_application.service.IntershipCampaignService;
 import com.swp391.ims_application.service.imp.IIternshipCampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -86,7 +83,7 @@ public class InternshipCampaignController {
                     i.getRequirements(),
                     i.getPostedDate(),
                     i.getDeadline(),
-                    i.getUserHR().getFullName()
+                    i.getUserHr().getFullName()
             );
             customResponse.setData(iCampaignResponse);
             statusCode = HttpStatus.OK;
@@ -109,7 +106,7 @@ public class InternshipCampaignController {
         } else {
             List<ICampaignResponse> campaignResponseList = new ArrayList<>();
             for (InternshipCampaign i : internshipCampaignList) {
-                campaignResponseList.add(new ICampaignResponse(i.getCampaignId(), i.getCampaignName(), i.getJobDescription(), i.getRequirements(), i.getPostedDate(), i.getDeadline(), i.getUserHR().getFullName()));
+                campaignResponseList.add(new ICampaignResponse(i.getCampaignId(), i.getCampaignName(), i.getJobDescription(), i.getRequirements(), i.getPostedDate(), i.getDeadline(), i.getUserHr().getFullName()));
             }
             customResponse.setMessage("Internship campaigns found");
             customResponse.setData(campaignResponseList);
@@ -136,7 +133,7 @@ public class InternshipCampaignController {
         boolean check = intershipCampaignService.updateById(campaign);
         CustomResponse customResponse = new CustomResponse();
         HttpStatus statusCode;
-        if(check) {
+        if (check) {
             statusCode = HttpStatus.CREATED;
             customResponse.setSuccess(true);
             customResponse.setStatus(HttpStatus.CREATED.value());
@@ -151,7 +148,6 @@ public class InternshipCampaignController {
 
         return new ResponseEntity<>(customResponse, statusCode);
     }
-
 
 
 }

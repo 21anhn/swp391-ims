@@ -1,11 +1,15 @@
 package com.swp391.ims_application.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "internship_campaigns")
+@Getter
+@Setter
+@Table(name = "intership_campaigns")
 @Entity
 public class InternshipCampaign {
 
@@ -29,66 +33,16 @@ public class InternshipCampaign {
     @Column(name = "deadline")
     private Date deadline;
 
+    @Column(name = "image")
+    private String image;
+
     @ManyToOne
     @JoinColumn(name = "hr_id")
-    private User userHR;
+    private User userHr;
+
+    @OneToMany(mappedBy = "internshipCampaign")
+    private List<ScheduleInternshipCampaign> scheduleInternshipCampaigns;
 
     @OneToMany(mappedBy = "internshipCampaign")
     private List<Application> applications;
-
-    public int getCampaignId() {
-        return campaignId;
-    }
-
-    public void setCampaignId(int campaignId) {
-        this.campaignId = campaignId;
-    }
-
-    public String getCampaignName() {
-        return campaignName;
-    }
-
-    public void setCampaignName(String campaignName) {
-        this.campaignName = campaignName;
-    }
-
-    public String getJobDescription() {
-        return jobDescription;
-    }
-
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
-    }
-
-    public String getRequirements() {
-        return requirements;
-    }
-
-    public void setRequirements(String requirements) {
-        this.requirements = requirements;
-    }
-
-    public Date getPostedDate() {
-        return postedDate;
-    }
-
-    public void setPostedDate(Date postedDate) {
-        this.postedDate = postedDate;
-    }
-
-    public Date getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
-    }
-
-    public User getUserHR() {
-        return userHR;
-    }
-
-    public void setUserHR(User userHR) {
-        this.userHR = userHR;
-    }
 }

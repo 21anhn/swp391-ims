@@ -48,7 +48,7 @@ public class AdminController {
                 userResponse.setPassword(user.getPassword());
                 userResponse.setPhoneNumber(user.getPhoneNumber());
                 userResponse.setEmail(user.getEmail());
-                if(user.getRole() != null) {
+                if (user.getRole() != null) {
                     userResponse.setRoleName(user.getRole().getRoleName());
                 }
                 userResponses.add(userResponse);
@@ -76,7 +76,7 @@ public class AdminController {
         System.out.println(role.getRoleId() + " " + role.getRoleName());
         user.setRole(role);
         boolean check = userService.createAccount(user);
-        if(check) {
+        if (check) {
             customResponse.setMessage("Account created");
             customResponse.setStatus(HttpStatus.CREATED.value());
             customResponse.setSuccess(true);

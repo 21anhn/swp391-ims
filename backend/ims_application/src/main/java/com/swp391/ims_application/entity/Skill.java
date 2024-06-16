@@ -6,10 +6,10 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Table(name = "skills")
-@Entity
 @Getter
 @Setter
+@Table(name = "skills")
+@Entity
 public class Skill {
 
     @Id
@@ -21,5 +21,5 @@ public class Skill {
     private String skillName;
 
     @OneToMany(mappedBy = "skill")
-    private List<TrainingProgramSkill> trainingProgramSkillList;
+    private List<TrainingProgramSkill> trainingProgramSkills;
 }
