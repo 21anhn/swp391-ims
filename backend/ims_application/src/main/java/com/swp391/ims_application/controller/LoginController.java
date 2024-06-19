@@ -1,7 +1,7 @@
 package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.entity.User;
-import com.swp391.ims_application.payload.AccountRequest;
+import com.swp391.ims_application.payload.AccountDTO;
 import com.swp391.ims_application.payload.CustomResponse;
 import com.swp391.ims_application.payload.UserResponse;
 import com.swp391.ims_application.service.UserServiceImp;
@@ -19,9 +19,9 @@ public class LoginController {
     private UserServiceImp userServiceImp;
 
     @PostMapping
-    public ResponseEntity<?> login(@RequestBody AccountRequest accountRequest) {
+    public ResponseEntity<?> login(@RequestBody AccountDTO accountDTO) {
         CustomResponse customResponse = new CustomResponse();
-        User user = userServiceImp.login(accountRequest.getUsername(), accountRequest.getPassword());
+        User user = userServiceImp.login(accountDTO.getUsername(), accountDTO.getPassword());
         //Nếu check username có trong DB và same password thì != null
         if (user != null) {
             UserResponse userResponse = new UserResponse(user.getUsername(), user.getPassword(), user.getFullName(), user.getDob()

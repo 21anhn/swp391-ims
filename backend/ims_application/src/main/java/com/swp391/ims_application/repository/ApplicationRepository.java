@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ApplicationRepository extends JpaRepository<Application, Integer> {
     List<Application> findByInternshipCampaignCampaignId(int campaignId);
+
+    Application findByEmail(String email);
 }

@@ -23,6 +23,18 @@ public class Application {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "full_name")
+    private String fullName;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "interview_date")
+    private Date interviewDate;
+
     @ManyToOne
     @JoinColumn(name = "campaign_id")
     private InternshipCampaign internshipCampaign;

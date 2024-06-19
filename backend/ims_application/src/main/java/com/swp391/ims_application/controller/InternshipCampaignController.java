@@ -128,6 +128,7 @@ public class InternshipCampaignController {
         campaign.setRequirements(campaignRequest.getRequirements());
         campaign.setPostedDate(new Date());
         campaign.setDeadline(campaignRequest.getDeadline());
+        campaign.setAvailable(true);
         //campaign.setUserHR(userHR);
 
         boolean check = intershipCampaignService.updateById(campaign);

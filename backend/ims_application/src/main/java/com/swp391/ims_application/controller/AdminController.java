@@ -2,7 +2,7 @@ package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.entity.Role;
 import com.swp391.ims_application.entity.User;
-import com.swp391.ims_application.payload.AccountRequest;
+import com.swp391.ims_application.payload.AccountDTO;
 import com.swp391.ims_application.payload.CustomResponse;
 import com.swp391.ims_application.payload.UserResponse;
 import com.swp391.ims_application.service.SendMailService;
@@ -62,17 +62,17 @@ public class AdminController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createAccount(@RequestBody AccountRequest accountRequest) {
+    public ResponseEntity<?> createAccount(@RequestBody AccountDTO accountDTO) {
         CustomResponse customResponse = new CustomResponse();
         HttpStatus status;
         String password = Helper.generatePassword(); //Auto generate password
 
         User user = new User();
-        user.setUsername(accountRequest.getUsername());
+        user.setUsername(accountDTO.getUsername());
         user.setPassword(password);
-        user.setEmail(accountRequest.getEmail());
-        user.setPhoneNumber(accountRequest.getPhoneNumber());
-        Role role = roleService.getRoleByName(accountRequest.getRoleName());
+        user.setEmail(accountDTO.getEmail());
+        user.setPhoneNumber(accountDTO.getPhoneNumber());
+        Role role = roleService.getRoleByName(accountDTO.getRoleName());
         user.setRole(role);
         boolean check = userService.createAccount(user);
         if (check) {
@@ -80,10 +80,10 @@ public class AdminController {
             customResponse.setStatus(HttpStatus.CREATED.value());
             customResponse.setSuccess(true);
             status = HttpStatus.CREATED;
-            String content = "Username: " + accountRequest.getUsername()
+            String content = "Username: " + accountDTO.getUsername()
                     + "\nPassword: " + password
                     + "\nEnter this link to login: https://tinyurl.com/tn4e64wm";
-            sendMailService.sendMail(accountRequest.getEmail(), "Your account in Internship Management System", content);
+            sendMailService.sendMail(accountDTO.getEmail(), "Your account in Internship Management System", content);
 
 
         } else {

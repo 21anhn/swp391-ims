@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface InternshipCampaignRepository extends JpaRepository<InternshipCampaign, Integer> {
 
-    public InternshipCampaign findByCampaignId(int id);
+    InternshipCampaign findByCampaignId(int id);
 
-    public List<InternshipCampaign> findByCampaignNameContaining(String name);
+    List<InternshipCampaign> findByCampaignNameContaining(String name);
 }

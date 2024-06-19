@@ -1,5 +1,3 @@
-
-
 package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.InternshipCampaign;
@@ -33,7 +31,7 @@ public class IntershipCampaignService implements IIternshipCampaignService {
 
     @Override
     public boolean updateById(InternshipCampaign internshipCampaign) {
-        if(internshipCampaign != null) {
+        if (internshipCampaign != null) {
             internshipCampaignRepository.save(internshipCampaign);
             return true;
         }
@@ -42,7 +40,7 @@ public class IntershipCampaignService implements IIternshipCampaignService {
 
     @Override
     public boolean deleteById(int id) {
-        if(internshipCampaignRepository.existsById(id)) {
+        if (internshipCampaignRepository.existsById(id)) {
             internshipCampaignRepository.deleteById(id);
             return true;
         }
