@@ -41,6 +41,9 @@ public class User {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "is_active")
+    private boolean isActive;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

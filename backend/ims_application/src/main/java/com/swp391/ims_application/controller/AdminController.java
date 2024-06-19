@@ -73,7 +73,6 @@ public class AdminController {
         user.setEmail(accountRequest.getEmail());
         user.setPhoneNumber(accountRequest.getPhoneNumber());
         Role role = roleService.getRoleByName(accountRequest.getRoleName());
-        System.out.println(role.getRoleId() + " " + role.getRoleName());
         user.setRole(role);
         boolean check = userService.createAccount(user);
         if (check) {
@@ -83,7 +82,7 @@ public class AdminController {
             status = HttpStatus.CREATED;
             String content = "Username: " + accountRequest.getUsername()
                     + "\nPassword: " + password
-                    + "\nEnter this link to login: http://localhost:5173/login";
+                    + "\nEnter this link to login: https://tinyurl.com/tn4e64wm";
             sendMailService.sendMail(accountRequest.getEmail(), "Your account in Internship Management System", content);
 
 

@@ -36,6 +36,9 @@ public class InternshipCampaign {
     @Column(name = "image")
     private String image;
 
+    @Column(name = "isAvailable")
+    private boolean isAvailable;
+
     @ManyToOne
     @JoinColumn(name = "hr_id")
     private User userHr;

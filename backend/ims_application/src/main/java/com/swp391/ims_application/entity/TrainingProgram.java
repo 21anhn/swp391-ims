@@ -26,6 +26,9 @@ public class TrainingProgram {
     @Column(name = "objectives")
     private String objectives;
 
+    @Column(name = "isAvailable")
+    private boolean isAvailable;
+
     @ManyToOne
     @JoinColumn(name = "mentor_id")
     private User userMentor;

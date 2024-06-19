@@ -27,6 +27,9 @@ public class EducationalResource {
     @Column(name = "created_date")
     private Date createdDate;
 
+    @Column(name = "isAvailable")
+    private boolean isAvailable;
+
     @OneToMany(mappedBy = "educationalResource")
     private List<ProgramTrainingResource> programTrainingResources;
 

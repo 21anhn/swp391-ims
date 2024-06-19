@@ -15,19 +15,19 @@ public class ICampaignResponse {
     private String requirements;
     private Date postedDate;
     private Date deadline;
-    private String hr_name;
+    private String hrName;
 
     public ICampaignResponse() {
     }
 
-    public ICampaignResponse(int campaignId, String campaignName, String jobDescription, String requirements, Date postedDate, Date deadline, String hr_name) {
+    public ICampaignResponse(int campaignId, String campaignName, String jobDescription, String requirements, Date postedDate, Date deadline, String hrName) {
         this.campaignId = campaignId;
         this.campaignName = campaignName;
         this.jobDescription = jobDescription;
         this.requirements = requirements;
         this.postedDate = postedDate;
         this.deadline = deadline;
-        this.hr_name = hr_name;
+        this.hrName = hrName;
     }
 
 }
