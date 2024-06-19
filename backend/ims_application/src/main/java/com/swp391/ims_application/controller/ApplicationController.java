@@ -24,7 +24,7 @@ public class ApplicationController {
 
     @GetMapping("/{campaignId}")
     public ResponseEntity<?> getApplicationsByCampaignId(@PathVariable int campaignId) {
-        List<ApplicationResponse> applicationResponses = applicationService.getApplicationResponsesByCampaignId(campaignId);
+        List<ApplicationDTO> applicationResponses = applicationService.getApplicationResponsesByCampaignId(campaignId);
         if (applicationResponses != null) {
             return new ResponseEntity<>(applicationResponses, HttpStatus.OK);
         }

@@ -65,14 +65,17 @@ public class ApplicationService implements IApplicationService {
         List<ApplicationDTO> applicationResponses = null;
         if (applications != null) {
             applicationResponses = new ArrayList<>();
+            String[] arr;
+            ApplicationDTO applicationDTO;
             for (Application application : applications) {
-                ApplicationDTO applicationDTO = new ApplicationDTO();
+                applicationDTO = new ApplicationDTO();
                 applicationDTO.setName(application.getFullName());
                 applicationDTO.setEmail(application.getEmail());
                 applicationDTO.setPhoneNumber(application.getPhoneNumber());
-                applicationDTO.
-                if(application.getInternshipCampaign() != null) {
-
+                if(application.getInterviewDate() != null) {
+                    arr = Helper.splitDate(application.getInterviewDate(), "MM/dd/yyyy HH:mm");
+                    applicationDTO.setDate(arr[0]);
+                    applicationDTO.setTime(arr[1]);
                 }
                 applicationResponses.add(applicationDTO);
             }

@@ -28,6 +28,8 @@ public class Helper {
     }
 
     public static String[] splitDate(Date d, String format) {
-        return new String[] {"123"};
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        String dateString = sdf.format(d);
+        return dateString.split("\\s+");
     }
 }

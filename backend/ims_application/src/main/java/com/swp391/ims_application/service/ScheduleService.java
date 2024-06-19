@@ -8,6 +8,7 @@ import com.swp391.ims_application.repository.InternshipCampaignRepository;
 import com.swp391.ims_application.repository.ScheduleICampaignRepository;
 import com.swp391.ims_application.repository.ScheduleRepository;
 import com.swp391.ims_application.service.imp.IScheduleService;
+import com.swp391.ims_application.util.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,16 +38,11 @@ public class ScheduleService implements IScheduleService {
             return null;
         }
 
-        Date d;
-        String dateString;
         String[] arr;
         ScheduleDTO scheduleDTO;
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 
         for (Schedule schedule : schedules) {
-            d = schedule.getInterviewDate();
-            dateString = sdf.format(d);
-            arr = dateString.split("\\s+");
+            arr = Helper.splitDate(schedule.getInterviewDate(), "MM/dd/yyyy HH:mm");
 
             scheduleDTO = new ScheduleDTO(schedule.getScheduleId(), arr[0], arr[1], schedule.getInterviewLocation());
             res.add(scheduleDTO);
@@ -66,19 +62,18 @@ public class ScheduleService implements IScheduleService {
             String dateTimeString = scheduleDTO.getDate() + " " + scheduleDTO.getTime();
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
             d = sdf.parse(dateTimeString);
+            schedule.setInterviewDate(d);
+            schedule.setStatus("Available");
+            schedule.setInterviewLocation(scheduleDTO.getLocation());
+            scheduleRepository.save(schedule);
+
+            ScheduleInternshipCampaign sic = new ScheduleInternshipCampaign();
+            sic.setSchedule(schedule);
+            sic.setInternshipCampaign(internshipCampaign);
+            scheduleICampaignRepository.save(sic);
+            return true;
         } catch (Exception e) {
-
+            return false;
         }
-        schedule.setInterviewDate(d);
-        schedule.setStatus("Available");
-        schedule.setInterviewLocation(scheduleDTO.getLocation());
-        scheduleRepository.save(schedule);
-
-        ScheduleInternshipCampaign sic = new ScheduleInternshipCampaign();
-        sic.setSchedule(schedule);
-        sic.setInternshipCampaign(internshipCampaign);
-        scheduleICampaignRepository.save(sic);
-        return true;
-
     }
 }
