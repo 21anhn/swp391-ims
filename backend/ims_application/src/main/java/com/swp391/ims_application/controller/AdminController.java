@@ -61,6 +61,15 @@ public class AdminController {
         return new ResponseEntity<>(customResponse, status);
     }
 
+    @GetMapping("/{username}")
+    public ResponseEntity<?> searchByUsername(@PathVariable String username) {
+        AccountDTO accountDTO = userService.getUserByUsername(username);
+        if(accountDTO == null) {
+            return new ResponseEntity<>("Not found username: " + username, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(accountDTO, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<?> createAccount(@RequestBody AccountDTO accountDTO) {
         CustomResponse customResponse = new CustomResponse();
@@ -72,6 +81,7 @@ public class AdminController {
         user.setPassword(password);
         user.setEmail(accountDTO.getEmail());
         user.setPhoneNumber(accountDTO.getPhoneNumber());
+        user.setActive(true);
         Role role = roleService.getRoleByName(accountDTO.getRoleName());
         user.setRole(role);
         boolean check = userService.createAccount(user);
@@ -95,5 +105,22 @@ public class AdminController {
         return new ResponseEntity<>(customResponse, status);
     }
 
+    @PutMapping("/{username}")
+    public ResponseEntity<?> resetPassword(@PathVariable String username) {
+        boolean check = userService.resetPassword(username);
+        if(check) {
+            return new ResponseEntity<>("Reset password successful", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Reset password failed due to not found username: " + username, HttpStatus.BAD_REQUEST);
+    }
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<?> updateAccount(@PathVariable String username, @RequestParam boolean isActive) {
+        boolean check = userService.lockAccount(username, isActive);
+        if (check && !isActive) {
+            return new ResponseEntity<>("Account locked", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Account not founded or not locked", HttpStatus.NOT_FOUND);
+    }
 
 }

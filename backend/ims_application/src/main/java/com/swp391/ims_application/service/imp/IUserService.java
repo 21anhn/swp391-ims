@@ -1,6 +1,8 @@
 package com.swp391.ims_application.service.imp;
 
 import com.swp391.ims_application.entity.User;
+import com.swp391.ims_application.payload.AccountDTO;
+import com.swp391.ims_application.payload.UserResponse;
 
 import java.util.List;
 
@@ -10,4 +12,10 @@ public interface IUserService {
     boolean createAccount(User user);
 
     List<User> getAllUsers();
+
+    AccountDTO getUserByUsername(String username);
+
+    boolean resetPassword(String username);
+
+    boolean lockAccount(String username, boolean isActive);
 }
