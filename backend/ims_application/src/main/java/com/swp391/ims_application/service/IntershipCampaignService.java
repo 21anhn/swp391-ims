@@ -1,7 +1,7 @@
 package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.InternshipCampaign;
-import com.swp391.ims_application.repository.InternshipCampaignRepository;
+import com.swp391.ims_application.entity.repository.InternshipCampaignRepository;
 import com.swp391.ims_application.service.imp.IIternshipCampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

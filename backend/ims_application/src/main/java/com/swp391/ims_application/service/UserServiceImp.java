@@ -1,9 +1,8 @@
 package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.User;
+import com.swp391.ims_application.entity.repository.UserRepository;
 import com.swp391.ims_application.payload.AccountDTO;
-import com.swp391.ims_application.payload.UserResponse;
-import com.swp391.ims_application.repository.UserRepository;
 import com.swp391.ims_application.service.imp.IUserService;
 import com.swp391.ims_application.util.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +45,7 @@ public class UserServiceImp implements IUserService {
     @Override
     public AccountDTO getUserByUsername(String username) {
         User user = userRepository.findByUsername(username);
-        if(user != null) {
+        if (user != null) {
             AccountDTO accountDTO = new AccountDTO();
             accountDTO.setRoleName(user.getRole().getRoleName());
             accountDTO.setUsername(user.getUsername());
@@ -61,7 +60,7 @@ public class UserServiceImp implements IUserService {
     @Override
     public boolean resetPassword(String username) {
         User user = userRepository.findByUsername(username);
-        if(user != null) {
+        if (user != null) {
             String password = Helper.generatePassword();
             user.setPassword(password);
             userRepository.save(user);
@@ -74,7 +73,7 @@ public class UserServiceImp implements IUserService {
     @Override
     public boolean lockAccount(String username, boolean isActive) {
         User user = userRepository.findByUsername(username);
-        if(user != null) {
+        if (user != null) {
             user.setActive(isActive);
             userRepository.save(user);
             return true;

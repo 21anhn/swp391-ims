@@ -17,32 +17,32 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
     private String password;
 
     @Column(name = "full_name")
-    private String fullName;
+    private String fullName = "";
 
     @Column(name = "dob")
     private Date dob;
 
     @Column(name = "gender")
-    private String gender;
+    private String gender = "";
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "email", unique = true)
+    private String email = "";
 
     @Column(name = "phone_number")
-    private String phoneNumber;
+    private String phoneNumber = "";
 
     @Column(name = "address")
-    private String address;
+    private String address = "";
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private boolean isActive = true;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -54,7 +54,8 @@ public class User {
     @OneToMany(mappedBy = "userHr")
     private List<InternshipCampaign> internshipCampaigns;
 
-    @OneToOne(mappedBy = "userIntern")
+    @OneToOne
+    @JoinColumn(name = "application_id", nullable = true)
     private Application application;
 
     @OneToMany(mappedBy = "userMentor")

@@ -64,7 +64,7 @@ public class AdminController {
     @GetMapping("/{username}")
     public ResponseEntity<?> searchByUsername(@PathVariable String username) {
         AccountDTO accountDTO = userService.getUserByUsername(username);
-        if(accountDTO == null) {
+        if (accountDTO == null) {
             return new ResponseEntity<>("Not found username: " + username, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(accountDTO, HttpStatus.OK);
@@ -108,7 +108,7 @@ public class AdminController {
     @PutMapping("/{username}")
     public ResponseEntity<?> resetPassword(@PathVariable String username) {
         boolean check = userService.resetPassword(username);
-        if(check) {
+        if (check) {
             return new ResponseEntity<>("Reset password successful", HttpStatus.OK);
         }
         return new ResponseEntity<>("Reset password failed due to not found username: " + username, HttpStatus.BAD_REQUEST);

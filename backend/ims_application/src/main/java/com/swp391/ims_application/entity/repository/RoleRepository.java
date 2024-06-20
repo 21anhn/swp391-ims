@@ -1,4 +1,4 @@
-package com.swp391.ims_application.repository;
+package com.swp391.ims_application.entity.repository;
 
 import com.swp391.ims_application.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

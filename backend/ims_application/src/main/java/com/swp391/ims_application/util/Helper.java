@@ -22,7 +22,7 @@ public class Helper {
     }
 
     public static Date parseStringToDate(String date, String time, String format) throws ParseException {
-        String dateTimeString = date + " " + date;
+        String dateTimeString = date + " " + time;
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.parse(dateTimeString);
     }

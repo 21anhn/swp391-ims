@@ -35,11 +35,13 @@ public class Application {
     @Column(name = "interview_date")
     private Date interviewDate;
 
+    @Column(name = "cv_url")
+    private String cvUrl;
+
     @ManyToOne
     @JoinColumn(name = "campaign_id")
     private InternshipCampaign internshipCampaign;
 
-    @OneToOne
-    @JoinColumn(name = "intern_id")
+    @OneToOne(mappedBy = "application")
     private User userIntern;
 }

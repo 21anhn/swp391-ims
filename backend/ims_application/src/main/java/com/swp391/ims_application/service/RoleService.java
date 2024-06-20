@@ -1,7 +1,7 @@
 package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.Role;
-import com.swp391.ims_application.repository.RoleRepository;
+import com.swp391.ims_application.entity.repository.RoleRepository;
 import com.swp391.ims_application.service.imp.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

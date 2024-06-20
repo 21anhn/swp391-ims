@@ -6,12 +6,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ApplicationDTO {
+    private int id;
     private String name;
     private String email;
     private String phoneNumber;
     private String date;
     private String time;
     private String cv;
+    private String status;
 
     public ApplicationDTO() {
     }
