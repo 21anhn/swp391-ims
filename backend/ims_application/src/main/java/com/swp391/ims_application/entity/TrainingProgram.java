@@ -17,17 +17,21 @@ public class TrainingProgram {
     @Column(name = "program_id")
     private int programId;
 
-    @Column(name = "program_name")
-    private String programName;
-
     @Column(name = "description")
     private String description;
+
+    @Column(name = "isAvailable")
+    private boolean isAvailable;
 
     @Column(name = "objectives")
     private String objectives;
 
-    @Column(name = "isAvailable")
-    private boolean isAvailable;
+    @Column(name = "program_name")
+    private String programName;
+
+    @ManyToOne
+    @JoinColumn(name = "coordinator_id")
+    private User userCoordinator;
 
     @ManyToOne
     @JoinColumn(name = "mentor_id")
