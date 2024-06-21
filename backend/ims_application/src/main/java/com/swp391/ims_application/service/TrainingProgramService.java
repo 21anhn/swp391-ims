@@ -71,7 +71,8 @@ public class TrainingProgramService implements ITrainingProgramService {
     @Override
     public boolean deleteTrainingProgram(int id) {
         TrainingProgram trainingProgram = trainingProgramRepository.findById(id).get();
-        trainingProgramRepository.delete(trainingProgram);
+        trainingProgram.setAvailable(false);
+        trainingProgramRepository.save(trainingProgram);
         return true;
     }
 }

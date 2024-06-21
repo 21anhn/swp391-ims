@@ -1,13 +1,11 @@
 package com.swp391.ims_application.service;
 
-import com.swp391.ims_application.entity.Application;
-import com.swp391.ims_application.entity.InternshipCampaign;
-import com.swp391.ims_application.entity.Role;
-import com.swp391.ims_application.entity.User;
+import com.swp391.ims_application.entity.*;
 import com.swp391.ims_application.payload.AccountDTO;
 import com.swp391.ims_application.payload.UserDTO;
 import com.swp391.ims_application.repository.ApplicationRepository;
 import com.swp391.ims_application.repository.InternshipCampaignRepository;
+import com.swp391.ims_application.repository.TrainingProgramRepository;
 import com.swp391.ims_application.repository.UserRepository;
 import com.swp391.ims_application.service.imp.IRoleService;
 import com.swp391.ims_application.service.imp.IUserService;
@@ -35,6 +33,9 @@ public class UserServiceImp implements IUserService {
 
     @Autowired
     ApplicationRepository applicationRepository;
+
+    @Autowired
+    TrainingProgramRepository trainingProgramRepository;
 
     @Override
     public User login(String username, String password) {
@@ -190,5 +191,37 @@ public class UserServiceImp implements IUserService {
             }
         }
         return false;
+    }
+
+    @Override
+    public List<UserDTO> getMentorList() {
+        List<User> mentorList = userRepository.findByRoleRoleName("ROLE_MENTOR");
+        List<UserDTO> res = null;
+        if (mentorList == null) {
+            return null;
+        }
+        res = new ArrayList<>();
+        UserDTO userDTO = new UserDTO();
+        for (User u : mentorList) {
+            userDTO = new UserDTO();
+            userDTO.setId(u.getUserId());
+            userDTO.setUsername(u.getUsername());
+            userDTO.setEmail(u.getEmail());
+            userDTO.setPhoneNumber(u.getPhoneNumber());
+            userDTO.setFullName(u.getFullName());
+            userDTO.setGender(u.getGender());
+            userDTO.setDob(u.getDob());
+            res.add(userDTO);
+        }
+        return res;
+    }
+
+    @Override
+    public boolean specifyMentorToProgram(int mentorId, int programId) {
+        User user = userRepository.findById(mentorId).get();
+        TrainingProgram trainingProgram = trainingProgramRepository.findById(programId).get();
+        trainingProgram.setUserMentor(user);
+        trainingProgramRepository.save(trainingProgram);
+        return true;
     }
 }
