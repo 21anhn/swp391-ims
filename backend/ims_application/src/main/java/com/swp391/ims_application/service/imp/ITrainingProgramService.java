@@ -1,12 +1,18 @@
 package com.swp391.ims_application.service.imp;
 
-import com.swp391.ims_application.entity.TrainingProgram;
-import com.swp391.ims_application.payload.TrainingProgramRequest;
+import com.swp391.ims_application.payload.TrainingProgramDTO;
+
+import java.util.List;
 
 public interface ITrainingProgramService {
-    TrainingProgram createTrainingProgram(TrainingProgramRequest request);
-    TrainingProgram getTrainingProgramById(int id);
-    TrainingProgram updateTrainingProgram(int id, TrainingProgramRequest request);
-    void deleteTrainingProgram(int id);
-    void assignMentorToTrainingProgram(int programId, int mentorId);
+
+    public boolean createTrainingProgram(TrainingProgramDTO trainingProgramDTO);
+
+    public TrainingProgramDTO getTrainingProgramById(int programId);
+
+    public List<TrainingProgramDTO> getAllTrainingPrograms();
+
+    public boolean editTrainingProgram(int programId, TrainingProgramDTO trainingProgramDTO);
+
+    public boolean deleteTrainingProgram(int programId);
 }
