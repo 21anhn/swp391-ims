@@ -24,4 +24,8 @@ public interface IUserService {
     UserDTO searchProfileIntern(String username, int campaignId);
 
     boolean editProfile(UserDTO userDTO, int campaignId);
+
+    List<UserDTO> getMentorList();
+
+    boolean specifyMentorToProgram(int mentorId, int programId);
 }
