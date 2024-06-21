@@ -33,6 +33,7 @@ public class EducationalResourceService implements IEducationalResourceService {
             EducationalResource existingResource = existingResourceOptional.get();
             existingResource.setResourceName(resource.getResourceName());
             existingResource.setDescription(resource.getDescription());
+            existingResource.setUrl(resource.getUrl());
             existingResource.setCreatedDate(resource.getCreatedDate());
             existingResource.setAvailable(resource.isAvailable());
 

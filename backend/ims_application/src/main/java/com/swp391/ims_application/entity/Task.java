@@ -1,5 +1,6 @@
 package com.swp391.ims_application.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,11 @@ public class Task {
 
     @Column(name = "end_time")
     private Date endTime;
+
+    @JsonProperty("isAvailable")
+    @Column(name = "is_available")
+    private boolean isAvailable;
+
 
     @ManyToOne
     @JoinColumn(name = "program_id")
