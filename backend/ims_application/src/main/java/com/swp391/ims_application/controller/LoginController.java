@@ -3,7 +3,7 @@ package com.swp391.ims_application.controller;
 import com.swp391.ims_application.entity.User;
 import com.swp391.ims_application.payload.AccountDTO;
 import com.swp391.ims_application.payload.CustomResponse;
-import com.swp391.ims_application.payload.UserResponse;
+import com.swp391.ims_application.payload.UserDTO;
 import com.swp391.ims_application.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,12 +24,12 @@ public class LoginController {
         User user = userServiceImp.login(accountDTO.getUsername(), accountDTO.getPassword());
         //Nếu check username có trong DB và same password thì != null
         if (user != null) {
-            UserResponse userResponse = new UserResponse(user.getUsername(), user.getPassword(), user.getFullName(), user.getDob()
+            UserDTO userDTO = new UserDTO(user.getUsername(), user.getPassword(), user.getFullName(), user.getDob()
                     , user.getGender(), user.getEmail(), user.getPhoneNumber(), user.getAddress(), user.getRole().getRoleName());
-            userResponse.setId(user.getUserId());
+            userDTO.setId(user.getUserId());
             customResponse.setStatus(200);
             customResponse.setMessage("Login successful");
-            customResponse.setData(userResponse);
+            customResponse.setData(userDTO);
             customResponse.setSuccess(true);
             return new ResponseEntity<>(customResponse, HttpStatus.OK);
         }

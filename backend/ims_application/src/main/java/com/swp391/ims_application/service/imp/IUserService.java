@@ -2,13 +2,14 @@ package com.swp391.ims_application.service.imp;
 
 import com.swp391.ims_application.entity.User;
 import com.swp391.ims_application.payload.AccountDTO;
+import com.swp391.ims_application.payload.UserDTO;
 
 import java.util.List;
 
 public interface IUserService {
     User login(String username, String password);
 
-    boolean createAccount(User user);
+    User createAccount(AccountDTO accountDTO);
 
     List<User> getAllUsers();
 
@@ -18,5 +19,9 @@ public interface IUserService {
 
     boolean lockAccount(String username, boolean isActive);
 
+    List<UserDTO> viewAllProfileInterns(int campaignId);
 
+    UserDTO searchProfileIntern(String username, int campaignId);
+
+    boolean editProfile(UserDTO userDTO, int campaignId);
 }

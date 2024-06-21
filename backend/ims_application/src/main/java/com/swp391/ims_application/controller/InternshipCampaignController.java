@@ -1,7 +1,7 @@
 package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.entity.InternshipCampaign;
-import com.swp391.ims_application.entity.repository.UserRepository;
+import com.swp391.ims_application.repository.UserRepository;
 import com.swp391.ims_application.payload.CustomResponse;
 import com.swp391.ims_application.payload.ICampaignResponse;
 import com.swp391.ims_application.payload.InternshipCampaignRequest;

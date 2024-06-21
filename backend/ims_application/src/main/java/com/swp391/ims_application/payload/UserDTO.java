@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Setter
 @Getter
-public class UserResponse {
+public class UserDTO {
 
     private int id;
 
@@ -27,12 +27,14 @@ public class UserResponse {
 
     private String address;
 
+    private int applicationId;
+
     private String roleName;
 
-    public UserResponse() {
+    public UserDTO() {
     }
 
-    public UserResponse(String username, String password, String fullName, Date dob, String gender, String email, String phoneNumber, String address, String roleName) {
+    public UserDTO(String username, String password, String fullName, Date dob, String gender, String email, String phoneNumber, String address, String roleName) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;

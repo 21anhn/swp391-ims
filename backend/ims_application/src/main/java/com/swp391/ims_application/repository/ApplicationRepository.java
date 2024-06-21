@@ -1,4 +1,4 @@
-package com.swp391.ims_application.entity.repository;
+package com.swp391.ims_application.repository;
 
 import com.swp391.ims_application.entity.Application;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,4 +9,6 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
     List<Application> findByInternshipCampaignCampaignId(int campaignId);
 
     Application findByEmail(String email);
+
+    List<Application> findByInternshipCampaignCampaignIdAndStatus(int campaignId, String status);
 }

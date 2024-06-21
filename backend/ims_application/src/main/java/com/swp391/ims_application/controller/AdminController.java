@@ -4,7 +4,7 @@ import com.swp391.ims_application.entity.Role;
 import com.swp391.ims_application.entity.User;
 import com.swp391.ims_application.payload.AccountDTO;
 import com.swp391.ims_application.payload.CustomResponse;
-import com.swp391.ims_application.payload.UserResponse;
+import com.swp391.ims_application.payload.UserDTO;
 import com.swp391.ims_application.service.SendMailService;
 import com.swp391.ims_application.service.imp.IRoleService;
 import com.swp391.ims_application.service.imp.IUserService;
@@ -40,20 +40,20 @@ public class AdminController {
         if (!users.isEmpty()) {
             status = HttpStatus.OK;
             customResponse.setMessage("Successfully retrieved all users");
-            List<UserResponse> userResponses = new ArrayList<>();
+            List<UserDTO> userRespons = new ArrayList<>();
             for (User user : users) {
-                UserResponse userResponse = new UserResponse();
-                userResponse.setId(user.getUserId());
-                userResponse.setUsername(user.getUsername());
-                userResponse.setPassword(user.getPassword());
-                userResponse.setPhoneNumber(user.getPhoneNumber());
-                userResponse.setEmail(user.getEmail());
+                UserDTO userDTO = new UserDTO();
+                userDTO.setId(user.getUserId());
+                userDTO.setUsername(user.getUsername());
+                userDTO.setPassword(user.getPassword());
+                userDTO.setPhoneNumber(user.getPhoneNumber());
+                userDTO.setEmail(user.getEmail());
                 if (user.getRole() != null) {
-                    userResponse.setRoleName(user.getRole().getRoleName());
+                    userDTO.setRoleName(user.getRole().getRoleName());
                 }
-                userResponses.add(userResponse);
+                userRespons.add(userDTO);
             }
-            customResponse.setData(userResponses);
+            customResponse.setData(userRespons);
         } else {
             status = HttpStatus.NOT_FOUND;
             customResponse.setMessage("No users found");
@@ -72,37 +72,15 @@ public class AdminController {
 
     @PostMapping
     public ResponseEntity<?> createAccount(@RequestBody AccountDTO accountDTO) {
-        CustomResponse customResponse = new CustomResponse();
-        HttpStatus status;
-        String password = Helper.generatePassword(); //Auto generate password
-
-        User user = new User();
-        user.setUsername(accountDTO.getUsername());
-        user.setPassword(password);
-        user.setEmail(accountDTO.getEmail());
-        user.setPhoneNumber(accountDTO.getPhoneNumber());
-        user.setActive(true);
-        Role role = roleService.getRoleByName(accountDTO.getRoleName());
-        user.setRole(role);
-        boolean check = userService.createAccount(user);
-        if (check) {
-            customResponse.setMessage("Account created");
-            customResponse.setStatus(HttpStatus.CREATED.value());
-            customResponse.setSuccess(true);
-            status = HttpStatus.CREATED;
-            String content = "Username: " + accountDTO.getUsername()
-                    + "\nPassword: " + password
+        User user = userService.createAccount(accountDTO);
+        if (user != null) {
+            String content = "Username: " + user.getUsername()
+                    + "\nPassword: " + user.getPassword()
                     + "\nEnter this link to login: https://tinyurl.com/tn4e64wm";
             sendMailService.sendMail(accountDTO.getEmail(), "Your account in Internship Management System", content);
-
-
-        } else {
-            customResponse.setMessage("Account creation failed");
-            customResponse.setStatus(HttpStatus.BAD_REQUEST.value());
-            customResponse.setSuccess(false);
-            status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity<>("Account created", HttpStatus.CREATED);
         }
-        return new ResponseEntity<>(customResponse, status);
+        return new ResponseEntity<>("Account creation failed", HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/{username}")

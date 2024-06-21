@@ -1,13 +1,21 @@
 package com.swp391.ims_application.service;
 
+import com.swp391.ims_application.entity.Application;
+import com.swp391.ims_application.entity.InternshipCampaign;
+import com.swp391.ims_application.entity.Role;
 import com.swp391.ims_application.entity.User;
-import com.swp391.ims_application.entity.repository.UserRepository;
 import com.swp391.ims_application.payload.AccountDTO;
+import com.swp391.ims_application.payload.UserDTO;
+import com.swp391.ims_application.repository.ApplicationRepository;
+import com.swp391.ims_application.repository.InternshipCampaignRepository;
+import com.swp391.ims_application.repository.UserRepository;
+import com.swp391.ims_application.service.imp.IRoleService;
 import com.swp391.ims_application.service.imp.IUserService;
 import com.swp391.ims_application.util.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,7 +25,16 @@ public class UserServiceImp implements IUserService {
     private UserRepository userRepository;
 
     @Autowired
+    private InternshipCampaignRepository internshipCampaignRepository;
+
+    @Autowired
     private SendMailService sendMailService;
+
+    @Autowired
+    IRoleService roleService;
+
+    @Autowired
+    ApplicationRepository applicationRepository;
 
     @Override
     public User login(String username, String password) {
@@ -29,12 +46,22 @@ public class UserServiceImp implements IUserService {
     }
 
     @Override
-    public boolean createAccount(User user) {
-        if (user != null) {
-            userRepository.save(user);
-            return true;
+    public User createAccount(AccountDTO accountDTO) {
+        String password = Helper.generatePassword(); //Auto generate password
+        accountDTO.setPassword(password);
+        User user = new User();
+        user.setUsername(accountDTO.getUsername());
+        user.setPassword(password);
+        user.setEmail(accountDTO.getEmail());
+        user.setPhoneNumber(accountDTO.getPhoneNumber());
+        user.setActive(true);
+        Role role = roleService.getRoleByName(accountDTO.getRoleName());
+        if (role == null) {
+            return null;
         }
-        return false;
+        user.setRole(role);
+        userRepository.save(user);
+        return user;
     }
 
     @Override
@@ -77,6 +104,90 @@ public class UserServiceImp implements IUserService {
             user.setActive(isActive);
             userRepository.save(user);
             return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<UserDTO> viewAllProfileInterns(int campaignId) {
+        List<Application> applicationList = applicationRepository.findByInternshipCampaignCampaignIdAndStatus(campaignId, "Approved");
+        List<UserDTO> userDTOList = null;
+        if (applicationList != null && !applicationList.isEmpty()) {
+            userDTOList = new ArrayList<>();
+            User user;
+            UserDTO userDTO;
+            for (Application application : applicationList) {
+                user = userRepository.findByApplicationApplicationId(application.getApplicationId());
+                userDTO = new UserDTO();
+                if (user != null) {
+                    userDTO.setId(user.getUserId());
+                    userDTO.setUsername(user.getUsername());
+                    userDTO.setEmail(user.getEmail());
+                    userDTO.setPhoneNumber(user.getPhoneNumber());
+                    userDTO.setApplicationId(application.getApplicationId());
+                    userDTO.setFullName(user.getFullName());
+                    userDTO.setGender(user.getGender());
+                    userDTO.setDob(user.getDob());
+                    userDTOList.add(userDTO);
+                }
+            }
+            return userDTOList;
+        }
+        return userDTOList;
+    }
+
+    @Override
+    public UserDTO searchProfileIntern(String username, int campaignId) {
+        User user = userRepository.findByUsername(username);
+        InternshipCampaign ic = internshipCampaignRepository.findByCampaignId(campaignId);
+
+        if (user == null || ic == null) {
+            return null;
+        }
+        UserDTO userDTO = new UserDTO();
+        for (Application a : ic.getApplications()) {
+            if (user.getApplication() != null) {
+                if (a.getApplicationId() == user.getApplication().getApplicationId()) {
+                    userDTO.setId(user.getUserId());
+                    userDTO.setUsername(user.getUsername());
+                    userDTO.setEmail(user.getEmail());
+                    userDTO.setPhoneNumber(user.getPhoneNumber());
+                    userDTO.setApplicationId(a.getApplicationId());
+                    userDTO.setFullName(user.getFullName());
+                    userDTO.setGender(user.getGender());
+                    userDTO.setDob(user.getDob());
+                    return userDTO;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean editProfile(UserDTO userDTO, int campaignId) {
+        User user = userRepository.findByUsername(userDTO.getUsername());
+        InternshipCampaign ic = internshipCampaignRepository.findByCampaignId(campaignId);
+
+        if (user == null || ic == null) {
+            return false;
+        }
+        for (Application a : ic.getApplications()) {
+            if (user.getApplication() != null) {
+                if (a.getApplicationId() == user.getApplication().getApplicationId()) {
+                    if (userDTO.getEmail() != null)
+                        user.setEmail(userDTO.getEmail());
+                    if (userDTO.getPhoneNumber() != null)
+                        user.setPhoneNumber(userDTO.getPhoneNumber());
+                    if (userDTO.getFullName() != null)
+                        user.setFullName(userDTO.getFullName());
+                    if (userDTO.getGender() != null)
+                        user.setGender(userDTO.getGender());
+                    if (userDTO.getDob() != null)
+                        user.setDob(userDTO.getDob());
+                    userRepository.save(user);
+                    return true;
+                }
+            }
         }
         return false;
     }

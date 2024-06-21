@@ -2,7 +2,7 @@ package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.Application;
 import com.swp391.ims_application.entity.InternshipCampaign;
-import com.swp391.ims_application.entity.repository.ApplicationRepository;
+import com.swp391.ims_application.repository.ApplicationRepository;
 import com.swp391.ims_application.payload.ApplicationDTO;
 import com.swp391.ims_application.service.imp.IApplicationService;
 import com.swp391.ims_application.service.imp.IFileService;
