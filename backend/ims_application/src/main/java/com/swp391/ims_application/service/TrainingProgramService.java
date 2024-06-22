@@ -75,4 +75,9 @@ public class TrainingProgramService implements ITrainingProgramService {
         trainingProgramRepository.save(trainingProgram);
         return true;
     }
+
+    @Override
+    public List<TrainingProgram> getTrainingProgramsManagedByMentor(int mentorId) {
+        return trainingProgramRepository.findByMentorId(mentorId);
+    }
 }

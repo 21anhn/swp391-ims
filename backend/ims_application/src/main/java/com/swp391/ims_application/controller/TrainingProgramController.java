@@ -1,5 +1,6 @@
 package com.swp391.ims_application.controller;
 
+import com.swp391.ims_application.entity.TrainingProgram;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
 import com.swp391.ims_application.service.imp.ITrainingProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,4 +61,11 @@ public class TrainingProgramController {
         }
         return new ResponseEntity<>("Falied edition training program!", HttpStatus.BAD_REQUEST);
     }
+
+    @GetMapping("/mentor/{mentorId}")
+    public ResponseEntity<List<TrainingProgram>> getTrainingProgramsManagedByMentor(@PathVariable int mentorId) {
+        List<TrainingProgram> trainingPrograms = trainingProgramService.getTrainingProgramsManagedByMentor(mentorId);
+        return ResponseEntity.ok(trainingPrograms);
+    }
+
 }
