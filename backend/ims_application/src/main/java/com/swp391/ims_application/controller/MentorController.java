@@ -1,5 +1,6 @@
 package com.swp391.ims_application.controller;
 
+import com.swp391.ims_application.payload.TrainingProgramDTO;
 import com.swp391.ims_application.payload.UserDTO;
 import com.swp391.ims_application.service.imp.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,17 @@ public class MentorController {
 
     @Autowired
     IUserService userService;
+
+    @GetMapping("/{mentorId}")
+    public ResponseEntity<?> viewTrainingProgramManageByMentorId(@PathVariable int mentorId) {
+        List<TrainingProgramDTO> trainingProgramDTO = userService.getTrainingProgramByMentor(mentorId);
+        if (trainingProgramDTO == null) {
+            return new ResponseEntity<>("Not found training program by mentor id: " + mentorId, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(trainingProgramDTO, HttpStatus.FOUND);
+    }
+
+
 
     @GetMapping
     public ResponseEntity<?> getAllMentor() {
