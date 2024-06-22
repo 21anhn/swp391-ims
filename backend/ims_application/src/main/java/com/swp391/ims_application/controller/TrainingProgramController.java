@@ -37,7 +37,7 @@ public class TrainingProgramController {
     @PostMapping
     public ResponseEntity<?> createTrainingProgram(@RequestBody TrainingProgramDTO trainingProgramDTO) {
         boolean check = trainingProgramService.createTrainingProgram(trainingProgramDTO);
-        if(check) {
+        if (check) {
             return new ResponseEntity<>("Successfully created training program!", HttpStatus.CREATED);
         }
         return new ResponseEntity<>("Falied creation training program!", HttpStatus.BAD_REQUEST);
@@ -46,7 +46,7 @@ public class TrainingProgramController {
     @PutMapping("/{programId}")
     public ResponseEntity<?> editTrainingProgram(@PathVariable int programId, @RequestBody TrainingProgramDTO trainingProgramDTO) {
         boolean check = trainingProgramService.editTrainingProgram(programId, trainingProgramDTO);
-        if(check) {
+        if (check) {
             return new ResponseEntity<>("Successfully edited training program!", HttpStatus.CREATED);
         }
         return new ResponseEntity<>("Falied edition training program!", HttpStatus.BAD_REQUEST);
@@ -55,7 +55,7 @@ public class TrainingProgramController {
     @DeleteMapping("/{programId}")
     public ResponseEntity<?> deleteTrainingProgram(@PathVariable int programId) {
         boolean check = trainingProgramService.deleteTrainingProgram(programId);
-        if(check) {
+        if (check) {
             return new ResponseEntity<>("Successfully edited training program!", HttpStatus.OK);
         }
         return new ResponseEntity<>("Falied edition training program!", HttpStatus.BAD_REQUEST);

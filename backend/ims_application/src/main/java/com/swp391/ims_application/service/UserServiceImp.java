@@ -4,10 +4,7 @@ import com.swp391.ims_application.entity.*;
 import com.swp391.ims_application.payload.AccountDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
 import com.swp391.ims_application.payload.UserDTO;
-import com.swp391.ims_application.repository.ApplicationRepository;
-import com.swp391.ims_application.repository.InternshipCampaignRepository;
-import com.swp391.ims_application.repository.TrainingProgramRepository;
-import com.swp391.ims_application.repository.UserRepository;
+import com.swp391.ims_application.repository.*;
 import com.swp391.ims_application.service.imp.IRoleService;
 import com.swp391.ims_application.service.imp.IUserService;
 import com.swp391.ims_application.util.Helper;
@@ -30,13 +27,22 @@ public class UserServiceImp implements IUserService {
     private SendMailService sendMailService;
 
     @Autowired
-    IRoleService roleService;
+    private IRoleService roleService;
 
     @Autowired
-    ApplicationRepository applicationRepository;
+    private ApplicationRepository applicationRepository;
 
     @Autowired
-    TrainingProgramRepository trainingProgramRepository;
+    private TrainingProgramRepository trainingProgramRepository;
+
+    @Autowired
+    private TaskRepository taskRepository;
+
+    @Autowired
+    private InternTaskRepository internTaskRepository;
+
+    @Autowired
+    private TrainingProgramInternRepository trainingProgramInternRepository;
 
     @Override
     public User login(String username, String password) {
@@ -250,4 +256,27 @@ public class UserServiceImp implements IUserService {
         return tpDTOList;
     }
 
+    @Override
+    public boolean assignTaskToIntern(int internId, int taskId) {
+        User intern = userRepository.findById(internId).get();
+        Task task = taskRepository.findById(taskId).get();
+        if (intern.getUserId() == 0 || task.getTaskId() == 0) return false;
+        InternTask internTask = new InternTask();
+        internTask.setTask(task);
+        internTask.setUserIntern(intern);
+        internTaskRepository.save(internTask);
+        return true;
+    }
+
+    @Override
+    public boolean assignInternToTrainingProgram(int trainingProgramId, int internId) {
+        User intern = userRepository.findById(internId).get();
+        TrainingProgram trainingProgram = trainingProgramRepository.findById(trainingProgramId).get();
+        if (intern.getUserId() == 0 || trainingProgram.getProgramId() == 0) return false;
+        TrainingProgramIntern trainingProgramIntern = new TrainingProgramIntern();
+        trainingProgramIntern.setTrainingProgram(trainingProgram);
+        trainingProgramIntern.setUserIntern(intern);
+        trainingProgramInternRepository.save(trainingProgramIntern);
+        return true;
+    }
 }

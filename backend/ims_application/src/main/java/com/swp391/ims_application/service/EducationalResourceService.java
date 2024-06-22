@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 public class EducationalResourceService implements IEducationalResourceService {
 
-    private EducationalResourceRepository repository;
+    private final EducationalResourceRepository repository;
 
     @Autowired
     public EducationalResourceService(EducationalResourceRepository repository) {
@@ -36,7 +36,6 @@ public class EducationalResourceService implements IEducationalResourceService {
             existingResource.setUrl(resource.getUrl());
             existingResource.setCreatedDate(resource.getCreatedDate());
             existingResource.setAvailable(resource.isAvailable());
-
             return repository.save(existingResource);
         } else {
             return null;

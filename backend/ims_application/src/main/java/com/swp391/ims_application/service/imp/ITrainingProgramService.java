@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface ITrainingProgramService {
 
-    public boolean createTrainingProgram(TrainingProgramDTO trainingProgramDTO);
+    boolean createTrainingProgram(TrainingProgramDTO trainingProgramDTO);
 
-    public TrainingProgramDTO getTrainingProgramById(int programId);
+    TrainingProgramDTO getTrainingProgramById(int programId);
 
-    public List<TrainingProgramDTO> getAllTrainingPrograms();
+    List<TrainingProgramDTO> getAllTrainingPrograms();
 
-    public boolean editTrainingProgram(int programId, TrainingProgramDTO trainingProgramDTO);
+    boolean editTrainingProgram(int programId, TrainingProgramDTO trainingProgramDTO);
 
-    public boolean deleteTrainingProgram(int programId);
+    boolean deleteTrainingProgram(int programId);
 }

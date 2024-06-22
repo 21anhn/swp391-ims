@@ -49,6 +49,10 @@ public class TrainingProgramService implements ITrainingProgramService {
             trainingProgramDTO.setProgramName(trainingProgram.getProgramName());
             trainingProgramDTO.setDescription(trainingProgram.getDescription());
             trainingProgramDTO.setObjectives(trainingProgram.getObjectives());
+            if (trainingProgram.getUserMentor() != null) {
+                trainingProgramDTO.setMentorId(trainingProgram.getUserMentor().getUserId());
+                trainingProgramDTO.setMentorName(trainingProgram.getUserMentor().getFullName());
+            }
             trainingProgramDTOs.add(trainingProgramDTO);
         }
         return trainingProgramDTOs;
@@ -58,11 +62,11 @@ public class TrainingProgramService implements ITrainingProgramService {
     public boolean editTrainingProgram(int programId, TrainingProgramDTO trainingProgramDTO) {
         if (trainingProgramDTO == null) return false;
         TrainingProgram trainingProgram = trainingProgramRepository.findByProgramId(programId);
-        if(trainingProgramDTO.getProgramName() != null)
+        if (trainingProgramDTO.getProgramName() != null)
             trainingProgram.setProgramName(trainingProgramDTO.getProgramName());
-        if(trainingProgramDTO.getDescription() != null)
+        if (trainingProgramDTO.getDescription() != null)
             trainingProgram.setDescription(trainingProgramDTO.getDescription());
-        if(trainingProgramDTO.getObjectives() != null)
+        if (trainingProgramDTO.getObjectives() != null)
             trainingProgram.setObjectives(trainingProgramDTO.getObjectives());
         trainingProgramRepository.save(trainingProgram);
         return true;

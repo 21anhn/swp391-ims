@@ -1,6 +1,5 @@
 package com.swp391.ims_application.controller;
 
-import com.swp391.ims_application.entity.Role;
 import com.swp391.ims_application.entity.User;
 import com.swp391.ims_application.payload.AccountDTO;
 import com.swp391.ims_application.payload.CustomResponse;
@@ -8,7 +7,6 @@ import com.swp391.ims_application.payload.UserDTO;
 import com.swp391.ims_application.service.SendMailService;
 import com.swp391.ims_application.service.imp.IRoleService;
 import com.swp391.ims_application.service.imp.IUserService;
-import com.swp391.ims_application.util.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

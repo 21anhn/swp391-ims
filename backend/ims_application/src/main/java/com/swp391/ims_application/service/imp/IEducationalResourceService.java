@@ -6,8 +6,12 @@ import java.util.List;
 
 public interface IEducationalResourceService {
     EducationalResource createEducationalResource(EducationalResource resource);
+
     EducationalResource updateEducationalResource(int resourceId, EducationalResource resource);
+
     void removeEducationalResource(int resourceId);
+
     EducationalResource getEducationalResourceById(int resourceId);
+
     List<EducationalResource> getAllEducationalResources();
 }

@@ -31,4 +31,8 @@ public interface IUserService {
     boolean specifyMentorToProgram(int mentorId, int programId);
 
     List<TrainingProgramDTO> getTrainingProgramByMentor(int mentorId);
+
+    boolean assignTaskToIntern(int internId, int taskId);
+
+    boolean assignInternToTrainingProgram(int trainingProgramId, int internId);
 }

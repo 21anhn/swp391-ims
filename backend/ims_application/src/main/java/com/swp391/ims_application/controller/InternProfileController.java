@@ -19,7 +19,7 @@ public class InternProfileController {
     @GetMapping("/{campaignId}")
     public ResponseEntity<?> getUser(@PathVariable int campaignId) {
         List<UserDTO> userDTOList = userService.viewAllProfileInterns(campaignId);
-        if(userDTOList == null) {
+        if (userDTOList == null) {
             return new ResponseEntity<>("Not found any profile intern in campaign id: " + campaignId, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(userDTOList, HttpStatus.OK);
@@ -37,7 +37,7 @@ public class InternProfileController {
     @PutMapping("/{campaignId}")
     public ResponseEntity<?> updateProfile(@PathVariable int campaignId, @RequestBody UserDTO userDTO) {
         boolean check = userService.editProfile(userDTO, campaignId);
-        if(check) {
+        if (check) {
             return new ResponseEntity<>("Successfully updated profile for intern!", HttpStatus.OK);
         }
         return new ResponseEntity<>("Failed due to some error...", HttpStatus.NOT_FOUND);

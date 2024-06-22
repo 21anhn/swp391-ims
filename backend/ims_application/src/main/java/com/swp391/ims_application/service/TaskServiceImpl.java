@@ -1,18 +1,22 @@
 package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.Task;
+import com.swp391.ims_application.entity.TrainingProgram;
 import com.swp391.ims_application.payload.TaskDTO;
 import com.swp391.ims_application.repository.TaskRepository;
+import com.swp391.ims_application.repository.TrainingProgramRepository;
 import com.swp391.ims_application.service.imp.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
 public class TaskServiceImpl implements ITaskService {
+
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private TrainingProgramRepository trainingProgramRepository;
 
     @Override
     public Task createTask(TaskDTO taskDTO) {
@@ -22,7 +26,12 @@ public class TaskServiceImpl implements ITaskService {
         task.setStartTime(taskDTO.getStartTime());
         task.setEndTime(taskDTO.getEndTime());
         task.setAvailable(true); // Set isAvailable to true on creation
-        return taskRepository.save(task);
+        TrainingProgram trainingProgram = trainingProgramRepository.findByProgramId(taskDTO.getProgramId());
+        if (trainingProgram != null) {
+            task.setTrainingProgram(trainingProgram);
+            return taskRepository.save(task);
+        }
+        return null;
     }
 
     @Override

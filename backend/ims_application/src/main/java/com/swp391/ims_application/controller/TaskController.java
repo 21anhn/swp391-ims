@@ -15,9 +15,12 @@ public class TaskController {
     private ITaskService taskService;
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody TaskDTO taskDTO) {
+    public ResponseEntity<?> createTask(@RequestBody TaskDTO taskDTO) {
         Task task = taskService.createTask(taskDTO);
-        return new ResponseEntity<>(task, HttpStatus.CREATED);
+        if (task != null) {
+            return new ResponseEntity<>("Successfully created task!", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>("Failed creation task!", HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/{id}")

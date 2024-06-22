@@ -35,8 +35,6 @@ public class Task {
     @Column(name = "is_available")
     private boolean isAvailable;
 
-
-
     @ManyToOne
     @JoinColumn(name = "program_id")
     private TrainingProgram trainingProgram;

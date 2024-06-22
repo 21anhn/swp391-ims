@@ -12,4 +12,5 @@ public class TaskDTO {
     private String taskDescription;
     private Date startTime;
     private Date endTime;
+    private int programId;
 }

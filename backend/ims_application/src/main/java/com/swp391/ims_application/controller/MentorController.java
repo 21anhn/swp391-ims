@@ -26,23 +26,30 @@ public class MentorController {
         return new ResponseEntity<>(trainingProgramDTO, HttpStatus.FOUND);
     }
 
-
-
     @GetMapping
     public ResponseEntity<?> getAllMentor() {
         List<UserDTO> userDTOList = userService.getMentorList();
-        if(userDTOList != null) {
+        if (userDTOList != null) {
             return new ResponseEntity<>(userDTOList, HttpStatus.FOUND);
         }
-        return  new ResponseEntity<>("Not found any mentor in system!", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Not found any mentor in system!", HttpStatus.NOT_FOUND);
     }
 
     @PutMapping
     public ResponseEntity<?> specifyMentorToTrainingProgram(@RequestParam int mentorId, @RequestParam int programId) {
         boolean check = userService.specifyMentorToProgram(mentorId, programId);
-        if(check) {
+        if (check) {
             return new ResponseEntity<>("Successfully specified mentor: " + mentorId + " to training program: " + programId, HttpStatus.OK);
         }
         return new ResponseEntity<>("Failed specification mentor!", HttpStatus.BAD_REQUEST);
+    }
+
+    @PutMapping("/assign-task")
+    public ResponseEntity<?> assignTaskToIntern(@RequestParam int internId, @RequestParam int taskId) {
+        boolean check = userService.assignTaskToIntern(internId, taskId);
+        if (check) {
+            return new ResponseEntity<>("Successfully assigned task: " + taskId + " to intern: " + internId, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Failed assign task to intern!", HttpStatus.BAD_REQUEST);
     }
 }
