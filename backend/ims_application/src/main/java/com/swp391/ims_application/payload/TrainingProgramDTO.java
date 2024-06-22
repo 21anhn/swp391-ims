@@ -10,4 +10,6 @@ public class TrainingProgramDTO {
     private String programName;
     private String description;
     private String objectives;
+    private int mentorId;
+    private String mentorName;
 }

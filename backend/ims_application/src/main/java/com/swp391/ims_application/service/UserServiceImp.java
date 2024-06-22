@@ -2,6 +2,7 @@ package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.*;
 import com.swp391.ims_application.payload.AccountDTO;
+import com.swp391.ims_application.payload.TrainingProgramDTO;
 import com.swp391.ims_application.payload.UserDTO;
 import com.swp391.ims_application.repository.ApplicationRepository;
 import com.swp391.ims_application.repository.InternshipCampaignRepository;
@@ -224,4 +225,29 @@ public class UserServiceImp implements IUserService {
         trainingProgramRepository.save(trainingProgram);
         return true;
     }
+
+    @Override
+    public List<TrainingProgramDTO> getTrainingProgramByMentor(int mentorId) {
+        List<TrainingProgram> tpList = trainingProgramRepository.findAll();
+        if (tpList.isEmpty()) {
+            return null;
+        }
+        List<TrainingProgramDTO> tpDTOList = new ArrayList<>();
+        for (TrainingProgram tp : tpList) {
+            if (tp.getUserMentor() != null) {
+                if (tp.getUserMentor().getUserId() == mentorId) {
+                    TrainingProgramDTO tpDTO = new TrainingProgramDTO();
+                    tpDTO.setProgramId(tp.getProgramId());
+                    tpDTO.setProgramName(tp.getProgramName());
+                    tpDTO.setDescription(tp.getDescription());
+                    tpDTO.setObjectives(tp.getObjectives());
+                    tpDTO.setMentorName(tp.getUserMentor().getFullName());
+                    tpDTO.setMentorId(mentorId);
+                    tpDTOList.add(tpDTO);
+                }
+            }
+        }
+        return tpDTOList;
+    }
+
 }
