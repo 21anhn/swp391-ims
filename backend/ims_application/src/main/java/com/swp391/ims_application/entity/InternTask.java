@@ -28,4 +28,7 @@ public class InternTask {
 
     @Column(name = "comment")
     private String comment;
+
+    @Column(name = "file_path")
+    private String filePath;   //add de luu file path
 }
