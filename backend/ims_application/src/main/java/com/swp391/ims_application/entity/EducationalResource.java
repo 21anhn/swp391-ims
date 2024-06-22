@@ -28,7 +28,6 @@ public class EducationalResource {
     @Column(name = "url")
     private String url;
 
-
     @Column(name = "created_date")
     private Date createdDate;
 
