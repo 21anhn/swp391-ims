@@ -1,7 +1,7 @@
 package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.EducationalResource;
-import com.swp391.ims_application.entity.repository.EducationalResourceRepository;
+import com.swp391.ims_application.repository.EducationalResourceRepository;
 import com.swp391.ims_application.service.imp.IEducationalResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

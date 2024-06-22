@@ -1,20 +1,27 @@
 package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.TrainingProgram;
+import com.swp391.ims_application.entity.TrainingProgramIntern;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
+import com.swp391.ims_application.repository.TrainingProgramInternRepository;
 import com.swp391.ims_application.repository.TrainingProgramRepository;
 import com.swp391.ims_application.service.imp.ITrainingProgramService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrainingProgramService implements ITrainingProgramService {
 
     @Autowired
     private TrainingProgramRepository trainingProgramRepository;
+
+    @Autowired
+    private TrainingProgramInternRepository trainingProgramInternRepository;
 
     @Override
     public boolean createTrainingProgram(TrainingProgramDTO trainingProgramDTO) {
@@ -74,5 +81,37 @@ public class TrainingProgramService implements ITrainingProgramService {
         trainingProgram.setAvailable(false);
         trainingProgramRepository.save(trainingProgram);
         return true;
+    }
+
+
+    @Override
+    public double calculateAverageScore(int programId) {
+        TrainingProgram trainingProgram = trainingProgramRepository.findById(programId).orElse(null);
+        if (trainingProgram == null) {
+            throw new IllegalArgumentException("Training program with id " + programId + " not found.");
+        }
+
+        List<TrainingProgramIntern> interns = trainingProgram.getTrainingProgramInterns();
+        if (interns.isEmpty()) {
+            return 0.0;
+        }
+
+        double totalScore = 0.0;
+        for (TrainingProgramIntern intern : interns) {
+            totalScore += intern.getScore();
+        }
+
+        return totalScore / interns.size();
+    }
+
+    @Override
+    @Transactional
+    public boolean removeInternFromTrainingProgram(int programId, int internId) {
+        Optional<TrainingProgram> trainingProgramOptional = trainingProgramRepository.findById(programId);
+        if (trainingProgramOptional.isPresent()) {
+            trainingProgramInternRepository.deleteByProgramIdAndInternId(programId, internId);
+            return true;
+        }
+        return false;
     }
 }

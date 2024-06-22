@@ -22,4 +22,7 @@ public class TrainingProgramIntern {
     @ManyToOne
     @JoinColumn(name = "intern_id")
     private User userIntern;
+
+    @Column(name = "score")
+    private double score;
 }

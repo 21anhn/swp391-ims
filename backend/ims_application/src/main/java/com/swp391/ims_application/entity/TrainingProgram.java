@@ -33,7 +33,7 @@ public class TrainingProgram {
     @JoinColumn(name = "mentor_id")
     private User userMentor;
 
-    @OneToMany(mappedBy = "trainingProgram")
+    @OneToMany(mappedBy = "trainingProgram", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TrainingProgramIntern> trainingProgramInterns;
 
     @OneToMany(mappedBy = "trainingProgram")

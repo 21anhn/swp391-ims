@@ -1,6 +1,7 @@
 package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.payload.TrainingProgramDTO;
+import com.swp391.ims_application.service.TrainingProgramService;
 import com.swp391.ims_application.service.imp.ITrainingProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,5 +60,25 @@ public class TrainingProgramController {
             return new ResponseEntity<>("Successfully edited training program!", HttpStatus.OK);
         }
         return new ResponseEntity<>("Falied edition training program!", HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/{programId}/average-score")
+    public ResponseEntity<?> calculateAverageScore(@PathVariable int programId) {
+        double averageScore = trainingProgramService.calculateAverageScore(programId);
+
+        TrainingProgramDTO trainingProgramDTO = trainingProgramService.getTrainingProgramById(programId);
+        String responseMessage = "Average score for intern in training program id " +  + programId + " is: " + averageScore;
+
+        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{programId}/intern/{internId}")
+    public ResponseEntity<String> removeInternFromTrainingProgram(@PathVariable int programId, @PathVariable int internId) {
+        boolean removed = trainingProgramService.removeInternFromTrainingProgram(programId, internId);
+        if (removed) {
+            return ResponseEntity.ok("Intern removed from training program successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Intern or Training Program not found.");
+        }
     }
 }

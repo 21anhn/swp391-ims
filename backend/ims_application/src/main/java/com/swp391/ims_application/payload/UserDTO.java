@@ -1,5 +1,6 @@
 package com.swp391.ims_application.payload;
 
+import com.swp391.ims_application.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,6 +45,16 @@ public class UserDTO {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.roleName = roleName;
+    }
+
+    public UserDTO(User user) {
+        this.id = user.getUserId();
+        this.username = user.getUsername();
+        this.fullName = user.getFullName();
+        this.email = user.getEmail();
+        this.phoneNumber = user.getPhoneNumber();
+        this.address = user.getAddress();
+        this.roleName = user.getRole().getRoleName();
     }
 
 }

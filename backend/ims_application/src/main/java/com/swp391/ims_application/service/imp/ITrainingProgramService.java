@@ -15,4 +15,8 @@ public interface ITrainingProgramService {
     public boolean editTrainingProgram(int programId, TrainingProgramDTO trainingProgramDTO);
 
     public boolean deleteTrainingProgram(int programId);
+
+    double calculateAverageScore(int programId);
+
+    boolean removeInternFromTrainingProgram(int programId, int internId);
 }
