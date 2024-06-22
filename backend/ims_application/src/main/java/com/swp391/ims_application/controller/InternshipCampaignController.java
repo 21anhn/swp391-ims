@@ -1,10 +1,12 @@
 package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.entity.InternshipCampaign;
+import com.swp391.ims_application.payload.CampaignReportDTO;
 import com.swp391.ims_application.repository.UserRepository;
 import com.swp391.ims_application.payload.CustomResponse;
 import com.swp391.ims_application.payload.ICampaignResponse;
 import com.swp391.ims_application.payload.InternshipCampaignRequest;
+import com.swp391.ims_application.service.InternshipCampaignService;
 import com.swp391.ims_application.service.imp.IIternshipCampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ public class InternshipCampaignController {
     private IIternshipCampaignService intershipCampaignService;
     @Autowired
     private UserRepository userRepository; // Inject UserRepository
+    @Autowired
+    private InternshipCampaignService internshipCampaignService;
 
 
     @GetMapping
@@ -150,5 +154,14 @@ public class InternshipCampaignController {
         return new ResponseEntity<>(customResponse, statusCode);
     }
 
-
+    @GetMapping("/report")
+    public ResponseEntity<CustomResponse> getInternsCountByCampaign() {
+        List<CampaignReportDTO> report = intershipCampaignService.getInternsCountByCampaign();
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setSuccess(true);
+        customResponse.setStatus(HttpStatus.OK.value());
+        customResponse.setMessage("Report generated successfully");
+        customResponse.setData(report);
+        return new ResponseEntity<>(customResponse, HttpStatus.OK);
+    }
 }

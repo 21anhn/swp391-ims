@@ -1,6 +1,7 @@
 package com.swp391.ims_application.service.imp;
 
 import com.swp391.ims_application.entity.InternshipCampaign;
+import com.swp391.ims_application.payload.CampaignReportDTO;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface IIternshipCampaignService {
     boolean updateById(InternshipCampaign internshipCampaign);
 
     boolean deleteById(int id);
+
+    List<CampaignReportDTO>  getInternsCountByCampaign();
 }

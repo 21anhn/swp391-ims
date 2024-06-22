@@ -28,7 +28,7 @@ public class ApplicationService implements IApplicationService {
     private ApplicationRepository applicationRepository;
 
     @Autowired
-    private IntershipCampaignService intershipCampaignService;
+    private InternshipCampaignService intershipCampaignService;
 
     @Autowired
     private SendMailService sendMailService;

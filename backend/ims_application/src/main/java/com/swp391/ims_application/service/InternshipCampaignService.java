@@ -1,15 +1,18 @@
 package com.swp391.ims_application.service;
 
+import com.swp391.ims_application.entity.Application;
 import com.swp391.ims_application.entity.InternshipCampaign;
+import com.swp391.ims_application.payload.CampaignReportDTO;
 import com.swp391.ims_application.repository.InternshipCampaignRepository;
 import com.swp391.ims_application.service.imp.IIternshipCampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class IntershipCampaignService implements IIternshipCampaignService {
+public class InternshipCampaignService implements IIternshipCampaignService {
 
     @Autowired
     InternshipCampaignRepository internshipCampaignRepository;
@@ -45,6 +48,11 @@ public class IntershipCampaignService implements IIternshipCampaignService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<CampaignReportDTO> getInternsCountByCampaign() {
+        return internshipCampaignRepository.countInternsByCampaign();
     }
 }
 
