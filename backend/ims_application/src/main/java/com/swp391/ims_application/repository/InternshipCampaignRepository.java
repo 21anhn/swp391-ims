@@ -4,9 +4,11 @@ import com.swp391.ims_application.entity.InternshipCampaign;
 import com.swp391.ims_application.payload.CampaignReportDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface InternshipCampaignRepository extends JpaRepository<InternshipCampaign, Integer> {
 
     InternshipCampaign findByCampaignId(int id);
