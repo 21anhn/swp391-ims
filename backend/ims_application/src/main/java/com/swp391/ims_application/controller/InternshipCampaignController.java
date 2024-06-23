@@ -150,5 +150,10 @@ public class InternshipCampaignController {
         return new ResponseEntity<>(customResponse, statusCode);
     }
 
+    @GetMapping("/{id}/applications/count")
+    public long countApplicationsInCampaign(@PathVariable int id) {
+        return intershipCampaignService.countApplicationsInCampaign(id);
+    }
+
 
 }

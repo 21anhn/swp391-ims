@@ -129,4 +129,9 @@ public class ApplicationService implements IApplicationService {
             return false;
         }
     }
+
+    @Override
+    public long countByCampaignId(int campaignId) {
+        return applicationRepository.countByInternshipCampaignCampaignId(campaignId);
+    }
 }
