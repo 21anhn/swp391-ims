@@ -2,6 +2,7 @@ package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.*;
 import com.swp391.ims_application.payload.AccountDTO;
+import com.swp391.ims_application.payload.RoleAccountCountDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
 import com.swp391.ims_application.payload.UserDTO;
 import com.swp391.ims_application.repository.*;
@@ -278,5 +279,15 @@ public class UserServiceImp implements IUserService {
         trainingProgramIntern.setUserIntern(intern);
         trainingProgramInternRepository.save(trainingProgramIntern);
         return true;
+    }
+
+    @Override
+    public List<RoleAccountCountDTO> getRoleAccountCount() {
+        return userRepository.countAccountsByRole();
+    }
+
+    @Override
+    public long countTotalUsers() {
+        return userRepository.countTotalUsers();
     }
 }
