@@ -30,8 +30,8 @@ public class TrainingProgram {
     private boolean isAvailable;
 
     @ManyToOne
-    @JoinColumn(name = "mentor_id")
-    private User userMentor;
+    @JoinColumn(name = "intern_coordinator_id")
+    private User userInternCoordinator;
 
     @OneToMany(mappedBy = "trainingProgram", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TrainingProgramIntern> trainingProgramInterns;

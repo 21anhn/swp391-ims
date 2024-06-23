@@ -58,7 +58,7 @@ public class User {
     @JoinColumn(name = "application_id", nullable = true)
     private Application application;
 
-    @OneToMany(mappedBy = "userMentor")
+    @OneToMany(mappedBy = "userInternCoordinator")
     private List<TrainingProgram> trainingPrograms;
 
     @OneToMany(mappedBy = "userIntern")

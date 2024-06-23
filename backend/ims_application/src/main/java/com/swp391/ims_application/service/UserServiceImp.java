@@ -220,7 +220,7 @@ public class UserServiceImp implements IUserService {
     public boolean specifyMentorToProgram(int mentorId, int programId) {
         User user = userRepository.findById(mentorId).get();
         TrainingProgram trainingProgram = trainingProgramRepository.findById(programId).get();
-        trainingProgram.setUserMentor(user);
+        trainingProgram.setUserInternCoordinator(user);
         trainingProgramRepository.save(trainingProgram);
         return true;
     }
