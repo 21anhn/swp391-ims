@@ -14,4 +14,7 @@ public interface IIternshipCampaignService {
     boolean updateById(InternshipCampaign internshipCampaign);
 
     boolean deleteById(int id);
+
+
+    long countApplicationsInCampaign(int campaignId);
 }
