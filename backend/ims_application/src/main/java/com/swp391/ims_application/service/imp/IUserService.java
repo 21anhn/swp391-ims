@@ -2,6 +2,7 @@ package com.swp391.ims_application.service.imp;
 
 import com.swp391.ims_application.entity.User;
 import com.swp391.ims_application.payload.AccountDTO;
+import com.swp391.ims_application.payload.RoleAccountCountDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
 import com.swp391.ims_application.payload.UserDTO;
 
@@ -35,4 +36,8 @@ public interface IUserService {
     boolean assignTaskToIntern(int internId, int taskId);
 
     boolean assignInternToTrainingProgram(int trainingProgramId, int internId);
+
+    List<RoleAccountCountDTO> getRoleAccountCount();
+
+    long countTotalUsers();
 }
