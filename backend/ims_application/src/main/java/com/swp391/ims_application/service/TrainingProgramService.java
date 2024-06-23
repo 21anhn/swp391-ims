@@ -48,6 +48,7 @@ public class TrainingProgramService implements ITrainingProgramService {
             trainingProgramDTO.setProgramId(trainingProgram.getProgramId());
             trainingProgramDTO.setProgramName(trainingProgram.getProgramName());
             trainingProgramDTO.setDescription(trainingProgram.getDescription());
+            trainingProgramDTO.setAvaliable(trainingProgram.isAvailable());
             trainingProgramDTO.setObjectives(trainingProgram.getObjectives());
             if (trainingProgram.getUserMentor() != null) {
                 trainingProgramDTO.setMentorId(trainingProgram.getUserMentor().getUserId());
