@@ -3,7 +3,6 @@ package com.swp391.ims_application.controller;
 import com.swp391.ims_application.entity.User;
 import com.swp391.ims_application.payload.AccountDTO;
 import com.swp391.ims_application.payload.CustomResponse;
-import com.swp391.ims_application.payload.RoleAccountCountDTO;
 import com.swp391.ims_application.payload.UserDTO;
 import com.swp391.ims_application.service.SendMailService;
 import com.swp391.ims_application.service.imp.IRoleService;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -101,22 +101,15 @@ public class AdminController {
     }
 
 
-    @GetMapping("/role-account-count")
-    public ResponseEntity<List<RoleAccountCountDTO>> getRoleAccountCount() {
-        List<RoleAccountCountDTO> roleAccountCounts = userService.getRoleAccountCount();
-        return new ResponseEntity<>(roleAccountCounts, HttpStatus.OK);
-        // Mock data
-        /*List<RoleAccountCountDTO> mockData = new ArrayList<>();
-        mockData.add(new RoleAccountCountDTO("ROLE_ADMIN", 5));
-        mockData.add(new RoleAccountCountDTO("ROLE_USER", 20));
-        mockData.add(new RoleAccountCountDTO("ROLE_MENTOR", 3));
-
-        return new ResponseEntity<>(mockData, HttpStatus.OK);*/
+    @GetMapping("/users/count-by-role")
+    public ResponseEntity<Map<String, Long>> countUsersByRole() {
+        Map<String, Long> roleCountMap = userService.countUsersByRole();
+        return ResponseEntity.ok().body(roleCountMap);
     }
 
-    @GetMapping("/total-account-count")
-    public ResponseEntity<Long> getTotalAccountCount() {
-        long totalAccounts = userService.countTotalUsers();
-        return ResponseEntity.ok(totalAccounts);
+    @GetMapping("/users/count-total")
+    public ResponseEntity<Long> countTotalUsers() {
+        long totalUsers = userService.countTotalUsers();
+        return ResponseEntity.ok().body(totalUsers);
     }
 }

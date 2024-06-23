@@ -2,11 +2,11 @@ package com.swp391.ims_application.service.imp;
 
 import com.swp391.ims_application.entity.User;
 import com.swp391.ims_application.payload.AccountDTO;
-import com.swp391.ims_application.payload.RoleAccountCountDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
 import com.swp391.ims_application.payload.UserDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IUserService {
     User login(String username, String password);
@@ -37,7 +37,7 @@ public interface IUserService {
 
     boolean assignInternToTrainingProgram(int trainingProgramId, int internId);
 
-    List<RoleAccountCountDTO> getRoleAccountCount();
+    Map<String, Long> countUsersByRole();
 
     long countTotalUsers();
 }

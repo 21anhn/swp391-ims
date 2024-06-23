@@ -2,7 +2,6 @@ package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.*;
 import com.swp391.ims_application.payload.AccountDTO;
-import com.swp391.ims_application.payload.RoleAccountCountDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
 import com.swp391.ims_application.payload.UserDTO;
 import com.swp391.ims_application.repository.*;
@@ -14,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImp implements IUserService {
@@ -282,12 +283,15 @@ public class UserServiceImp implements IUserService {
     }
 
     @Override
-    public List<RoleAccountCountDTO> getRoleAccountCount() {
-        return userRepository.countAccountsByRole();
+    public Map<String, Long> countUsersByRole() {
+        List<User> users = userRepository.findAll();
+        Map<String, Long> roleCountMap = users.stream()
+                .collect(Collectors.groupingBy(user -> user.getRole().getRoleName(), Collectors.counting()));
+        return roleCountMap;
     }
 
     @Override
     public long countTotalUsers() {
-        return userRepository.countTotalUsers();
+        return userRepository.count();
     }
 }
