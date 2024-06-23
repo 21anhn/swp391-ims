@@ -1,5 +1,6 @@
 package com.swp391.ims_application.controller;
 
+import com.swp391.ims_application.payload.AccountDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
 import com.swp391.ims_application.service.imp.ITrainingProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ public class TrainingProgramController {
     @PostMapping
     public ResponseEntity<?> createTrainingProgram(@RequestBody TrainingProgramDTO trainingProgramDTO) {
         boolean check = trainingProgramService.createTrainingProgram(trainingProgramDTO);
-        if (check) {
+        if(check) {
             return new ResponseEntity<>("Successfully created training program!", HttpStatus.CREATED);
         }
         return new ResponseEntity<>("Falied creation training program!", HttpStatus.BAD_REQUEST);
@@ -46,7 +47,7 @@ public class TrainingProgramController {
     @PutMapping("/{programId}")
     public ResponseEntity<?> editTrainingProgram(@PathVariable int programId, @RequestBody TrainingProgramDTO trainingProgramDTO) {
         boolean check = trainingProgramService.editTrainingProgram(programId, trainingProgramDTO);
-        if (check) {
+        if(check) {
             return new ResponseEntity<>("Successfully edited training program!", HttpStatus.CREATED);
         }
         return new ResponseEntity<>("Falied edition training program!", HttpStatus.BAD_REQUEST);
@@ -55,9 +56,38 @@ public class TrainingProgramController {
     @DeleteMapping("/{programId}")
     public ResponseEntity<?> deleteTrainingProgram(@PathVariable int programId) {
         boolean check = trainingProgramService.deleteTrainingProgram(programId);
-        if (check) {
+        if(check) {
             return new ResponseEntity<>("Successfully edited training program!", HttpStatus.OK);
         }
         return new ResponseEntity<>("Falied edition training program!", HttpStatus.BAD_REQUEST);
     }
+
+    @PostMapping("/{programId}/add-intern/{internId}")
+    public ResponseEntity<?> addInternToTrainingProgram(@PathVariable int programId, @PathVariable int internId) {
+        boolean check = trainingProgramService.addInternToTrainingProgram(programId, internId);
+        if (check) {
+            return new ResponseEntity<>("Successfully added intern to training program!", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Failed to add intern to training program!", HttpStatus.BAD_REQUEST);
+    }
+
+    @DeleteMapping("/{programId}/remove-intern/{internId}")
+    public ResponseEntity<?> removeInternFromTrainingProgram(@PathVariable int programId, @PathVariable int internId) {
+        boolean check = trainingProgramService.removeInternFromTrainingProgram(programId, internId);
+        if (check) {
+            return new ResponseEntity<>("Successfully removed intern from training program!", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Failed to remove intern from training program!", HttpStatus.BAD_REQUEST);
+    }
+
+
+    @GetMapping("/{programId}/interns")
+    public ResponseEntity<?> getAllInternsInTrainingProgram(@PathVariable int programId) { //format line new
+        List<AccountDTO> internDTOs = trainingProgramService.getAllInternsInTrainingProgram(programId);
+        if (!internDTOs.isEmpty()) {
+            return new ResponseEntity<>(internDTOs, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("No interns found in the training program!", HttpStatus.NOT_FOUND);
+    }
+
 }
