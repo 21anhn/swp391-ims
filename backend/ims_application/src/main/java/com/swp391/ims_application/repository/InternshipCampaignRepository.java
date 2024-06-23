@@ -10,4 +10,6 @@ public interface InternshipCampaignRepository extends JpaRepository<InternshipCa
     InternshipCampaign findByCampaignId(int id);
 
     List<InternshipCampaign> findByCampaignNameContaining(String name);
+
+    long count();
 }
