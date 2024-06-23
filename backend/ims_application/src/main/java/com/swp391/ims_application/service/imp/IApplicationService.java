@@ -20,4 +20,6 @@ public interface IApplicationService {
     boolean updateStatus(int applicationId, String status);
 
     boolean updateInterviewDateInApplication(int applicationId, ApplicationDTO applicationDTO);
+
+    long countByCampaignId(int campaignId);
 }

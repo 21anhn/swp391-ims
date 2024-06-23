@@ -11,4 +11,6 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
     Application findByEmail(String email);
 
     List<Application> findByInternshipCampaignCampaignIdAndStatus(int campaignId, String status);
+
+    long countByInternshipCampaignCampaignId(int campaignId);
 }
