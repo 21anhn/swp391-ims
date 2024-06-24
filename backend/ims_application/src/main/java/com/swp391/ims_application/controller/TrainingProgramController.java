@@ -1,7 +1,9 @@
 package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.payload.AccountDTO;
+import com.swp391.ims_application.payload.ReportByAverageScoreDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
+import com.swp391.ims_application.service.ReportService;
 import com.swp391.ims_application.service.imp.ITrainingProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,9 @@ public class TrainingProgramController {
 
     @Autowired
     private ITrainingProgramService trainingProgramService;
+
+    @Autowired
+    private ReportService reportService;
 
     @GetMapping
     public ResponseEntity<?> getAllTrainingProgram() {
@@ -90,4 +95,9 @@ public class TrainingProgramController {
         return new ResponseEntity<>("No interns found in the training program!", HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/average-score/{programId}")
+    public ResponseEntity<List<ReportByAverageScoreDTO>> getAverageScoreReport(@PathVariable("programId") int programId) {
+        List<ReportByAverageScoreDTO> reportResponses = reportService.generateAverageScoreReport(programId);
+        return ResponseEntity.ok(reportResponses);
+    }
 }
