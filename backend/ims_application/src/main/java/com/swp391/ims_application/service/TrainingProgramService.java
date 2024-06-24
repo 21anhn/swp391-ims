@@ -165,7 +165,6 @@ public class TrainingProgramService implements ITrainingProgramService {
             return internDTOs;
         }
 
-        return Collections.emptyList();
+        return Collections.emptyList();//format line new
     }
-
 }
