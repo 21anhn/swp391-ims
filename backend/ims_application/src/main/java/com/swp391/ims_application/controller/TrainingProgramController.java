@@ -87,7 +87,7 @@ public class TrainingProgramController {
 
 
     @GetMapping("/{programId}/interns")
-    public ResponseEntity<?> getAllInternsInTrainingProgram(@PathVariable int programId) { //format line new
+    public ResponseEntity<?> getAllInternsInTrainingProgram(@PathVariable int programId) {
         List<AccountDTO> internDTOs = trainingProgramService.getAllInternsInTrainingProgram(programId);
         if (!internDTOs.isEmpty()) {
             return new ResponseEntity<>(internDTOs, HttpStatus.OK);
