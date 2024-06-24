@@ -1,5 +1,4 @@
 package com.swp391.ims_application.controller;
-
 import com.swp391.ims_application.payload.ReportByAverageScoreDTO;
 import com.swp391.ims_application.payload.AccountDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
