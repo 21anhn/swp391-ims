@@ -21,5 +21,5 @@ public interface ITrainingProgramService {
 
     boolean removeInternFromTrainingProgram(int programId, int internId);
 
-    List<AccountDTO> getAllInternsInTrainingProgram(int programId);
+    List<AccountDTO> getAllInternsInTrainingProgram(int programId); //format line new
 }
