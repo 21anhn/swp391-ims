@@ -9,7 +9,6 @@ public class TrainingProgramDTO {
     private int programId;
     private String programName;
     private String description;
-    private boolean avaliable;
     private String objectives;
     private int mentorId;
     private String mentorName;
