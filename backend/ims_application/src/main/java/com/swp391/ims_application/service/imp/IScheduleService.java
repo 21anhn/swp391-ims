@@ -10,4 +10,7 @@ public interface IScheduleService {
 
     boolean createSchedule(ScheduleDTO scheduleDTO, int campaignId);
 
+    boolean deleteSchedule(int scheduleId);
+
+    boolean editSchedule(int scheduleId, ScheduleDTO scheduleDTO);
 }
