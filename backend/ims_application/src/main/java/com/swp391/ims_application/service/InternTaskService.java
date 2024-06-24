@@ -20,4 +20,13 @@ public class InternTaskService implements IInternTaskService {
     public InternTask findInternTaskById(int id) {
         return internTaskRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public String getMentorFeedbackByTaskId(int taskId) {
+        InternTask internTask = internTaskRepository.findById(taskId).orElse(null);
+        if (internTask != null) {
+            return internTask.getComment();
+        }
+        return null;
+    }
 }

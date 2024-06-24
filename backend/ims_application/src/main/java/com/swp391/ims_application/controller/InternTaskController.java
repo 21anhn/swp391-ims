@@ -47,4 +47,14 @@ public class InternTaskController {
             return new ResponseEntity<>("Could not upload the file: " + file.getOriginalFilename() + "!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/{id}/feedback")
+    public ResponseEntity<String> getMentorFeedback(@PathVariable int id) {
+        String feedback = internTaskService.getMentorFeedbackByTaskId(id);
+        if (feedback != null) {
+            return new ResponseEntity<>(feedback, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Feedback not found for task ID: " + id, HttpStatus.NOT_FOUND);
+        }
+    }
 }
