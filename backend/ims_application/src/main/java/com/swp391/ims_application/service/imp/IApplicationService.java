@@ -2,6 +2,7 @@ package com.swp391.ims_application.service.imp;
 
 import com.swp391.ims_application.entity.Application;
 import com.swp391.ims_application.payload.ApplicationDTO;
+import com.swp391.ims_application.payload.InternshipCampaignApplicationCountDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -22,4 +23,6 @@ public interface IApplicationService {
     boolean updateInterviewDateInApplication(int applicationId, ApplicationDTO applicationDTO);
 
     long countByCampaignId(int campaignId);
+
+    List<InternshipCampaignApplicationCountDTO> countApplicationsForEachCampaign();
 }

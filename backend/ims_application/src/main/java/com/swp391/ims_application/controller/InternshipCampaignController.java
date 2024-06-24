@@ -3,8 +3,10 @@ package com.swp391.ims_application.controller;
 import com.swp391.ims_application.entity.InternshipCampaign;
 import com.swp391.ims_application.payload.CustomResponse;
 import com.swp391.ims_application.payload.ICampaignResponse;
+import com.swp391.ims_application.payload.InternshipCampaignApplicationCountDTO;
 import com.swp391.ims_application.payload.InternshipCampaignRequest;
 import com.swp391.ims_application.repository.UserRepository;
+import com.swp391.ims_application.service.ApplicationService;
 import com.swp391.ims_application.service.imp.IIternshipCampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +24,12 @@ public class InternshipCampaignController {
 
     @Autowired
     private IIternshipCampaignService intershipCampaignService;
+
     @Autowired
     private UserRepository userRepository; // Inject UserRepository
 
+    @Autowired
+    private ApplicationService applicationService;
 
     @GetMapping
     public ResponseEntity<?> getInternship() {
@@ -155,5 +160,14 @@ public class InternshipCampaignController {
         return intershipCampaignService.countApplicationsInCampaign(id);
     }
 
-
+    @GetMapping("/applications/count")
+    public ResponseEntity<?> countApplicationsForEachCampaign() {
+        List<InternshipCampaignApplicationCountDTO> counts = applicationService.countApplicationsForEachCampaign();
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setSuccess(true);
+        customResponse.setStatus(HttpStatus.OK.value());
+        customResponse.setMessage("Number of applications for each internship campaign");
+        customResponse.setData(counts);
+        return new ResponseEntity<>(customResponse, HttpStatus.OK);
+    }
 }
