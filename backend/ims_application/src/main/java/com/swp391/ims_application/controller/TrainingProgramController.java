@@ -95,7 +95,6 @@ public class TrainingProgramController {
         return new ResponseEntity<>("No interns found in the training program!", HttpStatus.NOT_FOUND);
     }
 
-
     @GetMapping("/average-score/{programId}")
     public ResponseEntity<List<ReportByAverageScoreDTO>> getAverageScoreReport(@PathVariable("programId") int programId) {
         List<ReportByAverageScoreDTO> reportResponses = reportService.generateAverageScoreReport(programId);
