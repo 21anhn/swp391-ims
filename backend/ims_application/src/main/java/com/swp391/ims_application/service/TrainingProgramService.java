@@ -1,13 +1,9 @@
 package com.swp391.ims_application.service;
 
-import com.swp391.ims_application.entity.TrainingProgram;
-import com.swp391.ims_application.entity.TrainingProgramIntern;
-import com.swp391.ims_application.entity.User;
+import com.swp391.ims_application.entity.*;
 import com.swp391.ims_application.payload.AccountDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
-import com.swp391.ims_application.repository.TrainingProgramInternRepository;
-import com.swp391.ims_application.repository.TrainingProgramRepository;
-import com.swp391.ims_application.repository.UserRepository;
+import com.swp391.ims_application.repository.*;
 import com.swp391.ims_application.service.imp.ITrainingProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +24,12 @@ public class TrainingProgramService implements ITrainingProgramService {
 
     @Autowired
     private TrainingProgramInternRepository trainingProgramInternRepository;
+
+    @Autowired
+    private InternTaskRepository internTaskRepository;
+
+    @Autowired
+    private TaskRepository taskRepository;
 
     @Override
     public boolean createTrainingProgram(TrainingProgramDTO trainingProgramDTO) {
@@ -168,6 +170,13 @@ public class TrainingProgramService implements ITrainingProgramService {
         return Collections.emptyList();//format line new
     }
 
+    @Override
+    public long getTasksCompletedByIntern(int programId, int internId) {
+        return internTaskRepository.countByTaskTrainingProgramProgramIdAndUserInternUserIdAndScoreIsNotNull(programId, internId);
+    }
 
-
+    @Override
+    public long getTotalTasksForIntern(int programId, int internId) {
+        return internTaskRepository.countByTaskTrainingProgramProgramIdAndUserInternUserId(programId, internId);
+    }
 }

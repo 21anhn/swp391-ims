@@ -1,6 +1,7 @@
 package com.swp391.ims_application.service.imp;
 
 import com.swp391.ims_application.payload.AccountDTO;
+import com.swp391.ims_application.payload.InternDashboardDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
 
 import java.util.List;
@@ -21,5 +22,9 @@ public interface ITrainingProgramService {
 
     boolean removeInternFromTrainingProgram(int programId, int internId);
 
-    List<AccountDTO> getAllInternsInTrainingProgram(int programId); //format line new
+    List<AccountDTO> getAllInternsInTrainingProgram(int programId);
+
+    long getTasksCompletedByIntern(int programId, int internId);
+
+    long getTotalTasksForIntern(int programId, int internId);
 }

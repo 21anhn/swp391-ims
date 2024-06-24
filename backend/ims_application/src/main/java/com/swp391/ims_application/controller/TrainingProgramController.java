@@ -1,14 +1,19 @@
 package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.payload.AccountDTO;
+import com.swp391.ims_application.payload.InternDashboardDTO;
+import com.swp391.ims_application.payload.ReportByAverageScoreDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
+import com.swp391.ims_application.service.ReportService;
 import com.swp391.ims_application.service.imp.ITrainingProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/training-program")
@@ -16,6 +21,9 @@ public class TrainingProgramController {
 
     @Autowired
     private ITrainingProgramService trainingProgramService;
+
+    @Autowired
+    private ReportService reportService;
 
     @GetMapping
     public ResponseEntity<?> getAllTrainingProgram() {
@@ -90,4 +98,28 @@ public class TrainingProgramController {
         return new ResponseEntity<>("No interns found in the training program!", HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/average-score/{programId}")
+    public ResponseEntity<List<ReportByAverageScoreDTO>> getAverageScoreReport(@PathVariable("programId") int programId) {
+        List<ReportByAverageScoreDTO> reportResponses = reportService.generateAverageScoreReport(programId);
+        return ResponseEntity.ok(reportResponses);
+    }
+
+    @GetMapping("/{programId}/intern/{internId}/task-completion")
+    public ResponseEntity<?> getTaskCompletionForIntern(@PathVariable int programId, @PathVariable int internId) {
+        long tasksCompleted = trainingProgramService.getTasksCompletedByIntern(programId, internId);
+        long totalTasks = trainingProgramService.getTotalTasksForIntern(programId, internId);
+
+        if (totalTasks == 0) {
+            return ResponseEntity.ok("No tasks assigned to this intern in the training program.");
+        }
+
+        double completionRate = (double) tasksCompleted / totalTasks * 100;
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("tasksCompleted", tasksCompleted);
+        response.put("totalTasks", totalTasks);
+        response.put("completionRate", completionRate);
+
+        return ResponseEntity.ok(response);
+    }
 }
