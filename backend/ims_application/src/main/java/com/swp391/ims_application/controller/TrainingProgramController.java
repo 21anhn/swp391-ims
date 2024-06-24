@@ -122,4 +122,14 @@ public class TrainingProgramController {
 
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/intern/{internId}/program-count")
+    public ResponseEntity<?> getTrainingProgramCountByInternId(@PathVariable int internId) {
+        long programCount = trainingProgramService.countTrainingProgramsByInternId(internId);
+        String message = "Intern with ID " + internId + " is participating in " + programCount + " training program(s).";
+        Map<String, Object> response = new HashMap<>();
+        response.put("programCount", programCount);
+        response.put("message", message);
+
+        return ResponseEntity.ok(response);
+    }
 }
