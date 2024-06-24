@@ -1,6 +1,7 @@
 package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.payload.ReportByAverageScoreDTO;
+import com.swp391.ims_application.payload.AccountDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
 import com.swp391.ims_application.service.ReportService;
 import com.swp391.ims_application.service.imp.ITrainingProgramService;
@@ -65,6 +66,35 @@ public class TrainingProgramController {
         }
         return new ResponseEntity<>("Falied edition training program!", HttpStatus.BAD_REQUEST);
     }
+
+    @PostMapping("/{programId}/add-intern/{internId}")
+    public ResponseEntity<?> addInternToTrainingProgram(@PathVariable int programId, @PathVariable int internId) {
+        boolean check = trainingProgramService.addInternToTrainingProgram(programId, internId);
+        if (check) {
+            return new ResponseEntity<>("Successfully added intern to training program!", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Failed to add intern to training program!", HttpStatus.BAD_REQUEST);
+    }
+
+    @DeleteMapping("/{programId}/remove-intern/{internId}")
+    public ResponseEntity<?> removeInternFromTrainingProgram(@PathVariable int programId, @PathVariable int internId) {
+        boolean check = trainingProgramService.removeInternFromTrainingProgram(programId, internId);
+        if (check) {
+            return new ResponseEntity<>("Successfully removed intern from training program!", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Failed to remove intern from training program!", HttpStatus.BAD_REQUEST);
+    }
+
+
+    @GetMapping("/{programId}/interns")
+    public ResponseEntity<?> getAllInternsInTrainingProgram(@PathVariable int programId) {
+        List<AccountDTO> internDTOs = trainingProgramService.getAllInternsInTrainingProgram(programId);
+        if (!internDTOs.isEmpty()) {
+            return new ResponseEntity<>(internDTOs, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("No interns found in the training program!", HttpStatus.NOT_FOUND);
+    }
+
 
     @GetMapping("/average-score/{programId}")
     public ResponseEntity<List<ReportByAverageScoreDTO>> getAverageScoreReport(@PathVariable("programId") int programId) {
