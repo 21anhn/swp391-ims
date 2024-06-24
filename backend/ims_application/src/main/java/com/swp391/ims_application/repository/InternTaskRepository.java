@@ -1,6 +1,8 @@
 package com.swp391.ims_application.repository;
 
 import com.swp391.ims_application.entity.InternTask;
+import com.swp391.ims_application.entity.Task;
+import com.swp391.ims_application.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,4 +17,9 @@ public interface InternTaskRepository extends JpaRepository<InternTask, Integer>
             "WHERE it.task.trainingProgram.programId = :programId " +
             "GROUP BY it.userIntern.userId, it.task.trainingProgram.programId")
     List<Object[]> calculateAverageScoreByProgramId(@Param("programId") int programId);
+
+    long countByTaskTrainingProgramProgramIdAndUserInternUserIdAndScoreIsNotNull(int programId, int internId);
+
+    long countByTaskTrainingProgramProgramIdAndUserInternUserId(int programId, int internId);
+
 }

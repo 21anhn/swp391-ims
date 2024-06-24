@@ -24,8 +24,12 @@ public class InternTask {
     private Task task;
 
     @Column(name = "score")
-    private float score;
+    private Float score;
 
     @Column(name = "comment")
     private String comment;
+
+    public boolean isCompleted() {
+        return score != null;
+    }
 }
