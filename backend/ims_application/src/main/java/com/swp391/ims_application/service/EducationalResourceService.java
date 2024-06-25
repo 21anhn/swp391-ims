@@ -116,4 +116,24 @@ public class EducationalResourceService implements IEducationalResourceService {
                 programId
         );
     }
+
+    @Override
+    public List<EducationalResourceDTO> getEducationalResourcesByMentorId(int mentorId) {
+        List<EducationalResource> resources = educationalResourceRepository.findEducationalResourcesByMentorId(mentorId);
+        return resources.stream().map(resource -> {
+            int programId = 0;
+            if (resource.getProgramTrainingResources() != null && !resource.getProgramTrainingResources().isEmpty()) {
+                programId = resource.getProgramTrainingResources().get(0).getTrainingProgram().getProgramId();
+            }
+            return new EducationalResourceDTO(
+                    resource.getResourceId(),
+                    resource.getResourceName(),
+                    resource.getDescription(),
+                    resource.getUrl(),
+                    resource.getCreatedDate(),
+                    resource.isAvailable(),
+                    programId
+            );
+        }).collect(Collectors.toList());
+    }
 }

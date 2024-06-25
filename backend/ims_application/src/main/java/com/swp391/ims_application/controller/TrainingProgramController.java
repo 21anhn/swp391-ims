@@ -179,4 +179,10 @@ public class TrainingProgramController {
         }
         return new ResponseEntity<>("Educational resource not found with id: " + resourceId, HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/{programId}/mentor-educational-resources")
+    public ResponseEntity<?> getEducationalResourcesByMentor(@PathVariable int programId) {
+        List<EducationalResourceDTO> resources = educationalResourceService.getEducationalResourcesByMentorId(programId);
+        return new ResponseEntity<>(resources, HttpStatus.OK);
+    }
 }
