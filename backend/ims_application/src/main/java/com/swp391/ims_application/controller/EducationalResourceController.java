@@ -3,7 +3,6 @@ package com.swp391.ims_application.controller;
 import com.swp391.ims_application.entity.EducationalResource;
 import com.swp391.ims_application.service.EducationalResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,13 +54,5 @@ public class EducationalResourceController {
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-    @GetMapping("/intern/{internId}")
-    public ResponseEntity<List<EducationalResource>> getEducationalResourcesByInternId(@PathVariable int internId) {
-        List<EducationalResource> resources = service.getEducationalResourcesByInternId(internId);
-        if (resources.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(resources, HttpStatus.OK);
     }
 }
