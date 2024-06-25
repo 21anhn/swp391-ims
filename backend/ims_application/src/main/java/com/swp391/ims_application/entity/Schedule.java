@@ -25,7 +25,7 @@ public class Schedule {
     private String interviewLocation;
 
     @Column(name = "status")
-    private String status;
+    private boolean status;
 
     @OneToMany(mappedBy = "schedule")
     private List<MentorSchedule> mentorSchedules;
