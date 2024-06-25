@@ -18,11 +18,9 @@ public class ProgramTrainingResource {
 
     @ManyToOne
     @JoinColumn(name = "resource_id")
-    @JsonBackReference
     private EducationalResource educationalResource;
 
     @ManyToOne
     @JoinColumn(name = "program_id")
-    @JsonBackReference
     private TrainingProgram trainingProgram;
 }

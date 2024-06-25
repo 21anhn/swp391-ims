@@ -14,9 +14,13 @@ public interface ProgramTrainingResourceRepository extends JpaRepository<Program
     @Query("SELECT ptr FROM ProgramTrainingResource ptr WHERE ptr.educationalResource.resourceId = :resourceId AND ptr.trainingProgram.programId = :programId")
     ProgramTrainingResource findByResourceIdAndProgramId(@Param("resourceId") int resourceId, @Param("programId") int programId);
 
-    @Query("SELECT ptr.educationalResource FROM ProgramTrainingResource ptr " +
+    @Query("SELECT ptr FROM ProgramTrainingResource ptr " +
             "JOIN ptr.trainingProgram tp " +
             "JOIN tp.trainingProgramInterns tpi " +
-            "WHERE tpi.userIntern.userId = :internId")
-    List<EducationalResource> findAllEducationalResourcesByInternId(@Param("internId") int internId);
+            "WHERE tp.programId = :programId " +
+            "AND tpi.userIntern.userId = :internId")
+    List<ProgramTrainingResource> findByProgramIdAndInternId(int programId, int internId);
+
+
+
 }

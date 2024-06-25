@@ -25,11 +25,8 @@ public class EducationalResourceService implements IEducationalResourceService {
     @Autowired
     private TrainingProgramRepository trainingProgramRepository;
 
-    private final ProgramTrainingResourceRepository programTrainingResourceRepository;
-
     @Autowired
     private ProgramTrainingResourceRepository programTrainingResourceRepository;
-
 
     @Override
     public boolean createEducationalResource(EducationalResourceDTO resourceDTO) {
@@ -121,7 +118,18 @@ public class EducationalResourceService implements IEducationalResourceService {
     }
 
     @Override
-    public List<EducationalResource> getEducationalResourcesByInternId(int internId) {
-        return programTrainingResourceRepository.findAllEducationalResourcesByInternId(internId);
+    public List<EducationalResourceDTO> getEducationalResourcesByTrainingProgramAndIntern(int programId, int internId) {
+        List<ProgramTrainingResource> resources = programTrainingResourceRepository.findByProgramIdAndInternId(programId, internId);
+        return resources.stream()
+                .map(resource -> new EducationalResourceDTO(
+                        resource.getEducationalResource().getResourceId(),
+                        resource.getEducationalResource().getResourceName(),
+                        resource.getEducationalResource().getDescription(),
+                        resource.getEducationalResource().getUrl(),
+                        resource.getEducationalResource().getCreatedDate(),
+                        resource.getEducationalResource().isAvailable(),
+                        resource.getTrainingProgram().getProgramId()
+                ))
+                .collect(Collectors.toList());
     }
 }
