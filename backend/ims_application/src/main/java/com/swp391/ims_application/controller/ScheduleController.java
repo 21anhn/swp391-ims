@@ -34,4 +34,24 @@ public class ScheduleController {
         }
         return new ResponseEntity<>("Failed create schedule!", HttpStatus.BAD_REQUEST);
     }
+
+    @DeleteMapping("/{scheduleId}")
+    public ResponseEntity<?> deleteSchedule(@PathVariable int scheduleId) {
+        boolean check = scheduleService.deleteSchedule(scheduleId);
+        if (check) {
+            return new ResponseEntity<>("Successfully deleted schedule!", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Failed to delete schedule!", HttpStatus.BAD_REQUEST);
+    }
+
+    @PutMapping("/{scheduleId}")
+    public ResponseEntity<?> editSchedule(@PathVariable int scheduleId, @RequestBody ScheduleDTO scheduleDTO) {
+        boolean check = scheduleService.editSchedule(scheduleId, scheduleDTO);
+        if (check) {
+            return new ResponseEntity<>("Successfully edited schedule!", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Failed to edit schedule!", HttpStatus.BAD_REQUEST);
+    }
+
+
 }

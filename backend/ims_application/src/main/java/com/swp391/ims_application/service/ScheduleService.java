@@ -12,6 +12,7 @@ import com.swp391.ims_application.util.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,7 +64,7 @@ public class ScheduleService implements IScheduleService {
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
             d = sdf.parse(dateTimeString);
             schedule.setInterviewDate(d);
-            schedule.setStatus("Available");
+            schedule.setStatus(true);
             schedule.setInterviewLocation(scheduleDTO.getLocation());
             scheduleRepository.save(schedule);
 
@@ -76,4 +77,44 @@ public class ScheduleService implements IScheduleService {
             return false;
         }
     }
+
+    @Override
+    public boolean deleteSchedule(int scheduleId) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElse(null);
+        if (schedule == null) {
+            return false;
+        }
+        schedule.setStatus(false);
+        scheduleRepository.save(schedule);
+        return true;
+    }
+
+    @Override
+    public boolean editSchedule(int scheduleId, ScheduleDTO scheduleDTO) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElse(null);
+        if (schedule == null) {
+            return false;
+        }
+
+        if (scheduleDTO.getDate() != null && scheduleDTO.getTime() != null) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+                Date interviewDateTime = sdf.parse(scheduleDTO.getDate() + " " + scheduleDTO.getTime());
+                schedule.setInterviewDate(interviewDateTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        if (scheduleDTO.getLocation() != null) {
+            schedule.setInterviewLocation(scheduleDTO.getLocation());
+        }
+
+        schedule.setStatus(true);
+
+        scheduleRepository.save(schedule);
+        return true;
+    }
+
 }

@@ -6,4 +6,5 @@ public interface IInternTaskService {
 
     InternTask saveInternTask(InternTask internTask);
     InternTask findInternTaskById(int id);
+    String getMentorFeedbackByTaskId(int taskId);
 }
