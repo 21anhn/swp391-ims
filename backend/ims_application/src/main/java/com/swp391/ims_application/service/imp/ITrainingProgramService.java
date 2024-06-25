@@ -1,7 +1,6 @@
 package com.swp391.ims_application.service.imp;
 
 import com.swp391.ims_application.payload.AccountDTO;
-import com.swp391.ims_application.payload.InternDashboardDTO;
 import com.swp391.ims_application.payload.TrainingProgramDTO;
 
 import java.util.List;
