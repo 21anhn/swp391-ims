@@ -40,4 +40,8 @@ public interface IUserService {
     Map<String, Long> countUsersByRole();
 
     long countTotalUsers();
+
+    long countInternsInTrainingProgram();
+
+    long countInternsNotInTrainingProgram();
 }

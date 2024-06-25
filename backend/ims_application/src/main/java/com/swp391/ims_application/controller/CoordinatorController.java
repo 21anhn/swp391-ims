@@ -4,10 +4,7 @@ import com.swp391.ims_application.service.imp.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/coordinator")
@@ -23,5 +20,17 @@ public class CoordinatorController {
             return new ResponseEntity<>("Successfully assigned intern: " + internId + " to program: " + programId, HttpStatus.OK);
         }
         return new ResponseEntity<>("Failed to assign intern: " + internId + " to program: " + programId, HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/count/in-training")
+    public ResponseEntity<Long> countInternsInTrainingProgram() {
+        long count = userService.countInternsInTrainingProgram();
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
+    @GetMapping("/count/not-in-training")
+    public ResponseEntity<Long> countInternsNotInTrainingProgram() {
+        long count = userService.countInternsNotInTrainingProgram();
+        return new ResponseEntity<>(count, HttpStatus.OK);
     }
 }
