@@ -1,5 +1,6 @@
 package com.swp391.ims_application.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class TrainingProgramIntern {
 
     @ManyToOne
     @JoinColumn(name = "program_id")
+    @JsonBackReference
     private TrainingProgram trainingProgram;
 
     @ManyToOne

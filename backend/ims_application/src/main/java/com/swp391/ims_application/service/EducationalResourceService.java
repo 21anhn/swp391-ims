@@ -2,6 +2,7 @@ package com.swp391.ims_application.service;
 
 import com.swp391.ims_application.entity.EducationalResource;
 import com.swp391.ims_application.repository.EducationalResourceRepository;
+import com.swp391.ims_application.repository.ProgramTrainingResourceRepository;
 import com.swp391.ims_application.service.imp.IEducationalResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,12 @@ public class EducationalResourceService implements IEducationalResourceService {
 
     private final EducationalResourceRepository repository;
 
+    private final ProgramTrainingResourceRepository programTrainingResourceRepository;
+
     @Autowired
-    public EducationalResourceService(EducationalResourceRepository repository) {
+    public EducationalResourceService(EducationalResourceRepository repository, ProgramTrainingResourceRepository programTrainingResourceRepository) {
         this.repository = repository;
+        this.programTrainingResourceRepository = programTrainingResourceRepository;
     }
 
     @Override
@@ -56,5 +60,10 @@ public class EducationalResourceService implements IEducationalResourceService {
     @Override
     public List<EducationalResource> getAllEducationalResources() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<EducationalResource> getEducationalResourcesByInternId(int internId) {
+        return programTrainingResourceRepository.findAllEducationalResourcesByInternId(internId);
     }
 }

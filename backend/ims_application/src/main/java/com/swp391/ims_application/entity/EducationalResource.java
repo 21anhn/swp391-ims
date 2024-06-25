@@ -1,5 +1,7 @@
 package com.swp391.ims_application.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -36,6 +38,7 @@ public class EducationalResource {
     private boolean isAvailable;
 
     @OneToMany(mappedBy = "educationalResource")
+    @JsonIgnore
     private List<ProgramTrainingResource> programTrainingResources;
 
 }

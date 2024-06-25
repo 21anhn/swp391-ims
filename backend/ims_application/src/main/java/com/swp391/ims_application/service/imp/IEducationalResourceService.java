@@ -14,4 +14,6 @@ public interface IEducationalResourceService {
     EducationalResource getEducationalResourceById(int resourceId);
 
     List<EducationalResource> getAllEducationalResources();
+
+    List<EducationalResource> getEducationalResourcesByInternId(int internId);
 }
