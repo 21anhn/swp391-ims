@@ -294,4 +294,17 @@ public class UserServiceImp implements IUserService {
     public long countTotalUsers() {
         return userRepository.count();
     }
+
+    @Override
+    public long countInternsInTrainingProgram() {
+        return trainingProgramInternRepository.countDistinctByUserInternIsNotNull();
+    }
+
+    @Override
+    public long countInternsNotInTrainingProgram() {
+        long totalInterns = userRepository.countByRoleRoleName("ROLE_INTERN");
+        long internsInTrainingProgram = countInternsInTrainingProgram();
+        long internsNotInTrainingProgram = totalInterns - internsInTrainingProgram;
+        return Math.max(internsNotInTrainingProgram, 0);
+    }
 }
