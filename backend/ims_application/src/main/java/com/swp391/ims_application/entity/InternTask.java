@@ -29,6 +29,11 @@ public class InternTask {
     @Column(name = "comment")
     private String comment;
 
+    @Column(name = "file_url")
+    private String fileUrl;
+
+
+
     public boolean isCompleted() {
         return score != null;
     }
