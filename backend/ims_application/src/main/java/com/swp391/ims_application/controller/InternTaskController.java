@@ -1,6 +1,7 @@
 package com.swp391.ims_application.controller;
 
 import com.swp391.ims_application.entity.InternTask;
+import com.swp391.ims_application.payload.FeedbackDTO;
 import com.swp391.ims_application.service.FileService;
 import com.swp391.ims_application.service.InternTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +49,14 @@ public class InternTaskController {
         }
     }
 
-    @GetMapping("/{id}/feedback")
-    public ResponseEntity<String> getMentorFeedback(@PathVariable int id) {
-        String feedback = internTaskService.getMentorFeedbackByTaskId(id);
-        if (feedback != null) {
-            return new ResponseEntity<>(feedback, HttpStatus.OK);
+    @GetMapping("/mentorFeedback/{taskId}")
+    public ResponseEntity<FeedbackDTO> getMentorFeedback(@PathVariable int taskId) {
+        FeedbackDTO feedbackDTO = internTaskService.getMentorFeedbackByTaskId(taskId);
+        if (feedbackDTO != null) {
+            return new ResponseEntity<>(feedbackDTO, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Feedback not found for task ID: " + id, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 }
