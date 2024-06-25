@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface TrainingProgramInternRepository extends JpaRepository<TrainingProgramIntern, Integer> {
     @Query("SELECT COUNT(tpi.trainingProgram.programId) FROM TrainingProgramIntern tpi WHERE tpi.userIntern.userId = :internId")
     long countTrainingProgramsByInternId(@Param("internId") int internId);
+    TrainingProgramIntern findByUserInternUserIdAndTrainingProgramProgramId(int internId, int programId);
 }
+
