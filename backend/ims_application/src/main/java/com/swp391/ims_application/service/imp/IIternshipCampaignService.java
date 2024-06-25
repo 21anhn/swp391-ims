@@ -16,4 +16,6 @@ public interface IIternshipCampaignService {
     boolean deleteById(int id);
 
     long countApplicationsInCampaign(int campaignId);
+
+    long countAvailableCampaigns();
 }

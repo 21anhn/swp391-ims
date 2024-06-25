@@ -170,4 +170,15 @@ public class InternshipCampaignController {
         customResponse.setData(counts);
         return new ResponseEntity<>(customResponse, HttpStatus.OK);
     }
+
+    @GetMapping("/internship-campaign/count")
+    public ResponseEntity<?> countAvailableCampaigns() {
+        long count = intershipCampaignService.countAvailableCampaigns();
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setSuccess(true);
+        customResponse.setStatus(HttpStatus.OK.value());
+        customResponse.setMessage("Number of available internship campaigns");
+        customResponse.setData(count);
+        return new ResponseEntity<>(customResponse, HttpStatus.OK);
+    }
 }
