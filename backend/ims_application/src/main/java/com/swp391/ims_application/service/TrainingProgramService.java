@@ -174,12 +174,12 @@ public class TrainingProgramService implements ITrainingProgramService {
     public long getTasksCompletedByIntern(int programId, int internId) {
         return internTaskRepository.countByTaskTrainingProgramProgramIdAndUserInternUserIdAndScoreIsNotNull(programId, internId);
     }
-
+//new
     @Override
     public long getTotalTasksForIntern(int programId, int internId) {
         return internTaskRepository.countByTaskTrainingProgramProgramIdAndUserInternUserId(programId, internId);
     }
-
+//new
     @Override
     public long countTrainingProgramsByInternId(int internId) {
         return trainingProgramInternRepository.countTrainingProgramsByInternId(internId);

@@ -21,13 +21,13 @@ public class CoordinatorController {
         }
         return new ResponseEntity<>("Failed to assign intern: " + internId + " to program: " + programId, HttpStatus.BAD_REQUEST);
     }
-
+//count internId
     @GetMapping("/count/in-training")
     public ResponseEntity<Long> countInternsInTrainingProgram() {
         long count = userService.countInternsInTrainingProgram();
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
-
+//count-not
     @GetMapping("/count/not-in-training")
     public ResponseEntity<Long> countInternsNotInTrainingProgram() {
         long count = userService.countInternsNotInTrainingProgram();

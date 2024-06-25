@@ -27,7 +27,7 @@ public interface ITrainingProgramService {
     long getTasksCompletedByIntern(int programId, int internId);
 
     long getTotalTasksForIntern(int programId, int internId);
-
+    //new
     long countTrainingProgramsByInternId(int internId);
 
 }
