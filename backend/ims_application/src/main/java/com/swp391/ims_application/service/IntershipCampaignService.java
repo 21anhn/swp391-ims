@@ -3,6 +3,7 @@ package com.swp391.ims_application.service;
 import com.swp391.ims_application.entity.InternshipCampaign;
 import com.swp391.ims_application.repository.ApplicationRepository;
 import com.swp391.ims_application.repository.InternshipCampaignRepository;
+import com.swp391.ims_application.repository.UserRepository;
 import com.swp391.ims_application.service.imp.IIternshipCampaignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,10 @@ import java.util.List;
 
 @Service
 public class IntershipCampaignService implements IIternshipCampaignService {
+
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     InternshipCampaignRepository internshipCampaignRepository;
@@ -59,6 +64,11 @@ public class IntershipCampaignService implements IIternshipCampaignService {
     @Override
     public long countAvailableCampaigns() {
         return internshipCampaignRepository.countByIsAvailableTrue();
+    }
+
+    @Override
+    public long countAllInterns() {
+        return userRepository.countInterns();
     }
 }
 

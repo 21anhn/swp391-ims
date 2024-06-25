@@ -18,4 +18,6 @@ public interface IIternshipCampaignService {
     long countApplicationsInCampaign(int campaignId);
 
     long countAvailableCampaigns();
+
+    long countAllInterns();
 }
