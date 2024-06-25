@@ -134,6 +134,7 @@ public class TrainingProgramController {
         return ResponseEntity.ok(response);
     }
 
+
     @PostMapping("/{programId}/educational-resource")
     public ResponseEntity<?> createEducationalResource(@PathVariable int programId, @RequestBody EducationalResourceDTO resourceDTO) {
         resourceDTO.setTrainingProgramId(programId);
