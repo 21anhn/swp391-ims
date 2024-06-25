@@ -34,4 +34,14 @@ public class TaskController {
         taskService.checkAndUpdateTaskAvailability(id);
         return ResponseEntity.ok("Task availability updated if necessary");
     }
+
+    @PutMapping("/remove/{taskId}")
+    public ResponseEntity<String> removeTaskFromTrainingProgram(@PathVariable int taskId) {
+        boolean isRemoved = taskService.removeTaskFromTrainingProgram(taskId);
+        if (isRemoved) {
+            return ResponseEntity.ok("Task removed successfully");
+        } else {
+            return ResponseEntity.status(404).body("Task not found");
+        }
+    }
 }
