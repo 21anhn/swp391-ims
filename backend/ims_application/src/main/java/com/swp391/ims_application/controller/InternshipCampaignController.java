@@ -13,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/hr")
@@ -169,5 +167,30 @@ public class InternshipCampaignController {
         customResponse.setMessage("Number of applications for each internship campaign");
         customResponse.setData(counts);
         return new ResponseEntity<>(customResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/internship-campaign/count")
+    public ResponseEntity<?> countAvailableCampaigns() {
+        long count = intershipCampaignService.countAvailableCampaigns();
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setSuccess(true);
+        customResponse.setStatus(HttpStatus.OK.value());
+        customResponse.setMessage("Number of available internship campaigns");
+        customResponse.setData(count);
+        return new ResponseEntity<>(customResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/user-intern/count")
+    public ResponseEntity<Map<String, Object>> countAllInterns() {
+        long count = intershipCampaignService.countAllInterns();
+        String message = "Number of internship users in the system";
+
+        // Tạo một đối tượng Map để chứa dữ liệu phản hồi
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", message);
+        response.put("count", count);
+
+        // Trả về ResponseEntity chứa đối tượng Map
+        return ResponseEntity.ok(response);
     }
 }

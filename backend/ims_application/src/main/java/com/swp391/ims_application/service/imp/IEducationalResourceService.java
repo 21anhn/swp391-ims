@@ -17,4 +17,5 @@ public interface IEducationalResourceService {
 
     EducationalResourceDTO getEducationalResourceById(int resourceId);
 
+    List<EducationalResourceDTO> getEducationalResourcesByTrainingProgramAndIntern(int programId, int internId);
 }

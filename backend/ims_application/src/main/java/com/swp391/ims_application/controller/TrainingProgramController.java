@@ -1,5 +1,6 @@
 package com.swp391.ims_application.controller;
 
+import com.swp391.ims_application.entity.EducationalResource;
 import com.swp391.ims_application.payload.*;
 import com.swp391.ims_application.service.ReportService;
 import com.swp391.ims_application.service.imp.IEducationalResourceService;
@@ -178,5 +179,14 @@ public class TrainingProgramController {
             return new ResponseEntity<>(resource, HttpStatus.OK);
         }
         return new ResponseEntity<>("Educational resource not found with id: " + resourceId, HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/{programId}/intern/{internId}/educational-resources")
+    public ResponseEntity<List<EducationalResourceDTO>> getEducationalResourcesForIntern(@PathVariable int programId, @PathVariable int internId) {
+        List<EducationalResourceDTO> resources = educationalResourceService.getEducationalResourcesByTrainingProgramAndIntern(programId, internId);
+        if (resources.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(resources);
     }
 }

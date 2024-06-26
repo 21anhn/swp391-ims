@@ -10,6 +10,7 @@ import com.swp391.ims_application.repository.TrainingProgramRepository;
 import com.swp391.ims_application.service.imp.IEducationalResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -26,7 +27,6 @@ public class EducationalResourceService implements IEducationalResourceService {
 
     @Autowired
     private ProgramTrainingResourceRepository programTrainingResourceRepository;
-
 
     @Override
     public boolean createEducationalResource(EducationalResourceDTO resourceDTO) {
@@ -115,5 +115,21 @@ public class EducationalResourceService implements IEducationalResourceService {
                 resource.isAvailable(),
                 programId
         );
+    }
+
+    @Override
+    public List<EducationalResourceDTO> getEducationalResourcesByTrainingProgramAndIntern(int programId, int internId) {
+        List<ProgramTrainingResource> resources = programTrainingResourceRepository.findByProgramIdAndInternId(programId, internId);
+        return resources.stream()
+                .map(resource -> new EducationalResourceDTO(
+                        resource.getEducationalResource().getResourceId(),
+                        resource.getEducationalResource().getResourceName(),
+                        resource.getEducationalResource().getDescription(),
+                        resource.getEducationalResource().getUrl(),
+                        resource.getEducationalResource().getCreatedDate(),
+                        resource.getEducationalResource().isAvailable(),
+                        resource.getTrainingProgram().getProgramId()
+                ))
+                .collect(Collectors.toList());
     }
 }
