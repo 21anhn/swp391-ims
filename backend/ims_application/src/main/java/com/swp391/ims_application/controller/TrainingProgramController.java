@@ -22,9 +22,6 @@ public class TrainingProgramController {
     private ITrainingProgramService trainingProgramService;
 
     @Autowired
-    private IEducationalResourceService educationalResourceService;
-
-    @Autowired
     private ReportService reportService;
 
     @GetMapping
@@ -133,60 +130,5 @@ public class TrainingProgramController {
         response.put("programCount", programCount);
 
         return ResponseEntity.ok(response);
-    }
-
-
-    @PostMapping("/{programId}/educational-resource")
-    public ResponseEntity<?> createEducationalResource(@PathVariable int programId, @RequestBody EducationalResourceDTO resourceDTO) {
-        resourceDTO.setTrainingProgramId(programId);
-        resourceDTO.setAvailable(true);
-        boolean created = educationalResourceService.createEducationalResource(resourceDTO);
-        if (created) {
-            return new ResponseEntity<>("Educational resource created successfully!", HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>("Failed to create educational resource!", HttpStatus.BAD_REQUEST);
-    }
-
-    @PutMapping("/{programId}/educational-resource")
-    public ResponseEntity<?> editEducationalResource(@PathVariable int programId, @RequestBody EducationalResourceDTO resourceDTO) {
-        resourceDTO.setTrainingProgramId(programId);
-        boolean check = educationalResourceService.updateEducationalResource(resourceDTO);
-        if (check) {
-            return new ResponseEntity<>("Successfully edited educational resource!", HttpStatus.OK);
-        }
-        return new ResponseEntity<>("Failed to edit educational resource!", HttpStatus.BAD_REQUEST);
-    }
-
-    @DeleteMapping("/{programId}/educational-resource/{resourceId}")
-    public ResponseEntity<?> removeEducationalResource(@PathVariable int programId, @PathVariable int resourceId) {
-        boolean removed = educationalResourceService.removeEducationalResourceFromProgram(resourceId, programId);
-        if (removed) {
-            return new ResponseEntity<>("Educational resource removed successfully!", HttpStatus.OK);
-        }
-        return new ResponseEntity<>("Failed to remove educational resource!", HttpStatus.BAD_REQUEST);
-    }
-
-    @GetMapping("/educational-resource")
-    public ResponseEntity<?> getAllEducationalResources() {
-        List<EducationalResourceDTO> resources = educationalResourceService.getAllEducationalResources();
-        return new ResponseEntity<>(resources, HttpStatus.OK);
-    }
-
-    @GetMapping("/educational-resource/{resourceId}")
-    public ResponseEntity<?> getEducationalResourceById(@PathVariable int resourceId) {
-        EducationalResourceDTO resource = educationalResourceService.getEducationalResourceById(resourceId);
-        if (resource != null) {
-            return new ResponseEntity<>(resource, HttpStatus.OK);
-        }
-        return new ResponseEntity<>("Educational resource not found with id: " + resourceId, HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/{programId}/intern/{internId}/educational-resources")
-    public ResponseEntity<List<EducationalResourceDTO>> getEducationalResourcesForIntern(@PathVariable int programId, @PathVariable int internId) {
-        List<EducationalResourceDTO> resources = educationalResourceService.getEducationalResourcesByTrainingProgramAndIntern(programId, internId);
-        if (resources.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(resources);
     }
 }

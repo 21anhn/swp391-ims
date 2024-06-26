@@ -11,7 +11,7 @@ public interface IEducationalResourceService {
 
     boolean updateEducationalResource(EducationalResourceDTO resourceDTO);
 
-    boolean removeEducationalResourceFromProgram(int resourceId, int programId);
+    boolean removeEducationalResource(int resourceId);
 
     List<EducationalResourceDTO> getAllEducationalResources();
 

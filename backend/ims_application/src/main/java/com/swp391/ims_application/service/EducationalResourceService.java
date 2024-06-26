@@ -65,14 +65,13 @@ public class EducationalResourceService implements IEducationalResourceService {
     }
 
     @Override
-    public boolean removeEducationalResourceFromProgram(int resourceId, int programId) {
-        ProgramTrainingResource ptr = programTrainingResourceRepository.findByResourceIdAndProgramId(resourceId, programId);
-        if (ptr == null) {
+    public boolean removeEducationalResource(int resourceId) {
+        EducationalResource resource = educationalResourceRepository.findById(resourceId).orElse(null);
+        if (resource == null) {
             return false;
         }
-        ptr.getEducationalResource().setAvailable(false);
-        educationalResourceRepository.save(ptr.getEducationalResource());
-        programTrainingResourceRepository.delete(ptr);
+        resource.setAvailable(false);
+        educationalResourceRepository.save(resource);
         return true;
     }
 

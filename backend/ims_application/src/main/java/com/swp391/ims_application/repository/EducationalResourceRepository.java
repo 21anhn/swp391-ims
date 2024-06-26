@@ -11,5 +11,6 @@ import java.util.List;
 public interface EducationalResourceRepository extends JpaRepository<EducationalResource, Integer> {
     List<EducationalResource> findAll();
 
+    EducationalResource findByResourceId(int id);
 }
 
