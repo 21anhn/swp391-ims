@@ -57,4 +57,12 @@ public class TaskServiceImpl implements ITaskService {
         }
     }
 
+    @Override
+    public boolean removeTaskFromTrainingProgram(int taskId) {
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new RuntimeException("Task not found"));
+        task.setAvailable(false);
+        taskRepository.save(task);
+        return true;
+    }
+
 }

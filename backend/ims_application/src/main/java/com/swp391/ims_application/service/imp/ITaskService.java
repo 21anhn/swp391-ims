@@ -11,4 +11,5 @@ public interface ITaskService {
 
     void checkAndUpdateTaskAvailability(int taskId);
 
+    boolean removeTaskFromTrainingProgram(int taskId); // New method
 }
