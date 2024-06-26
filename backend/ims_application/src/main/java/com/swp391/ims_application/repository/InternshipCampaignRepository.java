@@ -12,4 +12,6 @@ public interface InternshipCampaignRepository extends JpaRepository<InternshipCa
     List<InternshipCampaign> findByCampaignNameContaining(String name);
 
     long count();
+
+    long countByIsAvailableTrue();
 }

@@ -1,5 +1,6 @@
 package com.swp391.ims_application.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,6 +31,7 @@ public class EducationalResource {
     @Column(name = "created_date")
     private Date createdDate;
 
+    @JsonProperty("isAvailable")
     @Column(name = "is_available")
     private boolean isAvailable;
 

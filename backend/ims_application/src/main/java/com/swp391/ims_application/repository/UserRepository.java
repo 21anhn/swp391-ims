@@ -22,4 +22,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     long countByRoleRoleName(String roleName);
 
+    @Query("SELECT COUNT(u) FROM User u WHERE u.trainingProgramInterns IS NOT EMPTY")
+    long countInterns();
+
 }

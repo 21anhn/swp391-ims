@@ -13,4 +13,5 @@ public interface TrainingProgramInternRepository extends JpaRepository<TrainingP
 
     @Query("SELECT COUNT(DISTINCT tpi.userIntern) FROM TrainingProgramIntern tpi WHERE tpi.userIntern IS NOT NULL")
     long countDistinctByUserInternIsNotNull();
+    TrainingProgramIntern findByUserInternUserIdAndTrainingProgramProgramId(int internId, int programId);
 }
