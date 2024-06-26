@@ -12,5 +12,7 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
 
     TrainingProgram findByProgramId(int id);
 
-    List<TrainingProgram> findByUserMentorUserId(int userId);
+    List<TrainingProgram> findByUserMentor_UserId(int mentorId);
+
+    long countByUserMentor_UserId(int mentorId);
 }
