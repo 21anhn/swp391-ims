@@ -153,10 +153,6 @@ public class InternshipCampaignController {
         return new ResponseEntity<>(customResponse, statusCode);
     }
 
-    @GetMapping("/{id}/applications/count")
-    public long countApplicationsInCampaign(@PathVariable int id) {
-        return intershipCampaignService.countApplicationsInCampaign(id);
-    }
 
     @GetMapping("/applications/count")
     public ResponseEntity<?> countApplicationsForEachCampaign() {
@@ -169,28 +165,5 @@ public class InternshipCampaignController {
         return new ResponseEntity<>(customResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/internship-campaign/count")
-    public ResponseEntity<?> countAvailableCampaigns() {
-        long count = intershipCampaignService.countAvailableCampaigns();
-        CustomResponse customResponse = new CustomResponse();
-        customResponse.setSuccess(true);
-        customResponse.setStatus(HttpStatus.OK.value());
-        customResponse.setMessage("Number of available internship campaigns");
-        customResponse.setData(count);
-        return new ResponseEntity<>(customResponse, HttpStatus.OK);
-    }
 
-    @GetMapping("/user-intern/count")
-    public ResponseEntity<Map<String, Object>> countAllInterns() {
-        long count = intershipCampaignService.countAllInterns();
-        String message = "Number of internship users in the system";
-
-        // Tạo một đối tượng Map để chứa dữ liệu phản hồi
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", message);
-        response.put("count", count);
-
-        // Trả về ResponseEntity chứa đối tượng Map
-        return ResponseEntity.ok(response);
-    }
 }

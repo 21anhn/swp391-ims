@@ -56,19 +56,5 @@ public class IntershipCampaignService implements IIternshipCampaignService {
         return false;
     }
 
-    @Override
-    public long countApplicationsInCampaign(int campaignId) {
-        return applicationRepository.countByInternshipCampaignCampaignId(campaignId);
-    }
-
-    @Override
-    public long countAvailableCampaigns() {
-        return internshipCampaignRepository.countByIsAvailableTrue();
-    }
-
-    @Override
-    public long countAllInterns() {
-        return userRepository.countInterns();
-    }
 }
 

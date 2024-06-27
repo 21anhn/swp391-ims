@@ -28,6 +28,12 @@ public class DashboardService implements IDashboardService {
     @Autowired
     private ScheduleRepository scheduleRepository;
 
+    @Autowired
+    private ApplicationRepository applicationRepository;
+
+    @Autowired
+    InternshipCampaignRepository internshipCampaignRepository;
+
     @Override
     public long countTrainingPrograms(int mentorId) {
         return trainingProgramRepository.countByUserMentor_UserId(mentorId);
@@ -106,5 +112,20 @@ public class DashboardService implements IDashboardService {
         }
 
         return scheduleDTOList;
+    }
+
+    @Override
+    public long countApplicationsInCampaign(int campaignId) {
+        return applicationRepository.countByInternshipCampaignCampaignId(campaignId);
+    }
+
+    @Override
+    public long countAvailableCampaigns() {
+        return internshipCampaignRepository.countByIsAvailableTrue();
+    }
+
+    @Override
+    public long countAllInterns() {
+        return userRepository.countInterns();
     }
 }
