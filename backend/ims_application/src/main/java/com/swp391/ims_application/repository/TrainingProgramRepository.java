@@ -15,4 +15,7 @@ public interface TrainingProgramRepository extends JpaRepository<TrainingProgram
     List<TrainingProgram> findByUserMentor_UserId(int mentorId);
 
     long countByUserMentor_UserId(int mentorId);
+
+    @Query("SELECT COUNT(tp) FROM TrainingProgram tp WHERE tp.isAvailable = true")
+    long countByIsAvailableTrue();
 }

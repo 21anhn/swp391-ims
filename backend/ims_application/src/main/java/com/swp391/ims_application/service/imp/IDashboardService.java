@@ -17,4 +17,12 @@ public interface IDashboardService {
     List<InternProgressDTO> getInternProgress(int mentorId);
 
     List<ScheduleDTO> getUpcomingSchedules(int mentorId);
+
+    long countApplicationsInCampaign(int campaignId);
+
+    long countAvailableCampaigns();
+
+    long countAllInterns();
+
+    long countAvailableTrainingPrograms();
 }
