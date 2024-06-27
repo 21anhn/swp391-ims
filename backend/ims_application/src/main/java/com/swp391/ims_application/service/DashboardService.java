@@ -128,4 +128,9 @@ public class DashboardService implements IDashboardService {
     public long countAllInterns() {
         return userRepository.countInterns();
     }
+
+    @Override
+    public long countAvailableTrainingPrograms() {
+        return trainingProgramRepository.countByIsAvailableTrue();
+    }
 }

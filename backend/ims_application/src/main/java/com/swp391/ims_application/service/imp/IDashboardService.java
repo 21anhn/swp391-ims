@@ -23,4 +23,6 @@ public interface IDashboardService {
     long countAvailableCampaigns();
 
     long countAllInterns();
+
+    long countAvailableTrainingPrograms();
 }

@@ -74,4 +74,15 @@ public class DashboardController {
         // Trả về ResponseEntity chứa đối tượng Map
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/ic/training-programs/count")
+    public ResponseEntity<?> countAvailableTrainingPrograms() {
+        long count = dashboardService.countAvailableTrainingPrograms();
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setSuccess(true);
+        customResponse.setStatus(HttpStatus.OK.value());
+        customResponse.setMessage("Number of available training programs");
+        customResponse.setData(count);
+        return new ResponseEntity<>(customResponse, HttpStatus.OK);
+    }
 }
